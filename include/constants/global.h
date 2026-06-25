@@ -179,6 +179,15 @@ enum Gender
     FEMALE,
     GENDER_COUNT,
 };
+//Needed for VAR_STARTER_MON
+//passing to monchoicedata
+//for birch case upgrade
+enum StarterIds
+{
+    GRASS_STARTER,
+    FIRE_STARTER,
+    WATER_STARTER,
+};
 
 #define NUM_BARD_SONG_WORDS    6
 #define NUM_STORYTELLER_TALES  4
