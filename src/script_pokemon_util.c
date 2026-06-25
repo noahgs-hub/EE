@@ -363,6 +363,9 @@ void SetTeraType(struct ScriptContext *ctx)
  */
 static u32 ScriptGiveMonParameterized(u8 side, u8 slot, enum Species species, u8 level, enum Item item, enum PokeBall ball, u8 nature, u8 abilityNum, u8 gender, u16 *evs, u16 *ivs, enum Move *moves, enum ShinyMode shinyMode, bool8 gmaxFactor, enum Type teraType, u8 dmaxLevel)
 {
+    enum NationalDexOrder nationalDexNum;
+
+    int sentToPc;
     struct Pokemon mon;
     u32 i;
     bool32 isShiny;
@@ -609,12 +612,12 @@ u32 BirchCase_GiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 
 #ifdef POKEMON_EXPANSION
         if (OW_SYNCHRONIZE_NATURE >= GEN_6
          && (gSpeciesInfo[species].eggGroups[0] == EGG_GROUP_NO_EGGS_DISCOVERED || OW_SYNCHRONIZE_NATURE == GEN_7))
-            nature = PickWildMonNature();
+            nature = PickWildMonNature(species);
         else
             nature = Random() % NUM_NATURES;
 #else
         if ((gSpeciesInfo[species].eggGroups[0] == EGG_GROUP_NO_EGGS_DISCOVERED))
-                nature = PickWildMonNature();
+                nature = PickWildMonNature(species);
             else
                 nature = Random() % NUM_NATURES;
 #endif

@@ -80,5 +80,6 @@ u32 ChooseWildMonIndex_Rocks(void);
 u32 ChooseHiddenMonIndex(void);
 bool32 MapHasNoEncounterData(void);
 enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area);
+u8 PickWildMonNature(enum Species species);
 
 #endif // GUARD_WILD_ENCOUNTER_H

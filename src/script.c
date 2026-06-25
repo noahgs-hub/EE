@@ -694,6 +694,7 @@ void SetWalkingIntoSignVars(void)
 {
     // gWalkAwayFromSignInhibitTimer = 6;
     // sMsgBoxIsCancelable = TRUE;
+}
 void StartNewPokeballCaseUI(void)
 {
     FadeScreen(FADE_TO_BLACK, 0);
