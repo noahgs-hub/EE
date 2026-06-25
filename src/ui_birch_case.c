@@ -160,7 +160,7 @@ static const struct MonChoiceData sStarterChoices[9] =
 //==========EWRAM==========//
 static EWRAM_DATA struct MenuResources *sBirchCaseDataPtr = NULL;
 //removed from here and made global as already existed in dexnav
-//static EWRAM_DATA u8 *gBg1TilemapBuffer = NULL;
+static EWRAM_DATA u8 *sBg1TilemapBuffer = NULL;
 static EWRAM_DATA u8 *sBg2TilemapBuffer = NULL;
 
 //==========STATIC=DEFINES==========//
@@ -651,7 +651,7 @@ static bool8 BirchCaseDoGfxSetup(void)
 static void BirchCaseFreeResources(void)
 {
     try_free(sBirchCaseDataPtr);
-    try_free(gBg1TilemapBuffer);
+    try_free(sBg1TilemapBuffer);
     try_free(sBg2TilemapBuffer);
     FreeResourcesAndDestroySprite(&gSprites[sBirchCaseDataPtr->monSpriteId], sBirchCaseDataPtr->monSpriteId);
     DestroyPokeballSprites();
@@ -708,10 +708,10 @@ static void Task_BirchCaseTurnOff_Battle(u8 taskId)
 static bool8 BirchCase_InitBgs(void) // Init the bgs and bg tilemap buffers and turn sprites on, also set the bgs to blend
 {
     ResetAllBgsCoordinates();
-    gBg1TilemapBuffer = Alloc(0x800);
-    if (gBg1TilemapBuffer == NULL)
+    sBg1TilemapBuffer = Alloc(0x800);
+    if (sBg1TilemapBuffer == NULL)
         return FALSE;
-    memset(gBg1TilemapBuffer, 0, 0x800);
+    memset(sBg1TilemapBuffer, 0, 0x800);
 
     sBg2TilemapBuffer = Alloc(0x800);
     if (sBg2TilemapBuffer == NULL)
@@ -721,7 +721,7 @@ static bool8 BirchCase_InitBgs(void) // Init the bgs and bg tilemap buffers and 
     
     ResetBgsAndClearDma3BusyFlags(0);
     InitBgsFromTemplates(0, sMenuBgTemplates, NELEMS(sMenuBgTemplates));
-    SetBgTilemapBuffer(1, gBg1TilemapBuffer);
+    SetBgTilemapBuffer(1, sBg1TilemapBuffer);
     SetBgTilemapBuffer(2, sBg2TilemapBuffer);
     ScheduleBgCopyTilemapToVram(1);
     ScheduleBgCopyTilemapToVram(2);
@@ -747,7 +747,7 @@ static bool8 BirchCaseLoadGraphics(void) // load tilesets, tilemaps, spritesheet
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            DecompressDataWithHeaderWram(sCaseTilemap, gBg1TilemapBuffer);
+            DecompressDataWithHeaderWram(sCaseTilemap, sBg1TilemapBuffer);
             DecompressDataWithHeaderWram(sTextBgTilemap, sBg2TilemapBuffer);
             sBirchCaseDataPtr->gfxLoadState++;
         }
@@ -885,7 +885,7 @@ static void Task_WaitForFadeAndOpenNamingScreen(u8 taskId)
         SetMainCallback2(sBirchCaseDataPtr->savedCallback);
         BirchCaseFreeResources();
         DestroyTask(taskId);
-        VarSet(VAR_0x8004, gPlayerPartyCount - 1);
+        VarSet(VAR_0x8004, gPartiesCount[B_TRAINER_PLAYER] - 1);
         ChangePokemonNickname();
     }
 }

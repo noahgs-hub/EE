@@ -1578,14 +1578,14 @@ static bool8 DexNav_InitBgs(void)
 {
     ResetVramOamAndBgCntRegs();
     ResetAllBgsCoordinates();
-    gBg1TilemapBuffer = Alloc(0x800);
-    if (gBg1TilemapBuffer == NULL)
+    sBg1TilemapBuffer = Alloc(0x800);
+    if (sBg1TilemapBuffer == NULL)
         return FALSE;
 
-    memset(gBg1TilemapBuffer, 0, 0x800);
+    memset(sBg1TilemapBuffer, 0, 0x800);
     ResetBgsAndClearDma3BusyFlags(0);
     InitBgsFromTemplates(0, sDexNavMenuBgTemplates, NELEMS(sDexNavMenuBgTemplates));
-    SetBgTilemapBuffer(1, gBg1TilemapBuffer);
+    SetBgTilemapBuffer(1, sBg1TilemapBuffer);
     ScheduleBgCopyTilemapToVram(1);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON);
     SetGpuReg(REG_OFFSET_BLDCNT , 0);
@@ -1606,7 +1606,7 @@ static bool8 DexNav_LoadGraphics(void)
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            DecompressDataWithHeaderWram(sDexNavGuiTilemap, gBg1TilemapBuffer);
+            DecompressDataWithHeaderWram(sDexNavGuiTilemap, sBg1TilemapBuffer);
             sDexNavUiDataPtr->state++;
         }
         break;
@@ -1811,7 +1811,7 @@ static void DexNav_InitWindows(void)
 static void DexNavGuiFreeResources(void)
 {
     Free(sDexNavUiDataPtr);
-    Free(gBg1TilemapBuffer);
+    Free(sBg1TilemapBuffer);
     FreeAllWindowBuffers();
 }
 

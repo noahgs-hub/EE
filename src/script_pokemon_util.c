@@ -363,9 +363,7 @@ void SetTeraType(struct ScriptContext *ctx)
  */
 static u32 ScriptGiveMonParameterized(u8 side, u8 slot, enum Species species, u8 level, enum Item item, enum PokeBall ball, u8 nature, u8 abilityNum, u8 gender, u16 *evs, u16 *ivs, enum Move *moves, enum ShinyMode shinyMode, bool8 gmaxFactor, enum Type teraType, u8 dmaxLevel)
 {
-    enum NationalDexOrder nationalDexNum;
 
-    int sentToPc;
     struct Pokemon mon;
     u32 i;
     bool32 isShiny;
@@ -603,7 +601,6 @@ u32 BirchCase_GiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 
     int sentToPc;
     struct Pokemon mon;
     u32 i;
-    u8 genderRatio = gSpeciesInfo[species].genderRatio;
     u16 targetSpecies;
 
     // check whether to use a specific nature or a random one
@@ -707,7 +704,7 @@ u32 BirchCase_GiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 
     // find empty party slot to decide whether the Pokémon goes to the Player's party or the storage system.
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) == SPECIES_NONE)
+        if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES, NULL) == SPECIES_NONE)
             break;
     }
     if (i >= PARTY_SIZE)
@@ -717,8 +714,8 @@ u32 BirchCase_GiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 
     else
     {
         sentToPc = MON_GIVEN_TO_PARTY;
-        CopyMon(&gPlayerParty[i], &mon, sizeof(mon));
-        gPlayerPartyCount = i + 1;
+        CopyMon(&gParties[B_TRAINER_PLAYER][i], &mon, sizeof(mon));
+        gPartiesCount[B_TRAINER_PLAYER] = i + 1;
     }
 
     // set pokédex flags
