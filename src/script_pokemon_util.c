@@ -624,12 +624,15 @@ u32 BirchCase_GiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 
     }
 
     // create a Pokémon with basic data
-    if ((gender == MON_MALE && genderRatio != MON_FEMALE && genderRatio != MON_GENDERLESS)
-     || (gender == MON_FEMALE && genderRatio != MON_MALE && genderRatio != MON_GENDERLESS)
-     || (gender == MON_GENDERLESS && genderRatio == MON_GENDERLESS))
-        CreateMonWithGenderNatureLetter(&mon, species, level, 32, gender, nature, 0);
-    else
-        CreateMonWithNature(&mon, species, level, 32, nature);
+    //if ((gender == MON_MALE && genderRatio != MON_FEMALE && genderRatio != MON_GENDERLESS)
+    // || (gender == MON_FEMALE && genderRatio != MON_MALE && genderRatio != MON_GENDERLESS)
+   //  || (gender == MON_GENDERLESS && genderRatio == MON_GENDERLESS))
+       // CreateMonWithGenderNatureLetter(&mon, species, level, 32, gender, nature, 0);
+    //else
+     //   CreateMonWithNature(&mon, species, level, 32, nature);
+
+    u32 personality = GetMonPersonality(species, gender, nature, RANDOM_UNOWN_LETTER);
+    CreateMon(&mon, species, level, personality, OTID_STRUCT_PLAYER_ID);
 
 #ifdef POKEMON_EXPANSION // the Expansion shiny code doesn't work in vanilla
     // shininess
@@ -692,7 +695,7 @@ u32 BirchCase_GiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 
 
 #ifdef POKEMON_EXPANSION
     // In case a mon with a form changing item is given. Eg: SPECIES_ARCEUS_NORMAL with ITEM_SPLASH_PLATE will transform into SPECIES_ARCEUS_WATER upon gifted.
-    targetSpecies = GetFormChangeTargetSpecies(&mon, FORM_CHANGE_ITEM_HOLD, 0);
+    targetSpecies = GetFormChangeTargetSpecies(&mon, FORM_CHANGE_ITEM_HOLD);
     if (targetSpecies != SPECIES_NONE)
         SetMonData(&mon, MON_DATA_SPECIES, &targetSpecies);
 #endif
