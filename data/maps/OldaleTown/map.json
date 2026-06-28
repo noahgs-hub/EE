@@ -87,7 +87,7 @@
     },
     {
       "local_id": "LOCALID_OLDALE_MART_Psyduck",
-      "graphics_id": "OBJ_EVENT_GFX_PSYDUCK",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(PSYDUCK)",
       "x": 17,
       "y": 4,
       "elevation": 0,
