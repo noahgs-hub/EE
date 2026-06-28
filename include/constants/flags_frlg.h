@@ -2391,7 +2391,7 @@
 #define FLAG_ITEM_VICTORY_ROAD_B2F_FULL_HEAL                        0
 #define FLAG_ITEM_MT_PYRE_6F_TM_SHADOW_BALL                         0
 #define FLAG_ITEM_SEAFLOOR_CAVERN_ROOM_9_TM_EARTHQUAKE              0
-#define FLAG_ITEM_FIERY_PATH_TM_TOXIC                               0
+#define FLAG_ITEM_FIERY_PATH_TM_TOXIC                               0unused
 #define FLAG_ITEM_ROUTE_124_RED_SHARD                               0
 #define FLAG_ITEM_ROUTE_124_BLUE_SHARD                              0
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_WEST_TM_SOLAR_BEAM              0
@@ -2590,7 +2590,7 @@
 #define FLAG_UNUSED_0x8E3                           0 // Unused Flag
 #define FLAG_RECEIVED_POKEDEX_FROM_BIRCH            0
 
-#define FLAG_UNUSED_0x8E5                           0
+#define FLAG_HIDE_OLDALE_TOWN_PSYDUCK               0 // Noah's flags
 #define FLAG_UNUSED_0x8E6                           0
 #define FLAG_UNUSED_0x8E7                           0
 #define FLAG_UNUSED_0x8E8                           0
