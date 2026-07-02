@@ -3,7 +3,6 @@
   "name": "LilycoveCity_DepartmentStoreRooftop",
   "layout": "LAYOUT_LILYCOVE_CITY_DEPARTMENT_STORE_ROOFTOP",
   "music": "MUS_LILYCOVE",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_LILYCOVE_CITY",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -16,16 +15,17 @@
   "connections": null,
   "object_events": [
     {
-      "graphics_id": "OBJ_EVENT_GFX_MAN_2",
-      "x": 4,
-      "y": 4,
+      "local_id": "LilycoveCity_DepartmentStoreRooftop_Neal",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_3",
+      "x": 8,
+      "y": 2,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "LilycoveCity_DepartmentStoreRooftop_EventScript_Man",
+      "script": "LilycoveCity_DepartmentStoreRooftop_EventScript_Neal",
       "flag": "0"
     },
     {
@@ -95,5 +95,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LilycoveCity_DepartmentStoreRooftop_EventScript_VendingMachine"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }
