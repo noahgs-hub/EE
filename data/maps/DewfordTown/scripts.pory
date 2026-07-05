@@ -2,13 +2,20 @@ script DewfordTown_EventScript_TradeHoothoot {
     lock
     faceplayer
 
+    if (flag(FLAG_DEWFORD_NPC_TRADE_COMPLETED)) {
+        msgbox(format("OUR CONTRACT IS SEALED. BEGONE, MORTAL."), MSGBOX_NPC)
+        release
+        end
+    }
+
     ingame_trade(
         INGAME_TRADE_HOOTHOOT,
         format("SATAN DEMANDS A BOY SLAVE. MAKUHITA WILL DO."),
         DewfordTown_EventScript_TradeDeclined,
         DewfordTown_EventScript_WrongPokemon,
-        DewfordTown_EventScript_TradeSuccess
+        format("INFINITE PLEASURE SHALL TAKE THE PLACE OF PAIN AS YOUR SKIN MELTS ETERNALLY IN HELL! I LEAVE THEE SLAUGHTER TO WATCH OVER YOU.")
     )
+    setflag(FLAG_DEWFORD_NPC_TRADE_COMPLETED)
 
     release
     end
@@ -23,16 +30,6 @@ script DewfordTown_EventScript_TradeDeclined {
 script DewfordTown_EventScript_WrongPokemon {
     bufferspeciesname(STR_VAR_1, VAR_0x8009)
     msgbox(format("DECEIVER!"), MSGBOX_NPC)
-    release
-    end
-}
-
-script DewfordTown_EventScript_TradeSuccess {
-    msgbox(
-        format("INFINITE PLEASURE SHALL TAKE THE PLACE OF PAIN AS YOUR SKIN MELTS ETERNALLY IN HELL! I LEAVE THEE SLAUGHTER TO WATCH OVER YOU."),
-        MSGBOX_NPC
-    )
-
     release
     end
 }
