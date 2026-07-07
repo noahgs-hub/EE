@@ -564,6 +564,9 @@ gSpecials::
 	def_special UseBlankMessageToCancelPokemonPic
 	def_special EnterCode
 	def_special GetCodeFeedback
+	def_special GetMonIv
+	def_special SetMonIv
+	def_special GetHiddenNature
 	def_special SetHiddenNature
 	def_special SetAbility
 	def_special CanTeachMoveBoxMon

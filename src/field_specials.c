@@ -4587,6 +4587,23 @@ void GetCodeFeedback(void)
         gSpecialVar_Result = 0;
 }
 
+u16 GetMonIv(void)
+{
+    return GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HP_IV + gSpecialVar_0x8005);
+}
+
+void SetMonIv(void)
+{
+    u32 iv = min(gSpecialVar_0x8006, MAX_PER_STAT_IVS);
+    SetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HP_IV + gSpecialVar_0x8005, &iv);
+    CalculateMonStats(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004]);
+}
+
+u16 GetHiddenNature(void)
+{
+    return GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HIDDEN_NATURE);
+}
+
 void SetHiddenNature(void)
 {
     u32 hiddenNature = gSpecialVar_Result;
