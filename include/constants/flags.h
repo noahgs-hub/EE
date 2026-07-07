@@ -56,8 +56,8 @@
 #define FLAG_LILYCOVE_NEAL_FREED    0x22
 #define FLAG_HIDE_LILYCOVE_MILES    0x23
 #define FLAG_RUSTBORO_KIDS_ARRESTED    0x24
-#define FLAG_UNUSED_0x025    0x25 // Unused Flag
-#define FLAG_UNUSED_0x026    0x26 // Unused Flag
+#define FLAG_UNUSED_0x025    0x25 // Unused Flag (dirty on dev saves - was FLAG_HIDE_RUSTBORO_POLICE)
+#define FLAG_LILYCOVE_PARKER_LINKING_CORD    0x26
 #define FLAG_UNUSED_0x027    0x27 // Unused Flag
 #define FLAG_UNUSED_0x028    0x28 // Unused Flag
 #define FLAG_UNUSED_0x029    0x29 // Unused Flag
