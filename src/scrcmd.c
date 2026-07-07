@@ -1291,12 +1291,13 @@ bool8 ScrCmd_applymovement(struct ScriptContext *ctx)
     u16 localId = VarGet(ScriptReadHalfword(ctx));
     const u8 *movementScript = (const u8 *)ScriptReadWord(ctx);
     struct ObjectEvent *objEvent;
+    u8 objEventId = GetObjectEventIdByLocalId(localId);
 
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
     // When applying script movements to follower, it may have frozen animation that must be cleared
     if ((localId == OBJ_EVENT_ID_FOLLOWER && (objEvent = GetFollowerObject()) && objEvent->frozen)
-            || ((objEvent = &gObjectEvents[GetObjectEventIdByLocalId(localId)]) && IS_OW_MON_OBJ(objEvent)))
+            || (objEventId < OBJECT_EVENTS_COUNT && (objEvent = &gObjectEvents[objEventId]) && IS_OW_MON_OBJ(objEvent)))
     {
         ClearObjectEventMovement(objEvent, &gSprites[objEvent->spriteId]);
         gSprites[objEvent->spriteId].animCmdIndex = 0; // Reset start frame of animation
