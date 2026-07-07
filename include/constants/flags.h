@@ -53,8 +53,8 @@
 
 #define FLAG_HIDE_OLDALE_TOWN_PSYDUCK     0x20 // Unused Flag
 #define FLAG_DEWFORD_NPC_TRADE_COMPLETED    0x21 // Unused Flag
-#define FLAG_UNUSED_0x022    0x22 // Unused Flag
-#define FLAG_UNUSED_0x023    0x23 // Unused Flag
+#define FLAG_LILYCOVE_NEAL_FREED    0x22
+#define FLAG_HIDE_LILYCOVE_MILES    0x23
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag
 #define FLAG_UNUSED_0x026    0x26 // Unused Flag

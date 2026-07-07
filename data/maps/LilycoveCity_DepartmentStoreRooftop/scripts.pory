@@ -1,9 +1,77 @@
 script LilycoveCity_DepartmentStoreRooftop_EventScript_Neal {
     lock
     faceplayer
-    msgbox(format("Hi, my name is Neal. Can you call my brother Miles? I have my PENIS stuck in the vending machine!"), MSGBOX_NPC)
+
+    if (flag(FLAG_LILYCOVE_NEAL_FREED)) {
+        msgbox(format("Neal: Free at last... You're the one who made the call. I owe you everything."), MSGBOX_DEFAULT)
+        release
+        end
+    }
+
+    msgbox(format("Hi, my name is Neal. Can you call my brother Miles? I have my PENIS stuck in the vending machine!"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Neal: Please... if you see Miles, tell him I love him."), MSGBOX_DEFAULT)
+        release
+        end
+    }
+
+    checkitemspace(ITEM_LEMONADE, 1)
+    if (var(VAR_RESULT) == FALSE) {
+        msgbox(format("Neal: Wait--your BAG is full! Make some room first. We WILL repay you for this."), MSGBOX_DEFAULT)
+        release
+        end
+    }
+    checkitemspace(ITEM_EVIOLITE, 1)
+    if (var(VAR_RESULT) == FALSE) {
+        msgbox(format("Neal: Wait--your BAG is full! Make some room first. We WILL repay you for this."), MSGBOX_DEFAULT)
+        release
+        end
+    }
+
+    msgbox(format("You pulled out your POKéNAV and dialed Miles…"), MSGBOX_DEFAULT)
+    closemessage
+    fadescreen(FADE_TO_WHITE)
+    getplayerxy(VAR_0x8008, VAR_0x8009)
+    if (var(VAR_0x8008) == 8 && var(VAR_0x8009) == 3) {
+        setobjectxy(LOCALID_PLAYER, 9, 3)
+    }
+    clearflag(FLAG_HIDE_LILYCOVE_MILES)
+    addobject(LOCALID_LILYCOVE_MILES)
+    fadescreen(FADE_FROM_WHITE)
+
+    msgbox(format("Miles: NEAL?! AGAIN?!\pHold still, baby brother. HNNNGH…"), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(LOCALID_LILYCOVE_MILES, Rooftop_Movement_MilesTug)
+    waitmovement(0)
+    playse(SE_BALL_OPEN)
+    applymovement(LilycoveCity_DepartmentStoreRooftop_Neal, Rooftop_Movement_BounceBack)
+    applymovement(LOCALID_LILYCOVE_MILES, Rooftop_Movement_BounceBack)
+    waitmovement(0)
+    applymovement(LilycoveCity_DepartmentStoreRooftop_Neal, Common_Movement_FacePlayer)
+    applymovement(LOCALID_LILYCOVE_MILES, Common_Movement_FacePlayer)
+    waitmovement(0)
+
+    msgbox(format("Neal: I'M FREE!\pThank you for making the call! Take this LEMONADE--it's what got me into this mess. I never want to see one again."), MSGBOX_DEFAULT)
+    giveitem(ITEM_LEMONADE)
+    msgbox(format("Miles: Thanks for calling me, kid. You don't want to know how many times this has happened.\pTake this EVIOLITE. It protects those who aren't fully developed.\pLike my brother."), MSGBOX_DEFAULT)
+    giveitem(ITEM_EVIOLITE)
+    setflag(FLAG_LILYCOVE_NEAL_FREED)
+    msgbox(format("Neal: Come on, Miles. Let's go get a soda."), MSGBOX_DEFAULT)
     release
     end
+}
+
+script LilycoveCity_DepartmentStoreRooftop_EventScript_Miles {
+    msgbox(format("Miles: I'm staying right here until he's done shopping.\pI don't trust him alone with these machines."), MSGBOX_NPC)
+    end
+}
+
+movement Rooftop_Movement_MilesTug {
+    walk_in_place_faster_up * 6
+}
+
+movement Rooftop_Movement_BounceBack {
+    jump_down
 }
 
 raw`LilycoveCity_DepartmentStoreRooftop_MapScripts::
@@ -14,7 +82,12 @@ LilycoveCity_DepartmentStoreRooftop_OnTransition:
 	getpokenewsactive POKENEWS_LILYCOVE
 	call_if_eq VAR_RESULT, TRUE, LilycoveCity_DepartmentStoreRooftop_EventScript_ShowSaleWoman
 	call_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStoreRooftop_EventScript_HideSaleWoman
+	call_if_unset FLAG_LILYCOVE_NEAL_FREED, LilycoveCity_DepartmentStoreRooftop_EventScript_HideMiles
 	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_HideMiles::
+	setflag FLAG_HIDE_LILYCOVE_MILES
+	return
 
 LilycoveCity_DepartmentStoreRooftop_EventScript_ShowSaleWoman::
 	clearflag FLAG_HIDE_LILYCOVE_DEPARTMENT_STORE_ROOFTOP_SALE_WOMAN
