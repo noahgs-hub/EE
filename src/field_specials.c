@@ -4587,6 +4587,17 @@ void GetCodeFeedback(void)
         gSpecialVar_Result = 0;
 }
 
+u16 GetMonFriendship(void)
+{
+    return GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_FRIENDSHIP);
+}
+
+void SetMonFriendship(void)
+{
+    u32 friendship = min(gSpecialVar_0x8005, MAX_FRIENDSHIP);
+    SetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_FRIENDSHIP, &friendship);
+}
+
 u16 GetMonIv(void)
 {
     return GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HP_IV + gSpecialVar_0x8005);
