@@ -1946,6 +1946,18 @@ u8 GetPlayerSymbolCountForFacility(u8 facility)
          + FlagGet(FLAG_SYS_TOWER_GOLD + facility * 2);
 }
 
+bool32 HasAllGoldFrontierSymbols(void)
+{
+    u32 i;
+
+    for (i = 0; i < NUM_FRONTIER_FACILITIES; i++)
+    {
+        if (!FlagGet(FLAG_SYS_TOWER_GOLD + i * 2))
+            return FALSE;
+    }
+    return TRUE;
+}
+
 static void GiveBattlePoints(void)
 {
     s32 challengeNum = 0;

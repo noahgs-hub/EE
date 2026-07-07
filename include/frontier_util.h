@@ -10,6 +10,7 @@ void ResetWinStreaks(void);
 u32 GetCurrentFacilityWinStreak(void);
 void ResetFrontierTrainerIds(void);
 u8 GetPlayerSymbolCountForFacility(u8 facility);
+bool32 HasAllGoldFrontierSymbols(void);
 void ShowRankingHallRecordsWindow(void);
 void ScrollRankingHallRecordsWindow(void);
 void ClearRankingHallRecords(void);
