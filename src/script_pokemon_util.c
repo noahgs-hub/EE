@@ -632,12 +632,12 @@ u32 BirchCase_GiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 
     CreateMon(&mon, species, level, personality, OTID_STRUCT_PLAYER_ID);
 
 #ifdef POKEMON_EXPANSION // the Expansion shiny code doesn't work in vanilla
-    // shininess
-    if (P_FLAG_FORCE_SHINY != 0 && FlagGet(P_FLAG_FORCE_SHINY))
-        isShinyExpansion = TRUE;
-    else if (P_FLAG_FORCE_NO_SHINY != 0 && FlagGet(P_FLAG_FORCE_NO_SHINY))
+    // shininess: CreateMon already rolled it at normal player odds (including the
+    // force-shiny/no-shiny flags), so only override when explicitly forcing a shiny
+    if (P_FLAG_FORCE_NO_SHINY != 0 && FlagGet(P_FLAG_FORCE_NO_SHINY))
         isShinyExpansion = FALSE;
-    SetMonData(&mon, MON_DATA_IS_SHINY, &isShinyExpansion);
+    if (isShinyExpansion)
+        SetMonData(&mon, MON_DATA_IS_SHINY, &isShinyExpansion);
 
     // gigantamax factor
     SetMonData(&mon, MON_DATA_GIGANTAMAX_FACTOR, &ggMaxFactor);

@@ -46,6 +46,7 @@
 #include "constants/pokemon.h"
 #include "naming_screen.h"
 #include "tv.h"
+#include "random.h"
 
  /*
     9 Starter Selection Birch Case
@@ -125,7 +126,7 @@ struct MonChoiceData{ // This is the format used to define a mon, everything lef
     u8 abilityNum; // this is either 0/1 in vanilla or 0/1/2 in Expansion, its the ability num your mon uses from its possible abilities, not the ability constant itself
     u8 gender; // MON_MALE, MON_FEMALE, MON_GENDERLESS
     u8 evs[6]; // use format {255, 255, 0, 0, 0, 0}
-    u8 ivs[6]; // use format {31, 31, 31, 31, 31, 31}
+    u8 ivs[6]; // fixed value 0-31 per stat, or USE_RANDOM_IVS to roll a random IV of at least 16
     u16 moves[4]; // use format {MOVE_FIRE_BLAST, MOVE_SHEER_COLD, MOVE_NONE, MOVE_NONE}
     bool8 ggMaxFactor;      // only work in Expansion set to 0 otherwise or leave blank
     u8 teraType;            // only work in Expansion set to 0 otherwise or leave blank
@@ -144,17 +145,17 @@ struct MonChoiceData{ // This is the format used to define a mon, everything lef
 //needed for rival to have right pick etc.
 static const struct MonChoiceData sStarterChoices[9] = 
 {
-    [BALL_TOP_FIRST]        = {SPECIES_MUDKIP, 5, WATER_STARTER, ITEM_NUGGET, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_TACKLE, MOVE_GROWL, MOVE_WATER_GUN, MOVE_BITE}, 0, 0, 0},
-    [BALL_TOP_SECOND]       = {SPECIES_TREECKO, 5, GRASS_STARTER, ITEM_POTION, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_SCRATCH, MOVE_GROWL, MOVE_ABSORB, MOVE_BITE}, 0, 0, 0},
-    [BALL_MIDDLE_FIRST]     = {SPECIES_TORCHIC, 5, FIRE_STARTER, ITEM_POTION, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_SCRATCH, MOVE_GROWL, MOVE_EMBER, MOVE_BITE}, 0, 0, 0},
+    [BALL_TOP_FIRST]        = {SPECIES_MUDKIP, 5, WATER_STARTER, ITEM_NUGGET, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_TACKLE, MOVE_GROWL, MOVE_WATER_GUN, MOVE_BITE}, 0, 0, 0},
+    [BALL_TOP_SECOND]       = {SPECIES_TREECKO, 5, GRASS_STARTER, ITEM_POTION, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_SCRATCH, MOVE_GROWL, MOVE_ABSORB, MOVE_BITE}, 0, 0, 0},
+    [BALL_MIDDLE_FIRST]     = {SPECIES_TORCHIC, 5, FIRE_STARTER, ITEM_POTION, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_SCRATCH, MOVE_GROWL, MOVE_EMBER, MOVE_BITE}, 0, 0, 0},
 
-    [BALL_TOP_THIRD]        = {SPECIES_MAREEP, 5, GRASS_STARTER, ITEM_NUGGET, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_TACKLE, MOVE_GROWL, MOVE_THUNDER_SHOCK, MOVE_TRAILBLAZE}, 0, 0, 0},
-    [BALL_TOP_FOURTH]       = {SPECIES_HORSEA, 5, WATER_STARTER, ITEM_DRAGON_SCALE, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_WATER_GUN, MOVE_CLEAR_SMOG, MOVE_SMOKESCREEN, MOVE_LEER}, 0, 0, 0},
-    [BALL_MIDDLE_THIRD]     = {SPECIES_TOGEPI, 5, FIRE_STARTER, ITEM_SHINY_STONE, BALL_LUXURY, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_POUND, MOVE_GROWL, MOVE_SWEET_KISS, MOVE_AERIAL_ACE}, 0, 0, 0},
+    [BALL_TOP_THIRD]        = {SPECIES_MAREEP, 5, GRASS_STARTER, ITEM_NUGGET, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_TACKLE, MOVE_GROWL, MOVE_THUNDER_SHOCK, MOVE_TRAILBLAZE}, 0, 0, 0},
+    [BALL_TOP_FOURTH]       = {SPECIES_HORSEA, 5, WATER_STARTER, ITEM_DRAGON_SCALE, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_WATER_GUN, MOVE_CLEAR_SMOG, MOVE_SMOKESCREEN, MOVE_LEER}, 0, 0, 0},
+    [BALL_MIDDLE_THIRD]     = {SPECIES_TOGEPI, 5, FIRE_STARTER, ITEM_SHINY_STONE, BALL_LUXURY, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_POUND, MOVE_GROWL, MOVE_SWEET_KISS, MOVE_AERIAL_ACE}, 0, 0, 0},
 
-    [BALL_MIDDLE_SECOND]    = {SPECIES_DRATINI, 5, GRASS_STARTER, ITEM_DRAGON_FANG, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_TWISTER, MOVE_LEER, MOVE_WATER_PULSE, MOVE_WRAP}, 0, 0, 0},
-    [BALL_BOTTOM_FIRST]     = {SPECIES_TYROGUE, 5, FIRE_STARTER, ITEM_POTION, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_MACH_PUNCH, MOVE_FAKE_OUT, MOVE_RAPID_SPIN, MOVE_BULLET_PUNCH}, 0, 0, 0},
-    [BALL_BOTTOM_SECOND]    = {SPECIES_EEVEE, 5, WATER_STARTER, ITEM_POTION, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {31, 31, 31, 31, 31, 31}, {MOVE_TACKLE, MOVE_GROWL, MOVE_SAND_ATTACK, MOVE_DOUBLE_KICK}, 0, 0, 0},
+    [BALL_MIDDLE_SECOND]    = {SPECIES_DRATINI, 5, GRASS_STARTER, ITEM_DRAGON_FANG, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_TWISTER, MOVE_LEER, MOVE_WATER_PULSE, MOVE_WRAP}, 0, 0, 0},
+    [BALL_BOTTOM_FIRST]     = {SPECIES_TYROGUE, 5, FIRE_STARTER, ITEM_POTION, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_MACH_PUNCH, MOVE_FAKE_OUT, MOVE_RAPID_SPIN, MOVE_BULLET_PUNCH}, 0, 0, 0},
+    [BALL_BOTTOM_SECOND]    = {SPECIES_EEVEE, 5, WATER_STARTER, ITEM_POTION, BALL_POKE, NATURE_RANDOM, 1, MON_GENDER_RANDOM, {0, 0, 0, 0, 0, 0}, {USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS, USE_RANDOM_IVS}, {MOVE_TACKLE, MOVE_GROWL, MOVE_SAND_ATTACK, MOVE_DOUBLE_KICK}, 0, 0, 0},
 };
 
 //==========EWRAM==========//
@@ -472,14 +473,25 @@ static void ChangePositionUpdateSpriteAnims(u16 oldPosition, u8 taskId) // turn 
     PrintTextToBottomBar(CHOOSE_MON);
 }
 
+//fills ivs from the table, rolling any stat marked
+//USE_RANDOM_IVS to a random value of at least 16
+static void BirchCase_RollIvs(u8 *ivs)
+{
+    u32 i;
+    const u8 *tableIvs = sStarterChoices[sBirchCaseDataPtr->handPosition].ivs;
+    for (i = 0; i < NUM_STATS; i++)
+        ivs[i] = (tableIvs[i] > MAX_PER_STAT_IVS) ? (16 + Random() % 16) : tableIvs[i];
+}
+
 //givemon result is just for
 //if mon went to pc party etc.
 //not relevant for starter selection
 static void BirchCase_GiveMon() // Function that calls the GiveMon function pulled from Expansion by Lunos and Ghoulslash
 {
     u8 *evs = (u8 *) sStarterChoices[sBirchCaseDataPtr->handPosition].evs;
-    u8 *ivs = (u8 *) sStarterChoices[sBirchCaseDataPtr->handPosition].ivs;
+    u8 ivs[NUM_STATS];
     u16 *moves = (u16 *) sStarterChoices[sBirchCaseDataPtr->handPosition].moves;
+    BirchCase_RollIvs(ivs);
     FlagSet(FLAG_SYS_POKEMON_GET);
     gSpecialVar_Result = BirchCase_GiveMonParameterized(sStarterChoices[sBirchCaseDataPtr->handPosition].species, sStarterChoices[sBirchCaseDataPtr->handPosition].level, \
                 sStarterChoices[sBirchCaseDataPtr->handPosition].item, sStarterChoices[sBirchCaseDataPtr->handPosition].ball, \
@@ -494,8 +506,9 @@ static void BirchCase_GiveMon() // Function that calls the GiveMon function pull
 static void BirchCase_GiveStarter() // Function that calls the GiveMon function pulled from Expansion by Lunos and Ghoulslash
 {
     u8 *evs = (u8 *) sStarterChoices[sBirchCaseDataPtr->handPosition].evs;
-    u8 *ivs = (u8 *) sStarterChoices[sBirchCaseDataPtr->handPosition].ivs;
+    u8 ivs[NUM_STATS];
     u16 *moves = (u16 *) sStarterChoices[sBirchCaseDataPtr->handPosition].moves;
+    BirchCase_RollIvs(ivs);
     FlagSet(FLAG_SYS_POKEMON_GET);
     BirchCase_GiveMonParameterized(sStarterChoices[sBirchCaseDataPtr->handPosition].species, sStarterChoices[sBirchCaseDataPtr->handPosition].level, \
                 sStarterChoices[sBirchCaseDataPtr->handPosition].item, sStarterChoices[sBirchCaseDataPtr->handPosition].ball, \
