@@ -564,6 +564,8 @@ gSpecials::
 	def_special UseBlankMessageToCancelPokemonPic
 	def_special EnterCode
 	def_special GetCodeFeedback
+	def_special BufferMonOtherAbilities
+	def_special IsPlayerNamePeter
 	def_special GetMonFriendship
 	def_special SetMonFriendship
 	def_special GetMonIv

@@ -545,1055 +545,1173 @@ BattleFrontier_OutsideWest_EventScript_FriendshipChoose_8:
 	goto BattleFrontier_OutsideWest_EventScript_FriendshipChoose_7
 
 
-BattleFrontier_OutsideWest_EventScript_FriendshipDecline::
+BattleFrontier_OutsideWest_EventScript_Ability::
 # 324 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_EventScript_FriendshipDecline_Text_0, MSGBOX_DEFAULT
+	lock
 # 325 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	faceplayer
+# 327 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_Ability_Text_0, MSGBOX_YESNO
+# 328 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq BattleFrontier_OutsideWest_EventScript_Ability_2
+BattleFrontier_OutsideWest_EventScript_Ability_1:
+# 332 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	specialvar VAR_TEMP_1, GetFrontierBattlePoints
+# 333 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	compare VAR_TEMP_1, 5
+	goto_if_lt BattleFrontier_OutsideWest_EventScript_Ability_5
+# 339 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_Ability_Text_2, MSGBOX_DEFAULT
+# 340 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	special ChoosePartyMon
+# 341 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	compare VAR_0x8004, PARTY_SIZE
+	goto_if_ge BattleFrontier_OutsideWest_EventScript_Ability_8
+BattleFrontier_OutsideWest_EventScript_Ability_7:
+# 345 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	specialvar VAR_RESULT, IsSelectedMonEgg
+# 346 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	compare VAR_RESULT, TRUE
+	goto_if_eq BattleFrontier_OutsideWest_EventScript_Ability_11
+# 352 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	specialvar VAR_RESULT, BufferMonOtherAbilities
+# 353 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq BattleFrontier_OutsideWest_EventScript_Ability_14
+# 359 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_Ability_Text_5, MSGBOX_DEFAULT
+# 360 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+# 361 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	compare VAR_RESULT, MULTI_B_PRESSED
+	goto_if_eq BattleFrontier_OutsideWest_EventScript_Ability_17
+BattleFrontier_OutsideWest_EventScript_Ability_16:
+# 364 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	copyvar VAR_TEMP_2, VAR_RESULT
+# 366 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_Ability_Text_6, MSGBOX_YESNO
+# 367 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	compare VAR_RESULT, NO
+	goto_if_eq BattleFrontier_OutsideWest_EventScript_Ability_20
+BattleFrontier_OutsideWest_EventScript_Ability_19:
+# 371 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	copyvar VAR_RESULT, VAR_TEMP_2
+# 372 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	special SetAbility
+# 373 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	setvar VAR_0x8004, 5
+# 374 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	special TakeFrontierBattlePoints
+# 375 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	playse SE_SHOP
+# 376 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitse
+# 377 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_Ability_Text_7, MSGBOX_DEFAULT
+# 378 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_Ability_2:
+# 329 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto BattleFrontier_OutsideWest_EventScript_AbilityDecline
+	goto BattleFrontier_OutsideWest_EventScript_Ability_1
+
+BattleFrontier_OutsideWest_EventScript_Ability_5:
+# 334 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_Ability_Text_1, MSGBOX_DEFAULT
+# 335 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_Ability_8:
+# 342 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto BattleFrontier_OutsideWest_EventScript_AbilityDecline
+	goto BattleFrontier_OutsideWest_EventScript_Ability_7
+
+BattleFrontier_OutsideWest_EventScript_Ability_11:
+# 347 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_Ability_Text_3, MSGBOX_DEFAULT
+# 348 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_Ability_14:
+# 354 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_Ability_Text_4, MSGBOX_DEFAULT
+# 355 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_Ability_17:
+# 362 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto BattleFrontier_OutsideWest_EventScript_AbilityDecline
+	goto BattleFrontier_OutsideWest_EventScript_Ability_16
+
+BattleFrontier_OutsideWest_EventScript_Ability_20:
+# 368 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto BattleFrontier_OutsideWest_EventScript_AbilityDecline
+	goto BattleFrontier_OutsideWest_EventScript_Ability_19
+
+
+BattleFrontier_OutsideWest_EventScript_AbilityDecline::
+# 383 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_AbilityDecline_Text_0, MSGBOX_DEFAULT
+# 384 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+	end
+
+
+BattleFrontier_OutsideWest_EventScript_FriendshipDecline::
+# 389 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_EventScript_FriendshipDecline_Text_0, MSGBOX_DEFAULT
+# 390 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	release
 	end
 
 
 BattleFrontier_OutsideWest_EventScript_MoveRelearnerDecline::
-# 330 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_EventScript_MoveRelearnerDecline_Text_0, MSGBOX_DEFAULT
-# 331 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
-	end
-
-
-# 361 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 362 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_MapScripts::
-# 363 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_OutsideWest_OnTransition
-# 364 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.byte 0
-# 365 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 366 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_OnTransition:
-# 367 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, 0
-# 368 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
-# 369 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 370 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 371 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_FerryAttendant::
-# 372 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
-# 373 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	faceplayer
-# 374 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
-# 375 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	checkitem ITEM_SS_TICKET
-# 376 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideWest_EventScript_NoSSTicket
-# 377 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	message BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo
-# 378 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmessage
-# 379 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
-# 380 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 381 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 382 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination::
-# 383 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	multichoicedefault 18, 6, MULTI_SSTIDAL_BATTLE_FRONTIER, 2, FALSE
-# 384 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	switch VAR_RESULT
-# 385 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	case 0, BattleFrontier_OutsideWest_EventScript_FerryToSlateport
-# 386 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	case 1, BattleFrontier_OutsideWest_EventScript_FerryToLilycove
-# 387 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	case 2, BattleFrontier_OutsideWest_EventScript_CancelFerrySelect
-# 388 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	case MULTI_B_PRESSED, BattleFrontier_OutsideWest_EventScript_CancelFerrySelect
-# 389 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 390 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 391 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_NoSSTicket::
-# 392 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_MustHaveTicketToBoard, MSGBOX_DEFAULT
-# 393 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
-# 394 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
 # 395 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	msgbox BattleFrontier_OutsideWest_EventScript_MoveRelearnerDecline_Text_0, MSGBOX_DEFAULT
 # 396 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_FerryToSlateport::
-# 397 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_SlateportItIs, MSGBOX_YESNO
-# 398 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideWest_EventScript_ChooseNewFerryDestination
-# 399 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_PleaseBoardFerry, MSGBOX_DEFAULT
-# 400 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call BattleFrontier_OutsideWest_EventScript_BoardFerry
-# 401 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	warp MAP_SLATEPORT_CITY_HARBOR, 8, 11
-# 402 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitstate
-# 403 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	release
-# 404 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	end
-# 405 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
-# 406 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_FerryToLilycove::
-# 407 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_LilycoveItIs, MSGBOX_YESNO
-# 408 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideWest_EventScript_ChooseNewFerryDestination
-# 409 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_PleaseBoardFerry, MSGBOX_DEFAULT
-# 410 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call BattleFrontier_OutsideWest_EventScript_BoardFerry
-# 411 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	warp MAP_LILYCOVE_CITY_HARBOR, 8, 11
-# 412 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitstate
-# 413 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
-# 414 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 415 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
-# 416 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_ChooseNewFerryDestination::
-# 417 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	message BattleFrontier_OutsideWest_Text_ThenWhereWouldYouLikeToGo
-# 418 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmessage
-# 419 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
-# 420 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 421 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 422 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_BoardFerry::
-# 423 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	closemessage
-# 424 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
-# 425 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
 # 426 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	delay 30
+
 # 427 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	hideobjectat LOCALID_FRONTIER_FERRY_ATTENDANT, MAP_BATTLE_FRONTIER_OUTSIDE_WEST
+BattleFrontier_OutsideWest_MapScripts::
 # 428 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	setvar VAR_0x8004, LOCALID_FRONTIER_SS_TIDAL
+	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_OutsideWest_OnTransition
 # 429 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call Common_EventScript_FerryDepartIsland
+	.byte 0
 # 430 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	return
+
 # 431 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_OnTransition:
 # 432 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_CancelFerrySelect::
+	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, 0
 # 433 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_SailWithUsAnotherTime, MSGBOX_DEFAULT
+	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
 # 434 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
+	end
 # 435 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+
 # 436 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_EventScript_FerryAttendant::
 # 437 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_BattleDomeSign::
+	lock
 # 438 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_BattleDomeSign, MSGBOX_SIGN
-# 439 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 440 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 441 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_BattleFactorySign::
-# 442 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_BattleFactorySign, MSGBOX_SIGN
-# 443 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 444 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 445 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_BattlePikeSign::
-# 446 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_BattlePikeSign, MSGBOX_SIGN
-# 447 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 448 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 449 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-@ Unused. Of note, Battle Tower is in the East section in the final release
-# 450 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_UnusedNPC1::
-# 451 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_ThisIsBattleTower, MSGBOX_NPC
-# 452 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 453 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 454 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-@ Unused
-# 455 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_UnusedNPC2::
-# 456 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_CantFindBattleTower, MSGBOX_NPC
-# 457 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 458 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 459 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Boy1::
-# 460 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_BestOutOfAllMyFriends, MSGBOX_NPC
-# 461 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 462 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 463 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Fisherman2::
-# 464 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
-# 465 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	faceplayer
-# 466 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	message BattleFrontier_OutsideWest_Text_GotSeasickOnWayHere
-# 467 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 439 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
+# 440 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	checkitem ITEM_SS_TICKET
+# 441 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideWest_EventScript_NoSSTicket
+# 442 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	message BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo
+# 443 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	waitmessage
-# 468 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_FISHERMAN_2, Common_Movement_FaceAwayPlayer
-# 469 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
-# 470 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitbuttonpress
-# 471 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 444 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
+# 445 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 446 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 447 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination::
+# 448 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	multichoicedefault 18, 6, MULTI_SSTIDAL_BATTLE_FRONTIER, 2, FALSE
+# 449 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	switch VAR_RESULT
+# 450 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	case 0, BattleFrontier_OutsideWest_EventScript_FerryToSlateport
+# 451 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	case 1, BattleFrontier_OutsideWest_EventScript_FerryToLilycove
+# 452 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	case 2, BattleFrontier_OutsideWest_EventScript_CancelFerrySelect
+# 453 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	case MULTI_B_PRESSED, BattleFrontier_OutsideWest_EventScript_CancelFerrySelect
+# 454 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 455 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 456 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_NoSSTicket::
+# 457 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_MustHaveTicketToBoard, MSGBOX_DEFAULT
+# 458 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	release
+# 459 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 460 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 461 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_FerryToSlateport::
+# 462 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_SlateportItIs, MSGBOX_YESNO
+# 463 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideWest_EventScript_ChooseNewFerryDestination
+# 464 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_PleaseBoardFerry, MSGBOX_DEFAULT
+# 465 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	call BattleFrontier_OutsideWest_EventScript_BoardFerry
+# 466 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	warp MAP_SLATEPORT_CITY_HARBOR, 8, 11
+# 467 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitstate
+# 468 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+# 469 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 470 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 471 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_FerryToLilycove::
 # 472 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+	msgbox BattleFrontier_OutsideWest_Text_LilycoveItIs, MSGBOX_YESNO
 # 473 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideWest_EventScript_ChooseNewFerryDestination
 # 474 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Man1::
+	msgbox BattleFrontier_OutsideWest_Text_PleaseBoardFerry, MSGBOX_DEFAULT
 # 475 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_OnlyToughTrainersBroughtHere, MSGBOX_NPC
+	call BattleFrontier_OutsideWest_EventScript_BoardFerry
 # 476 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+	warp MAP_LILYCOVE_CITY_HARBOR, 8, 11
 # 477 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	waitstate
 # 478 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Maniac1::
+	release
 # 479 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
+	end
 # 480 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto BattleFrontier_OutsideWest_EventScript_FactoryChallengersTalk
+
 # 481 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+BattleFrontier_OutsideWest_EventScript_ChooseNewFerryDestination::
 # 482 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	message BattleFrontier_OutsideWest_Text_ThenWhereWouldYouLikeToGo
 # 483 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Maniac2::
+	waitmessage
 # 484 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
+	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
 # 485 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto BattleFrontier_OutsideWest_EventScript_FactoryChallengersTalk
-# 486 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	end
-# 487 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 486 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
+# 487 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_BoardFerry::
 # 488 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_FactoryChallengersTalk::
+	closemessage
 # 489 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_MANIAC_1, Common_Movement_WalkInPlaceFasterRight
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
 # 490 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	waitmovement 0
 # 491 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_SureWeCanChallengeWithNoMons, MSGBOX_DEFAULT
+	delay 30
 # 492 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_MANIAC_2, Common_Movement_WalkInPlaceFasterLeft
+	hideobjectat LOCALID_FRONTIER_FERRY_ATTENDANT, MAP_BATTLE_FRONTIER_OUTSIDE_WEST
 # 493 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
+	setvar VAR_0x8004, LOCALID_FRONTIER_SS_TIDAL
 # 494 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_BigGuySaidIllLendYouMons, MSGBOX_DEFAULT
+	call Common_EventScript_FerryDepartIsland
 # 495 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	closemessage
+	return
 # 496 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	delay 25
+
 # 497 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_MANIAC_1, Common_Movement_WalkInPlaceFasterUp
+BattleFrontier_OutsideWest_EventScript_CancelFerrySelect::
 # 498 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_MANIAC_2, Common_Movement_WalkInPlaceFasterUp
+	msgbox BattleFrontier_OutsideWest_Text_SailWithUsAnotherTime, MSGBOX_DEFAULT
 # 499 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
+	release
 # 500 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
+	end
 # 501 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+
 # 502 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_EventScript_BattleDomeSign::
 # 503 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Camper::
+	msgbox BattleFrontier_OutsideWest_Text_BattleDomeSign, MSGBOX_SIGN
 # 504 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
+	end
 # 505 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	faceplayer
+
 # 506 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	delay 20
+BattleFrontier_OutsideWest_EventScript_BattleFactorySign::
 # 507 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call_if_eq VAR_FACING, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_CamperFaceFactory
+	msgbox BattleFrontier_OutsideWest_Text_BattleFactorySign, MSGBOX_SIGN
 # 508 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call_if_eq VAR_FACING, DIR_SOUTH, BattleFrontier_OutsideWest_EventScript_CamperAlreadyFacingFactory
+	end
 # 509 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call_if_eq VAR_FACING, DIR_WEST, BattleFrontier_OutsideWest_EventScript_CamperFaceFactory
+
 # 510 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call_if_eq VAR_FACING, DIR_EAST, BattleFrontier_OutsideWest_EventScript_CamperFaceFactory
+BattleFrontier_OutsideWest_EventScript_BattlePikeSign::
 # 511 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_WhosRaisingThoseRentalMons, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideWest_Text_BattlePikeSign, MSGBOX_SIGN
 # 512 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
+	end
 # 513 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+
 # 514 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+@ Unused. Of note, Battle Tower is in the East section in the final release
 # 515 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_CamperFaceFactory::
+BattleFrontier_OutsideWest_EventScript_UnusedNPC1::
 # 516 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_CAMPER, Common_Movement_WalkInPlaceFasterUp
+	msgbox BattleFrontier_OutsideWest_Text_ThisIsBattleTower, MSGBOX_NPC
 # 517 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
+	end
 # 518 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	return
+
 # 519 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+@ Unused
 # 520 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_CamperAlreadyFacingFactory::
+BattleFrontier_OutsideWest_EventScript_UnusedNPC2::
 # 521 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	return
+	msgbox BattleFrontier_OutsideWest_Text_CantFindBattleTower, MSGBOX_NPC
 # 522 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	end
 # 523 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Girl::
+
 # 524 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
+BattleFrontier_OutsideWest_EventScript_Boy1::
 # 525 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	faceplayer
+	msgbox BattleFrontier_OutsideWest_Text_BestOutOfAllMyFriends, MSGBOX_NPC
 # 526 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	message BattleFrontier_OutsideWest_Text_ScaredOfPikeBecauseSeviper
+	end
 # 527 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmessage
+
 # 528 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call_if_eq VAR_FACING, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_GirlShudderNorth
+BattleFrontier_OutsideWest_EventScript_Fisherman2::
 # 529 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call_if_eq VAR_FACING, DIR_SOUTH, BattleFrontier_OutsideWest_EventScript_GirlShudderSouth
-# 530 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call_if_eq VAR_FACING, DIR_WEST, BattleFrontier_OutsideWest_EventScript_GirlShudderWest
-# 531 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	call_if_eq VAR_FACING, DIR_EAST, BattleFrontier_OutsideWest_EventScript_GirlShudderEast
-# 532 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitbuttonpress
-# 533 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
-# 534 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 535 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 536 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_GirlShudderNorth::
-# 537 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_GIRL, BattleFrontier_OutsideWest_Movement_GirlShudderNorth
-# 538 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
-# 539 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	return
-# 540 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 541 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_GirlShudderSouth::
-# 542 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_GIRL, BattleFrontier_OutsideWest_Movement_GirlShudderSouth
-# 543 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
-# 544 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	return
-# 545 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 546 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_GirlShudderWest::
-# 547 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_GIRL, BattleFrontier_OutsideWest_Movement_GirlShudderWest
-# 548 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
-# 549 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	return
-# 550 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 551 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_GirlShudderEast::
-# 552 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_GIRL, BattleFrontier_OutsideWest_Movement_GirlShudderEast
-# 553 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	waitmovement 0
-# 554 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	return
-# 555 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 556 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Movement_GirlShudderNorth:
-# 557 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	walk_in_place_faster_down
-# 558 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	walk_in_place_faster_down
-# 559 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	step_end
-# 560 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 561 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Movement_GirlShudderSouth:
-# 562 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	walk_in_place_faster_up
-# 563 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	walk_in_place_faster_up
-# 564 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	step_end
-# 565 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 566 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Movement_GirlShudderWest:
-# 567 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	walk_in_place_faster_right
-# 568 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	walk_in_place_faster_right
-# 569 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	step_end
-# 570 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 571 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Movement_GirlShudderEast:
-# 572 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	walk_in_place_faster_left
-# 573 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	walk_in_place_faster_left
-# 574 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	step_end
-# 575 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 576 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Woman2::
-# 577 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	lock
-# 578 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 530 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	faceplayer
-# 579 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_LetsPlayRockPaperScissors, MSGBOX_DEFAULT
-# 580 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	random 2
-# 581 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto_if_eq VAR_RESULT, 1, BattleFrontier_OutsideWest_EventScript_WomanWonRockPaperScissors
-# 582 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	goto BattleFrontier_OutsideWest_EventScript_WomanLostRockPaperScissors
-# 583 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 531 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	message BattleFrontier_OutsideWest_Text_GotSeasickOnWayHere
+# 532 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitmessage
+# 533 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	applymovement LOCALID_FRONTIER_FISHERMAN_2, Common_Movement_FaceAwayPlayer
+# 534 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitmovement 0
+# 535 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitbuttonpress
+# 536 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+# 537 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	end
+# 538 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 539 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_Man1::
+# 540 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_OnlyToughTrainersBroughtHere, MSGBOX_NPC
+# 541 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 542 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 543 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_Maniac1::
+# 544 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	lock
+# 545 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto BattleFrontier_OutsideWest_EventScript_FactoryChallengersTalk
+# 546 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 547 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 548 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_Maniac2::
+# 549 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	lock
+# 550 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto BattleFrontier_OutsideWest_EventScript_FactoryChallengersTalk
+# 551 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 552 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 553 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_FactoryChallengersTalk::
+# 554 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	applymovement LOCALID_FRONTIER_MANIAC_1, Common_Movement_WalkInPlaceFasterRight
+# 555 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitmovement 0
+# 556 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_SureWeCanChallengeWithNoMons, MSGBOX_DEFAULT
+# 557 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	applymovement LOCALID_FRONTIER_MANIAC_2, Common_Movement_WalkInPlaceFasterLeft
+# 558 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitmovement 0
+# 559 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_BigGuySaidIllLendYouMons, MSGBOX_DEFAULT
+# 560 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	closemessage
+# 561 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	delay 25
+# 562 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	applymovement LOCALID_FRONTIER_MANIAC_1, Common_Movement_WalkInPlaceFasterUp
+# 563 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	applymovement LOCALID_FRONTIER_MANIAC_2, Common_Movement_WalkInPlaceFasterUp
+# 564 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitmovement 0
+# 565 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+# 566 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 567 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 568 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_Camper::
+# 569 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	lock
+# 570 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	faceplayer
+# 571 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	delay 20
+# 572 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	call_if_eq VAR_FACING, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_CamperFaceFactory
+# 573 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	call_if_eq VAR_FACING, DIR_SOUTH, BattleFrontier_OutsideWest_EventScript_CamperAlreadyFacingFactory
+# 574 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	call_if_eq VAR_FACING, DIR_WEST, BattleFrontier_OutsideWest_EventScript_CamperFaceFactory
+# 575 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	call_if_eq VAR_FACING, DIR_EAST, BattleFrontier_OutsideWest_EventScript_CamperFaceFactory
+# 576 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_WhosRaisingThoseRentalMons, MSGBOX_DEFAULT
+# 577 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	release
+# 578 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 579 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 580 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_CamperFaceFactory::
+# 581 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	applymovement LOCALID_FRONTIER_CAMPER, Common_Movement_WalkInPlaceFasterUp
+# 582 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	waitmovement 0
+# 583 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	return
 # 584 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 585 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_WomanWonRockPaperScissors::
+BattleFrontier_OutsideWest_EventScript_CamperAlreadyFacingFactory::
 # 586 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_WonIllTakePikeChallenge, MSGBOX_DEFAULT
+	return
 # 587 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
+
 # 588 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+BattleFrontier_OutsideWest_EventScript_Girl::
 # 589 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	lock
 # 590 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_WomanLostRockPaperScissors::
+	faceplayer
 # 591 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_LostIllPutOffPikeChallenge, MSGBOX_DEFAULT
+	message BattleFrontier_OutsideWest_Text_ScaredOfPikeBecauseSeviper
 # 592 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
+	waitmessage
 # 593 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+	call_if_eq VAR_FACING, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_GirlShudderNorth
 # 594 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	call_if_eq VAR_FACING, DIR_SOUTH, BattleFrontier_OutsideWest_EventScript_GirlShudderSouth
 # 595 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Fisherman1::
+	call_if_eq VAR_FACING, DIR_WEST, BattleFrontier_OutsideWest_EventScript_GirlShudderWest
 # 596 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_ChooseFishingOverBattling, MSGBOX_NPC
+	call_if_eq VAR_FACING, DIR_EAST, BattleFrontier_OutsideWest_EventScript_GirlShudderEast
 # 597 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+	waitbuttonpress
 # 598 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	release
 # 599 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-@ Unused
+	end
 # 600 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_UnusedNPC3::
+
 # 601 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_DomeIsHereGrandpa, MSGBOX_NPC
+BattleFrontier_OutsideWest_EventScript_GirlShudderNorth::
 # 602 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+	applymovement LOCALID_FRONTIER_GIRL, BattleFrontier_OutsideWest_Movement_GirlShudderNorth
 # 603 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	waitmovement 0
 # 604 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Gentleman::
+	return
 # 605 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_YoureOffToChallengeDome, MSGBOX_NPC
+
 # 606 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+BattleFrontier_OutsideWest_EventScript_GirlShudderSouth::
 # 607 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	applymovement LOCALID_FRONTIER_GIRL, BattleFrontier_OutsideWest_Movement_GirlShudderSouth
 # 608 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Lass::
+	waitmovement 0
 # 609 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_KeepBattlingUntilIGetSymbol, MSGBOX_NPC
+	return
 # 610 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 611 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
+# 611 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_GirlShudderWest::
 # 612 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_ExpertM::
+	applymovement LOCALID_FRONTIER_GIRL, BattleFrontier_OutsideWest_Movement_GirlShudderWest
 # 613 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_WontLetGentlemenBeatMe, MSGBOX_NPC
+	waitmovement 0
 # 614 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+	return
 # 615 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 616 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Man2::
+BattleFrontier_OutsideWest_EventScript_GirlShudderEast::
 # 617 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo, MSGBOX_NPC
+	applymovement LOCALID_FRONTIER_GIRL, BattleFrontier_OutsideWest_Movement_GirlShudderEast
 # 618 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 619 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 620 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Woman1::
-# 621 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_FinallyArrivedAtFrontier, MSGBOX_NPC
-# 622 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 623 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 624 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_FatMan1::
-# 625 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_SquareFilledWithToughPeople, MSGBOX_NPC
-# 626 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 627 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 628 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_FatMan2::
-# 629 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_MetOlderGirlAtPike, MSGBOX_NPC
-# 630 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 631 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 632 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Woman3::
-# 633 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
-# 634 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_LastTimeOurEyesMet, MSGBOX_DEFAULT
-# 635 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
-# 636 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 637 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 638 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Boy2::
-# 639 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
-# 640 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_DomeAceLookedBecauseOfMyCheering, MSGBOX_DEFAULT
-# 641 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	release
-# 642 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 643 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 644 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_OldMan::
-# 645 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_DomeAceIsMine, MSGBOX_NPC
-# 646 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
-# 647 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
-# 648 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_Man4::
-# 649 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	lock
-# 650 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	faceplayer
-# 651 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_FansOverThereUsedToBeTrainers, MSGBOX_DEFAULT
-# 652 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	closemessage
-# 653 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	applymovement LOCALID_FRONTIER_MAN_4, Common_Movement_FaceOriginalDirection
-# 654 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	waitmovement 0
-# 655 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 619 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	return
+# 620 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 621 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Movement_GirlShudderNorth:
+# 622 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	walk_in_place_faster_down
+# 623 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	walk_in_place_faster_down
+# 624 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	step_end
+# 625 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 626 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Movement_GirlShudderSouth:
+# 627 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	walk_in_place_faster_up
+# 628 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	walk_in_place_faster_up
+# 629 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	step_end
+# 630 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 631 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Movement_GirlShudderWest:
+# 632 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	walk_in_place_faster_right
+# 633 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	walk_in_place_faster_right
+# 634 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	step_end
+# 635 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 636 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Movement_GirlShudderEast:
+# 637 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	walk_in_place_faster_left
+# 638 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	walk_in_place_faster_left
+# 639 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	step_end
+# 640 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 641 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_Woman2::
+# 642 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	lock
+# 643 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	faceplayer
+# 644 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_LetsPlayRockPaperScissors, MSGBOX_DEFAULT
+# 645 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	random 2
+# 646 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto_if_eq VAR_RESULT, 1, BattleFrontier_OutsideWest_EventScript_WomanWonRockPaperScissors
+# 647 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	goto BattleFrontier_OutsideWest_EventScript_WomanLostRockPaperScissors
+# 648 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 649 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 650 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_WomanWonRockPaperScissors::
+# 651 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_WonIllTakePikeChallenge, MSGBOX_DEFAULT
+# 652 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	release
+# 653 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	end
+# 654 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 655 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_WomanLostRockPaperScissors::
 # 656 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	end
+	msgbox BattleFrontier_OutsideWest_Text_LostIllPutOffPikeChallenge, MSGBOX_DEFAULT
 # 657 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	release
 # 658 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_EventScript_PokefanF::
-# 659 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	msgbox BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier, MSGBOX_NPC
-# 660 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	end
+# 659 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 660 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_Fisherman1::
 # 661 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	msgbox BattleFrontier_OutsideWest_Text_ChooseFishingOverBattling, MSGBOX_NPC
 # 662 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_BattleDomeSign:
+	end
 # 663 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "This is the BATTLE DOME!\n"
+
 # 664 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Your path to the invincible superstar!$"
+@ Unused
 # 665 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_EventScript_UnusedNPC3::
 # 666 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_BattleFactorySign:
+	msgbox BattleFrontier_OutsideWest_Text_DomeIsHereGrandpa, MSGBOX_NPC
 # 667 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "This is the BATTLE FACTORY!\n"
+	end
 # 668 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Seek out the toughest POKéMON!$"
+
 # 669 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_EventScript_Gentleman::
 # 670 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_BattlePikeSign:
+	msgbox BattleFrontier_OutsideWest_Text_YoureOffToChallengeDome, MSGBOX_NPC
 # 671 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "This is the BATTLE PIKE!\n"
+	end
 # 672 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Choose one of three paths!$"
+
 # 673 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_EventScript_Lass::
 # 674 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_ThisIsBattleTower:
+	msgbox BattleFrontier_OutsideWest_Text_KeepBattlingUntilIGetSymbol, MSGBOX_NPC
 # 675 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "This is the BATTLE TOWER.\p"
+	end
 # 676 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "TRAINERS bring their best-raised\n"
+
 # 677 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "POKéMON for elimination-style matches.$"
+BattleFrontier_OutsideWest_EventScript_ExpertM::
 # 678 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	msgbox BattleFrontier_OutsideWest_Text_WontLetGentlemenBeatMe, MSGBOX_NPC
 # 679 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_MayISeeYourTicket:
+	end
 # 680 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Hello, are you here for the ferry?\n"
-# 681 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "May I see your TICKET?$"
-# 682 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
+# 681 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_Man2::
+# 682 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	msgbox BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo, MSGBOX_NPC
 # 683 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_MustHaveTicketToBoard:
+	end
 # 684 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "{PLAYER} doesn't have the TICKET…\p"
+
 # 685 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I'm terribly sorry.\p"
+BattleFrontier_OutsideWest_EventScript_Woman1::
 # 686 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "You must have a TICKET to board\n"
+	msgbox BattleFrontier_OutsideWest_Text_FinallyArrivedAtFrontier, MSGBOX_NPC
 # 687 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "the ferry.$"
+	end
 # 688 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 689 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo:
+BattleFrontier_OutsideWest_EventScript_FatMan1::
 # 690 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "{PLAYER} flashed the TICKET.\p"
+	msgbox BattleFrontier_OutsideWest_Text_SquareFilledWithToughPeople, MSGBOX_NPC
 # 691 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Perfect! That's all you need!\p"
+	end
 # 692 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "And where would you like to go?$"
-# 693 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
+# 693 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_EventScript_FatMan2::
 # 694 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_SlateportItIs:
+	msgbox BattleFrontier_OutsideWest_Text_MetOlderGirlAtPike, MSGBOX_NPC
 # 695 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "SLATEPORT CITY it is, then!$"
+	end
 # 696 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 697 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_LilycoveItIs:
+BattleFrontier_OutsideWest_EventScript_Woman3::
 # 698 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "LILYCOVE CITY it is, then!$"
+	lock
 # 699 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	msgbox BattleFrontier_OutsideWest_Text_LastTimeOurEyesMet, MSGBOX_DEFAULT
 # 700 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_SailWithUsAnotherTime:
+	release
 # 701 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Please sail with us another time!$"
+	end
 # 702 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 703 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_PleaseBoardFerry:
+BattleFrontier_OutsideWest_EventScript_Boy2::
 # 704 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Please board the ferry and wait for\n"
+	lock
 # 705 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "departure.$"
+	msgbox BattleFrontier_OutsideWest_Text_DomeAceLookedBecauseOfMyCheering, MSGBOX_DEFAULT
 # 706 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	release
 # 707 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_ThenWhereWouldYouLikeToGo:
+	end
 # 708 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Then, where would you like to go?$"
+
 # 709 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_EventScript_OldMan::
 # 710 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_BestOutOfAllMyFriends:
+	msgbox BattleFrontier_OutsideWest_Text_DomeAceIsMine, MSGBOX_NPC
 # 711 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I'm the best out of all my friends.\n"
+	end
 # 712 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "But here…\l"
+
 # 713 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I've been useless!$"
+BattleFrontier_OutsideWest_EventScript_Man4::
 # 714 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	lock
 # 715 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_CantFindBattleTower:
+	faceplayer
 # 716 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I want to go to the BATTLE TOWER,\n"
+	msgbox BattleFrontier_OutsideWest_Text_FansOverThereUsedToBeTrainers, MSGBOX_DEFAULT
 # 717 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "but I can't find it even though I have\l"
+	closemessage
 # 718 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "a map of the BATTLE FRONTIER.\p"
+	applymovement LOCALID_FRONTIER_MAN_4, Common_Movement_FaceOriginalDirection
 # 719 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "This place is just too big!$"
+	waitmovement 0
 # 720 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	release
 # 721 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_GotSeasickOnWayHere:
+	end
 # 722 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I wanted to take a challenge as soon\n"
+
 # 723 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "as I arrived here.\p"
+BattleFrontier_OutsideWest_EventScript_PokefanF::
 # 724 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "But on the way, I got seasick…\n"
+	msgbox BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier, MSGBOX_NPC
 # 725 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Urrrrp…$"
+	end
 # 726 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 727 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_OnlyToughTrainersBroughtHere:
+BattleFrontier_OutsideWest_Text_BattleDomeSign:
 # 728 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "It's not as if just anyone can come\n"
+	.string "This is the BATTLE DOME!\n"
 # 729 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "here, you know?\p"
+	.string "Your path to the invincible superstar!$"
 # 730 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Only those TRAINERS who've been\n"
+
 # 731 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "recognized as tough are brought here.\p"
+BattleFrontier_OutsideWest_Text_BattleFactorySign:
 # 732 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "That's why many TRAINERS don't even\n"
+	.string "This is the BATTLE FACTORY!\n"
 # 733 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "know about the BATTLE FRONTIER.$"
+	.string "Seek out the toughest POKéMON!$"
 # 734 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 735 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_SureWeCanChallengeWithNoMons:
+BattleFrontier_OutsideWest_Text_BattlePikeSign:
 # 736 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Hey, bro…\p"
+	.string "This is the BATTLE PIKE!\n"
 # 737 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Are you sure we can make challenges\n"
+	.string "Choose one of three paths!$"
 # 738 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "even if we don't have any POKéMON?$"
+
 # 739 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_Text_ThisIsBattleTower:
 # 740 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_BigGuySaidIllLendYouMons:
+	.string "This is the BATTLE TOWER.\p"
 # 741 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Uh…\n"
+	.string "TRAINERS bring their best-raised\n"
 # 742 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I'm sure it'll be okay.\p"
+	.string "POKéMON for elimination-style matches.$"
 # 743 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I think…\p"
+
 # 744 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "But remember that big scary guy?\n"
+BattleFrontier_OutsideWest_Text_MayISeeYourTicket:
 # 745 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "He said, “I'll lend you POKéMON!”$"
+	.string "Hello, are you here for the ferry?\n"
 # 746 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "May I see your TICKET?$"
 # 747 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_WhosRaisingThoseRentalMons:
+
 # 748 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "That's the BATTLE FACTORY.\n"
+BattleFrontier_OutsideWest_Text_MustHaveTicketToBoard:
 # 749 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "You can rent strong POKéMON there.\p"
+	.string "{PLAYER} doesn't have the TICKET…\p"
 # 750 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "But it makes me wonder.\n"
+	.string "I'm terribly sorry.\p"
 # 751 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Who's raising those rental POKéMON?$"
+	.string "You must have a TICKET to board\n"
 # 752 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "the ferry.$"
 # 753 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_ScaredOfPikeBecauseSeviper:
-# 754 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I'm scared of going into the BATTLE\n"
-# 755 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "PIKE because of SEVIPER…\p"
-# 756 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "B-but I came all the way here, so I will\n"
-# 757 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "try to conquer everything!\l"
-# 758 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "…Shudder…$"
-# 759 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
+# 754 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo:
+# 755 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "{PLAYER} flashed the TICKET.\p"
+# 756 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Perfect! That's all you need!\p"
+# 757 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "And where would you like to go?$"
+# 758 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 759 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_SlateportItIs:
 # 760 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_LetsPlayRockPaperScissors:
+	.string "SLATEPORT CITY it is, then!$"
 # 761 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Let's play rock, paper, scissors!\n"
+
 # 762 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "One, two, three!\p"
+BattleFrontier_OutsideWest_Text_LilycoveItIs:
 # 763 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "… … … … … …$"
+	.string "LILYCOVE CITY it is, then!$"
 # 764 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 765 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_WonIllTakePikeChallenge:
+BattleFrontier_OutsideWest_Text_SailWithUsAnotherTime:
 # 766 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Yay! I won!\n"
+	.string "Please sail with us another time!$"
 # 767 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I will take the BATTLE PIKE challenge!$"
+
 # 768 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_Text_PleaseBoardFerry:
 # 769 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_LostIllPutOffPikeChallenge:
+	.string "Please board the ferry and wait for\n"
 # 770 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Oh, no…\n"
+	.string "departure.$"
 # 771 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I lost.\p"
+
 # 772 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I guess I'm not very lucky today.\n"
+BattleFrontier_OutsideWest_Text_ThenWhereWouldYouLikeToGo:
 # 773 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I'll put off my BATTLE PIKE challenge\l"
+	.string "Then, where would you like to go?$"
 # 774 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "until tomorrow.$"
+
 # 775 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_Text_BestOutOfAllMyFriends:
 # 776 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_ChooseFishingOverBattling:
+	.string "I'm the best out of all my friends.\n"
 # 777 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I believe I'm the only person here who,\n"
+	.string "But here…\l"
 # 778 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "for some unknown reason, would choose\l"
+	.string "I've been useless!$"
 # 779 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "fishing over battling.\p"
+
 # 780 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Huh? You can't catch anything here?\n"
+BattleFrontier_OutsideWest_Text_CantFindBattleTower:
 # 781 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "That's disappointing…$"
+	.string "I want to go to the BATTLE TOWER,\n"
 # 782 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "but I can't find it even though I have\l"
 # 783 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_KeepBattlingUntilIGetSymbol:
+	.string "a map of the BATTLE FRONTIER.\p"
 # 784 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Today, I'm going to keep battling, no\n"
+	.string "This place is just too big!$"
 # 785 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "matter what, until I get a Symbol.$"
+
 # 786 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_Text_GotSeasickOnWayHere:
 # 787 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_YoureOffToChallengeDome:
+	.string "I wanted to take a challenge as soon\n"
 # 788 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Oh? You're off to challenge\n"
+	.string "as I arrived here.\p"
 # 789 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "the BATTLE DOME?\p"
+	.string "But on the way, I got seasick…\n"
 # 790 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I'll wish you the best of luck.\n"
+	.string "Urrrrp…$"
 # 791 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Let us both win our way up and meet\l"
+
 # 792 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "in challenges.$"
+BattleFrontier_OutsideWest_Text_OnlyToughTrainersBroughtHere:
 # 793 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "It's not as if just anyone can come\n"
 # 794 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_DomeIsHereGrandpa:
+	.string "here, you know?\p"
 # 795 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Grandpa, over here!\n"
+	.string "Only those TRAINERS who've been\n"
 # 796 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "The BATTLE DOME is here!\l"
+	.string "recognized as tough are brought here.\p"
 # 797 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Go get 'em, Grandpa!$"
+	.string "That's why many TRAINERS don't even\n"
 # 798 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "know about the BATTLE FRONTIER.$"
 # 799 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_WontLetGentlemenBeatMe:
+
 # 800 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Ah, so this here is the BATTLE DOME?\n"
+BattleFrontier_OutsideWest_Text_SureWeCanChallengeWithNoMons:
 # 801 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I won't let GENTLEMEN beat me!\p"
+	.string "Hey, bro…\p"
 # 802 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "But where is the entrance?$"
+	.string "Are you sure we can make challenges\n"
 # 803 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "even if we don't have any POKéMON?$"
 # 804 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo:
+
 # 805 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "There used to be nothing here not all\n"
+BattleFrontier_OutsideWest_Text_BigGuySaidIllLendYouMons:
 # 806 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "that long ago.\p"
+	.string "Uh…\n"
 # 807 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "But, now look at this place! Amazing!\n"
+	.string "I'm sure it'll be okay.\p"
 # 808 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I'll bring my mother out to see this.$"
+	.string "I think…\p"
 # 809 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "But remember that big scary guy?\n"
 # 810 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_FinallyArrivedAtFrontier:
+	.string "He said, “I'll lend you POKéMON!”$"
 # 811 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I've finally arrived at the BATTLE\n"
+
 # 812 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "FRONTIER!\p"
+BattleFrontier_OutsideWest_Text_WhosRaisingThoseRentalMons:
 # 813 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I'm sure to grab attention with\n"
+	.string "That's the BATTLE FACTORY.\n"
 # 814 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "my looks and ability!$"
+	.string "You can rent strong POKéMON there.\p"
 # 815 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "But it makes me wonder.\n"
 # 816 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_SquareFilledWithToughPeople:
+	.string "Who's raising those rental POKéMON?$"
 # 817 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Munch, munch…\p"
+
 # 818 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "It looks like this square's filled with\n"
+BattleFrontier_OutsideWest_Text_ScaredOfPikeBecauseSeviper:
 # 819 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "tough people.\p"
+	.string "I'm scared of going into the BATTLE\n"
 # 820 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Munch, munch…$"
+	.string "PIKE because of SEVIPER…\p"
 # 821 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "B-but I came all the way here, so I will\n"
 # 822 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_MetOlderGirlAtPike:
+	.string "try to conquer everything!\l"
 # 823 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Crunch, munch…\p"
+	.string "…Shudder…$"
 # 824 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "A while back, I met this older girl\n"
-# 825 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "at the BATTLE PIKE.\p"
-# 826 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "She had these eyes that were scary\n"
-# 827 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "in a real ornery way.\p"
-# 828 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Crunch, munch…\p"
-# 829 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "She got all furious: “Will you quit\n"
-# 830 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "eating!” Then she whaled on me.\p"
-# 831 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "It was a hair-raising kind of\n"
-# 832 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "scary experience, sure enough.\p"
-# 833 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Crunch, munch…$"
-# 834 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
+# 825 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_LetsPlayRockPaperScissors:
+# 826 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Let's play rock, paper, scissors!\n"
+# 827 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "One, two, three!\p"
+# 828 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "… … … … … …$"
+# 829 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 830 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_WonIllTakePikeChallenge:
+# 831 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Yay! I won!\n"
+# 832 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "I will take the BATTLE PIKE challenge!$"
+# 833 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 834 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_LostIllPutOffPikeChallenge:
 # 835 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_LastTimeOurEyesMet:
+	.string "Oh, no…\n"
 # 836 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Huh? Will you listen to yourself?\n"
+	.string "I lost.\p"
 # 837 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "That's nothing!\p"
+	.string "I guess I'm not very lucky today.\n"
 # 838 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Why, the last time I cheered for him,\n"
+	.string "I'll put off my BATTLE PIKE challenge\l"
 # 839 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "our eyes met and sparks flew!$"
+	.string "until tomorrow.$"
 # 840 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
 # 841 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_DomeAceLookedBecauseOfMyCheering:
+BattleFrontier_OutsideWest_Text_ChooseFishingOverBattling:
 # 842 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Whaaaaaat?!\n"
+	.string "I believe I'm the only person here who,\n"
 # 843 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Pfft!\p"
+	.string "for some unknown reason, would choose\l"
 # 844 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "That only happened because\n"
+	.string "fishing over battling.\p"
 # 845 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I happened to be sitting next to you!\p"
+	.string "Huh? You can't catch anything here?\n"
 # 846 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "The DOME ACE only looked our way\n"
+	.string "That's disappointing…$"
 # 847 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "because my cheering was so loud!$"
+
 # 848 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+BattleFrontier_OutsideWest_Text_KeepBattlingUntilIGetSymbol:
 # 849 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_DomeAceIsMine:
+	.string "Today, I'm going to keep battling, no\n"
 # 850 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Oh, shush!\n"
+	.string "matter what, until I get a Symbol.$"
 # 851 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Keep that racket down!\p"
+
 # 852 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "You fair-weather fans should stick\n"
+BattleFrontier_OutsideWest_Text_YoureOffToChallengeDome:
 # 853 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "to cheering for some GYM LEADER!\p"
+	.string "Oh? You're off to challenge\n"
 # 854 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "The DOME ACE is mine!\n"
+	.string "the BATTLE DOME?\p"
 # 855 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "The only idol for me!$"
+	.string "I'll wish you the best of luck.\n"
 # 856 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-
+	.string "Let us both win our way up and meet\l"
 # 857 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_FansOverThereUsedToBeTrainers:
+	.string "in challenges.$"
 # 858 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Those people squabbling over there…\p"
-# 859 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "It's hard to believe, but they once\n"
-# 860 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "were TRAINERS, and good ones, too.\p"
-# 861 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "They used to be incredibly tough,\n"
-# 862 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "and they were famous, too.\p"
-# 863 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "But they were obliterated by this\n"
-# 864 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "certain TRAINER at a tournament.\p"
-# 865 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "They were so thoroughly whipped,\n"
-# 866 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "they became smitten by the TRAINER.\p"
-# 867 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Now they're just fans of the TRAINER.\n"
-# 868 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "They go cheer for their idol at the\l"
-# 869 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "BATTLE DOME every day now.$"
-# 870 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 
+# 859 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_DomeIsHereGrandpa:
+# 860 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Grandpa, over here!\n"
+# 861 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "The BATTLE DOME is here!\l"
+# 862 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Go get 'em, Grandpa!$"
+# 863 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 864 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_WontLetGentlemenBeatMe:
+# 865 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Ah, so this here is the BATTLE DOME?\n"
+# 866 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "I won't let GENTLEMEN beat me!\p"
+# 867 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "But where is the entrance?$"
+# 868 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 869 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo:
+# 870 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "There used to be nothing here not all\n"
 # 871 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier:
+	.string "that long ago.\p"
 # 872 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "I heard a rumor that someone saw\n"
+	.string "But, now look at this place! Amazing!\n"
 # 873 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "a POKéMON with an unusually long tail\l"
+	.string "I'll bring my mother out to see this.$"
 # 874 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "somewhere in the BATTLE FRONTIER.\p"
+
 # 875 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "It must be adorable. I'm sure of it…\p"
+BattleFrontier_OutsideWest_Text_FinallyArrivedAtFrontier:
 # 876 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
-	.string "Oh, challenges can wait. I feel driven\n"
+	.string "I've finally arrived at the BATTLE\n"
 # 877 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "FRONTIER!\p"
+# 878 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "I'm sure to grab attention with\n"
+# 879 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "my looks and ability!$"
+# 880 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 881 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_SquareFilledWithToughPeople:
+# 882 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Munch, munch…\p"
+# 883 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "It looks like this square's filled with\n"
+# 884 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "tough people.\p"
+# 885 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Munch, munch…$"
+# 886 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 887 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_MetOlderGirlAtPike:
+# 888 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Crunch, munch…\p"
+# 889 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "A while back, I met this older girl\n"
+# 890 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "at the BATTLE PIKE.\p"
+# 891 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "She had these eyes that were scary\n"
+# 892 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "in a real ornery way.\p"
+# 893 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Crunch, munch…\p"
+# 894 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "She got all furious: “Will you quit\n"
+# 895 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "eating!” Then she whaled on me.\p"
+# 896 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "It was a hair-raising kind of\n"
+# 897 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "scary experience, sure enough.\p"
+# 898 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Crunch, munch…$"
+# 899 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 900 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_LastTimeOurEyesMet:
+# 901 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Huh? Will you listen to yourself?\n"
+# 902 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "That's nothing!\p"
+# 903 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Why, the last time I cheered for him,\n"
+# 904 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "our eyes met and sparks flew!$"
+# 905 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 906 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_DomeAceLookedBecauseOfMyCheering:
+# 907 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Whaaaaaat?!\n"
+# 908 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Pfft!\p"
+# 909 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "That only happened because\n"
+# 910 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "I happened to be sitting next to you!\p"
+# 911 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "The DOME ACE only looked our way\n"
+# 912 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "because my cheering was so loud!$"
+# 913 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 914 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_DomeAceIsMine:
+# 915 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Oh, shush!\n"
+# 916 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Keep that racket down!\p"
+# 917 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "You fair-weather fans should stick\n"
+# 918 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "to cheering for some GYM LEADER!\p"
+# 919 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "The DOME ACE is mine!\n"
+# 920 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "The only idol for me!$"
+# 921 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 922 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_FansOverThereUsedToBeTrainers:
+# 923 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Those people squabbling over there…\p"
+# 924 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "It's hard to believe, but they once\n"
+# 925 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "were TRAINERS, and good ones, too.\p"
+# 926 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "They used to be incredibly tough,\n"
+# 927 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "and they were famous, too.\p"
+# 928 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "But they were obliterated by this\n"
+# 929 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "certain TRAINER at a tournament.\p"
+# 930 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "They were so thoroughly whipped,\n"
+# 931 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "they became smitten by the TRAINER.\p"
+# 932 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Now they're just fans of the TRAINER.\n"
+# 933 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "They go cheer for their idol at the\l"
+# 934 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "BATTLE DOME every day now.$"
+# 935 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+
+# 936 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier:
+# 937 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "I heard a rumor that someone saw\n"
+# 938 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "a POKéMON with an unusually long tail\l"
+# 939 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "somewhere in the BATTLE FRONTIER.\p"
+# 940 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "It must be adorable. I'm sure of it…\p"
+# 941 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Oh, challenges can wait. I feel driven\n"
+# 942 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "to find the delightful creature!$"
 
 BattleFrontier_OutsideWest_EventScript_NatureManiac_Text_0:
@@ -1779,13 +1897,62 @@ BattleFrontier_OutsideWest_EventScript_FriendshipChoose_Text_3:
 	.string "Heehee... It is done! Your POKéMON will\n"
 	.string "never feel the same about you again!$"
 
+BattleFrontier_OutsideWest_EventScript_Ability_Text_0:
+# 327 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Every POKéMON has untapped talents!\n"
+	.string "For 5 Battle Points, I'll bring out a\l"
+	.string "different ability--even a hidden one,\l"
+	.string "if your POKéMON has it in them!\l"
+	.string "Interested?$"
+
+BattleFrontier_OutsideWest_EventScript_Ability_Text_1:
+# 334 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Sorry, friend. It's 5 Battle\n"
+	.string "Points--come back when you've got\l"
+	.string "them!$"
+
+BattleFrontier_OutsideWest_EventScript_Ability_Text_2:
+# 339 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Which POKéMON should I work with?$"
+
+BattleFrontier_OutsideWest_EventScript_Ability_Text_3:
+# 347 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "An EGG's talents haven't even hatched\n"
+	.string "yet!$"
+
+BattleFrontier_OutsideWest_EventScript_Ability_Text_4:
+# 354 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Hmm... {STR_VAR_1} is the only ability\n"
+	.string "that POKéMON can ever have. There's\l"
+	.string "nothing for me to do!$"
+
+BattleFrontier_OutsideWest_EventScript_Ability_Text_5:
+# 359 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Right now its ability is {STR_VAR_1}.\n"
+	.string "Which ability should I bring out?$"
+
+BattleFrontier_OutsideWest_EventScript_Ability_Text_6:
+# 366 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "Good choice! That'll be 5 Battle Points.\n"
+	.string "Ready?$"
+
+BattleFrontier_OutsideWest_EventScript_Ability_Text_7:
+# 377 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "There! Your POKéMON's new talent is\n"
+	.string "shining through! Come back anytime!$"
+
+BattleFrontier_OutsideWest_EventScript_AbilityDecline_Text_0:
+# 383 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+	.string "No worries! Come back if you ever want\n"
+	.string "to try a new talent!$"
+
 BattleFrontier_OutsideWest_EventScript_FriendshipDecline_Text_0:
-# 324 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 389 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Heehee, come back when you're ready to\n"
 	.string "toy with some feelings!$"
 
 BattleFrontier_OutsideWest_EventScript_MoveRelearnerDecline_Text_0:
-# 330 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 395 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Come back if a move ever slips your\n"
 	.string "POKéMON's mind!$"
 
@@ -1838,101 +2005,101 @@ Friendship_Text_Lowest::
 	.string "Lowest$"
 
 NatureManiac_Text_Hardy::
-# 335 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 400 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Hardy$"
 
 NatureManiac_Text_Lonely::
-# 336 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 401 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Lonely$"
 
 NatureManiac_Text_Brave::
-# 337 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 402 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Brave$"
 
 NatureManiac_Text_Adamant::
-# 338 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 403 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Adamant$"
 
 NatureManiac_Text_Naughty::
-# 339 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 404 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Naughty$"
 
 NatureManiac_Text_Bold::
-# 340 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 405 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Bold$"
 
 NatureManiac_Text_Docile::
-# 341 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 406 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Docile$"
 
 NatureManiac_Text_Relaxed::
-# 342 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 407 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Relaxed$"
 
 NatureManiac_Text_Impish::
-# 343 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 408 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Impish$"
 
 NatureManiac_Text_Lax::
-# 344 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 409 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Lax$"
 
 NatureManiac_Text_Timid::
-# 345 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 410 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Timid$"
 
 NatureManiac_Text_Hasty::
-# 346 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 411 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Hasty$"
 
 NatureManiac_Text_Serious::
-# 347 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 412 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Serious$"
 
 NatureManiac_Text_Jolly::
-# 348 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 413 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Jolly$"
 
 NatureManiac_Text_Naive::
-# 349 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 414 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Naive$"
 
 NatureManiac_Text_Modest::
-# 350 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 415 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Modest$"
 
 NatureManiac_Text_Mild::
-# 351 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 416 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Mild$"
 
 NatureManiac_Text_Quiet::
-# 352 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 417 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Quiet$"
 
 NatureManiac_Text_Bashful::
-# 353 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 418 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Bashful$"
 
 NatureManiac_Text_Rash::
-# 354 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 419 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Rash$"
 
 NatureManiac_Text_Calm::
-# 355 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 420 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Calm$"
 
 NatureManiac_Text_Gentle::
-# 356 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 421 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Gentle$"
 
 NatureManiac_Text_Sassy::
-# 357 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 422 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Sassy$"
 
 NatureManiac_Text_Careful::
-# 358 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 423 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Careful$"
 
 NatureManiac_Text_Quirky::
-# 359 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
+# 424 "data/maps/BattleFrontier_OutsideWest/scripts.pory"
 	.string "Quirky$"

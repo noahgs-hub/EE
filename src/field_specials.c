@@ -4587,6 +4587,54 @@ void GetCodeFeedback(void)
         gSpecialVar_Result = 0;
 }
 
+u16 BufferMonOtherAbilities(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 currentNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
+    enum Ability currentAbility = GetMonAbility(mon);
+    u32 slot;
+    u16 count = 0;
+
+    StringCopy(gStringVar1, gAbilitiesInfo[currentAbility].name);
+
+    for (slot = 0; slot < NUM_ABILITY_SLOTS; slot++)
+    {
+        enum Ability ability = GetSpeciesAbility(species, slot);
+        struct ListMenuItem item;
+        u8 *nameBuffer;
+
+        if (slot == currentNum || ability == ABILITY_NONE || ability == currentAbility)
+            continue;
+
+        nameBuffer = Alloc(100);
+        StringCopy(nameBuffer, gAbilitiesInfo[ability].name);
+        item.name = nameBuffer;
+        item.id = slot;
+        MultichoiceDynamic_PushElement(item);
+        count++;
+    }
+    return count;
+}
+
+u16 IsPlayerNamePeter(void)
+{
+    static const u8 sPeter[] = _("peter");
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sPeter); i++)
+    {
+        u8 c = gSaveBlock2Ptr->playerName[i];
+        if (c >= CHAR_A && c <= CHAR_Z)
+            c = c - CHAR_A + CHAR_a;
+        if (c != sPeter[i])
+            return FALSE;
+        if (c == EOS)
+            break;
+    }
+    return TRUE;
+}
+
 u16 GetMonFriendship(void)
 {
     return GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_FRIENDSHIP);

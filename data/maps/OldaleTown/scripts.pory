@@ -1,9 +1,23 @@
 script OldaleTown_EventScript_Psyduck {
     lock
     faceplayer
-    msgbox(format("Are you BEETER?"), MSGBOX_YESNO)
-    
+    msgbox(format("Are you Peter?"), MSGBOX_YESNO)
+
     if (var(VAR_RESULT) == YES) {
+        specialvar(VAR_RESULT, IsPlayerNamePeter)
+        if (var(VAR_RESULT) == FALSE) {
+            msgbox(format("PSY?!! (PSYDUCK can tell you aren't really Peter. It looks furious!)"), MSGBOX_DEFAULT)
+            closemessage
+            waitse
+            playmoncry(SPECIES_PSYDUCK, CRY_MODE_ENCOUNTER)
+            delay(40)
+            waitmoncry
+            setflag(FLAG_HIDE_OLDALE_TOWN_PSYDUCK)
+            setwildbattle(SPECIES_PSYDUCK, 5)
+            dowildbattle
+            release
+            end
+        }
         getpartysize
         if (var(VAR_RESULT) == 6) {
             msgbox(format("Psy... (You have no room in your party!)"), MSGBOX_NPC)
@@ -18,6 +32,7 @@ script OldaleTown_EventScript_Psyduck {
         playfanfare(MUS_OBTAIN_ITEM)
         waitfanfare
         
+        setflag(FLAG_HIDE_OLDALE_TOWN_PSYDUCK)
         removeobject(LOCALID_OLDALE_MART_Psyduck)
 		special(DrawWholeMapView)
 	 

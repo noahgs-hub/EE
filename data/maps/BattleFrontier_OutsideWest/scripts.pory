@@ -320,6 +320,71 @@ script BattleFrontier_OutsideWest_EventScript_FriendshipChoose {
     end
 }
 
+script BattleFrontier_OutsideWest_EventScript_Ability {
+    lock
+    faceplayer
+
+    msgbox(format("Every POKéMON has untapped talents! For 5 Battle Points, I'll bring out a different ability--even a hidden one, if your POKéMON has it in them! Interested?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        goto(BattleFrontier_OutsideWest_EventScript_AbilityDecline)
+    }
+
+    specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
+    if (var(VAR_TEMP_1) < 5) {
+        msgbox(format("Sorry, friend. It's 5 Battle Points--come back when you've got them!"), MSGBOX_DEFAULT)
+        release
+        end
+    }
+
+    msgbox(format("Which POKéMON should I work with?"), MSGBOX_DEFAULT)
+    special(ChoosePartyMon)
+    if (var(VAR_0x8004) >= PARTY_SIZE) {
+        goto(BattleFrontier_OutsideWest_EventScript_AbilityDecline)
+    }
+
+    specialvar(VAR_RESULT, IsSelectedMonEgg)
+    if (var(VAR_RESULT) == TRUE) {
+        msgbox(format("An EGG's talents haven't even hatched yet!"), MSGBOX_DEFAULT)
+        release
+        end
+    }
+
+    specialvar(VAR_RESULT, BufferMonOtherAbilities)
+    if (var(VAR_RESULT) == 0) {
+        msgbox(format("Hmm... {STR_VAR_1} is the only ability that POKéMON can ever have. There's nothing for me to do!"), MSGBOX_DEFAULT)
+        release
+        end
+    }
+
+    msgbox(format("Right now its ability is {STR_VAR_1}. Which ability should I bring out?"), MSGBOX_DEFAULT)
+    dynmultistack(0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
+        goto(BattleFrontier_OutsideWest_EventScript_AbilityDecline)
+    }
+    copyvar(VAR_TEMP_2, VAR_RESULT)
+
+    msgbox(format("Good choice! That'll be 5 Battle Points. Ready?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        goto(BattleFrontier_OutsideWest_EventScript_AbilityDecline)
+    }
+
+    copyvar(VAR_RESULT, VAR_TEMP_2)
+    special(SetAbility)
+    setvar(VAR_0x8004, 5)
+    special(TakeFrontierBattlePoints)
+    playse(SE_SHOP)
+    waitse
+    msgbox(format("There! Your POKéMON's new talent is shining through! Come back anytime!"), MSGBOX_DEFAULT)
+    release
+    end
+}
+
+script BattleFrontier_OutsideWest_EventScript_AbilityDecline {
+    msgbox(format("No worries! Come back if you ever want to try a new talent!"), MSGBOX_DEFAULT)
+    release
+    end
+}
+
 script BattleFrontier_OutsideWest_EventScript_FriendshipDecline {
     msgbox(format("Heehee, come back when you're ready to toy with some feelings!"), MSGBOX_DEFAULT)
     release
