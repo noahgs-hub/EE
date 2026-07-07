@@ -27,13 +27,8 @@ script BattleFrontier_OutsideWest_EventScript_NatureManiac {
         end
     }
 
-    specialvar(VAR_TEMP_3, GetHiddenNature)
     msgbox(format("And which nature would you like?"), MSGBOX_DEFAULT)
-    goto(BattleFrontier_OutsideWest_EventScript_NatureManiacChooseNature)
-}
-
-script BattleFrontier_OutsideWest_EventScript_NatureManiacChooseNature {
-    dynmultichoice(0, 0, FALSE, 6, VAR_TEMP_3, DYN_MULTICHOICE_CB_NONE,
+    dynmultichoice(0, 0, FALSE, 6, 0, DYN_MULTICHOICE_CB_NONE,
         NatureManiac_Text_Hardy,
         NatureManiac_Text_Lonely,
         NatureManiac_Text_Brave,
@@ -63,11 +58,6 @@ script BattleFrontier_OutsideWest_EventScript_NatureManiacChooseNature {
         goto(BattleFrontier_OutsideWest_EventScript_NatureManiacDecline)
     }
     copyvar(VAR_TEMP_2, VAR_RESULT)
-
-    if (var(VAR_TEMP_2) == VAR_TEMP_3) {
-        msgbox(format("Wahaha! Your POKéMON already HAS that nature! Pick a different one!"), MSGBOX_DEFAULT)
-        goto(BattleFrontier_OutsideWest_EventScript_NatureManiacChooseNature)
-    }
 
     msgbox(format("Excellent choice! That'll be 5 Battle Points. Ready?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {

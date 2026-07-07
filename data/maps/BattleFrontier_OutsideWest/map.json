@@ -351,7 +351,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "LOCALID_FRONTIER_NATURE_MANIAC",
+      "script": "BattleFrontier_OutsideWest_EventScript_NatureManiac",
       "flag": "0"
     },
     {
