@@ -1389,8 +1389,8 @@
 
 #define FLAG_UNUSED_0x881                           (SYSTEM_FLAGS + 0x21) // DO NOT REUSE: formerly used by dexnav, may be dirty in existing saves
 #define FLAG_UNUSED_0x882                           (SYSTEM_FLAGS + 0x22) // DO NOT REUSE: formerly used by dexnav, may be dirty in existing saves
-#define FLAG_UNUSED_0x883                           (SYSTEM_FLAGS + 0x23) // Unused Flag
-#define FLAG_UNUSED_0x884                           (SYSTEM_FLAGS + 0x24) // Unused Flag
+#define FLAG_HIDE_SLATEPORT_DIEGO_EVENT             (SYSTEM_FLAGS + 0x23) // Slateport Diego/Abuela event; visibility reconciled from VAR_SLATEPORT_DIEGO_STATE on map entry
+#define FLAG_HIDE_SLATEPORT_ICE_COPS                (SYSTEM_FLAGS + 0x24) // Slateport Diego event; force-set on map entry, cops only appear mid-cutscene
 #define FLAG_UNUSED_0x885                           (SYSTEM_FLAGS + 0x25) // Unused Flag
 #define FLAG_UNUSED_0x886                           (SYSTEM_FLAGS + 0x26) // Unused Flag
 #define FLAG_UNUSED_0x887                           (SYSTEM_FLAGS + 0x27) // DO NOT REUSE: confirmed dirty (set) in Noah's save, July 2026 - hid the Route 109 ICE agents

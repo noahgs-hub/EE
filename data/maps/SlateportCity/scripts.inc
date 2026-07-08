@@ -6,9 +6,28 @@ SlateportCity_MapScripts::
 SlateportCity_OnTransition:
 	setvar VAR_SLATEPORT_MUSEUM_1F_STATE, 0
 	call SlateportCity_EventScript_EnterSlateport
+	call SlateportCity_EventScript_ReconcileDiegoEvent
 	call_if_eq VAR_SLATEPORT_CITY_STATE, 1, SlateportCity_EventScript_MovePeopleForSternInterview
 	call_if_eq VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 1, SlateportCity_EventScript_SetReadyForScottScene
 	end
+
+@ Diego/Abuela visibility is derived from the event state var every map entry, so
+@ stale flag bits in an existing save cannot hide them incorrectly. The ICE cops are
+@ force-hidden on every entry; they only appear mid-cutscene via addobject.
+SlateportCity_EventScript_ReconcileDiegoEvent::
+	setflag FLAG_HIDE_SLATEPORT_ICE_COPS
+	call_if_eq VAR_SLATEPORT_DIEGO_STATE, 1, SlateportCity_EventScript_HideDiegoAbuela
+	call_if_ne VAR_SLATEPORT_DIEGO_STATE, 1, SlateportCity_EventScript_ShowDiegoAbuela
+	return
+
+SlateportCity_EventScript_HideDiegoAbuela::
+	setflag FLAG_HIDE_SLATEPORT_DIEGO_EVENT
+	return
+
+SlateportCity_EventScript_ShowDiegoAbuela::
+	setvar VAR_SLATEPORT_DIEGO_STATE, 0
+	clearflag FLAG_HIDE_SLATEPORT_DIEGO_EVENT
+	return
 
 SlateportCity_EventScript_EnterSlateport::
 	setflag FLAG_VISITED_SLATEPORT_CITY
@@ -1350,3 +1369,135 @@ SlateportCity_Text_TakingBattleTentChallenge:
 	.string "After all, a tough TRAINER is\n"
 	.string "the perfect fit for the BATTLE TENT!\p"
 	.string "Give it your best effort!$"
+
+@ ------------------------------------------------------------------
+@ Diego / Abuela smuggling cutscene (Slateport, top-right corner)
+@ Talking to either the hiker (Diego) or the old woman (Abuela) starts it.
+@ ------------------------------------------------------------------
+SlateportCity_EventScript_Diego::
+	goto SlateportCity_EventScript_DiegoEvent
+	end
+
+SlateportCity_EventScript_Diegoabuela::
+	goto SlateportCity_EventScript_DiegoEvent
+	end
+
+SlateportCity_EventScript_DiegoEvent::
+	lockall
+	applymovement LOCALID_SLATEPORT_DIEGO, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox SlateportCity_Text_DiegoIntro, MSGBOX_DEFAULT
+	closemessage
+	@ the two ICE agents run in from the west (off-screen) along row 13
+	setobjectxyperm LOCALID_SLATEPORT_ICE_COP_1, 26, 13
+	setobjectxyperm LOCALID_SLATEPORT_ICE_COP_2, 25, 13
+	clearflag FLAG_HIDE_SLATEPORT_ICE_COPS
+	addobject LOCALID_SLATEPORT_ICE_COP_1
+	addobject LOCALID_SLATEPORT_ICE_COP_2
+	applymovement LOCALID_SLATEPORT_ICE_COP_1, SlateportCity_Movement_CopRunIn
+	applymovement LOCALID_SLATEPORT_ICE_COP_2, SlateportCity_Movement_CopRunIn
+	waitmovement 0
+	@ Diego and Abuela stand their ground until the agents reach them, then panic
+	applymovement LOCALID_SLATEPORT_DIEGO, SlateportCity_Movement_PairNotice
+	applymovement LOCALID_SLATEPORT_ABUELA, SlateportCity_Movement_PairNotice
+	waitmovement 0
+	@ if the player is standing in the escape lane (row 14), they step back
+	getplayerxy VAR_0x8004, VAR_0x8005
+	call_if_eq VAR_0x8005, 14, SlateportCity_EventScript_DiegoPlayerStepBack
+	@ 1) the pair bolts west along row 14 and escapes off-screen
+	applymovement LOCALID_SLATEPORT_DIEGO, SlateportCity_Movement_PairFlee
+	applymovement LOCALID_SLATEPORT_ABUELA, SlateportCity_Movement_PairFlee
+	waitmovement 0
+	removeobject LOCALID_SLATEPORT_DIEGO
+	removeobject LOCALID_SLATEPORT_ABUELA
+	setflag FLAG_HIDE_SLATEPORT_DIEGO_EVENT
+	@ 2) only then do the agents yell after them
+	msgbox SlateportCity_Text_IceStop, MSGBOX_DEFAULT
+	closemessage
+	@ 3) and give chase out the same way
+	applymovement LOCALID_SLATEPORT_ICE_COP_1, SlateportCity_Movement_CopChase
+	applymovement LOCALID_SLATEPORT_ICE_COP_2, SlateportCity_Movement_CopChase
+	waitmovement 0
+	removeobject LOCALID_SLATEPORT_ICE_COP_1
+	removeobject LOCALID_SLATEPORT_ICE_COP_2
+	setflag FLAG_HIDE_SLATEPORT_ICE_COPS
+	setvar VAR_SLATEPORT_DIEGO_STATE, 1
+	delay 20
+	msgbox SlateportCity_Text_PowderGag, MSGBOX_DEFAULT
+	giveitem ITEM_ENERGY_POWDER
+	releaseall
+	end
+
+SlateportCity_EventScript_DiegoPlayerStepBack::
+	applymovement LOCALID_PLAYER, SlateportCity_Movement_PlayerStepBack
+	waitmovement 0
+	return
+
+@ Agents spawn at (26,13)/(25,13) and run 8 tiles east, stopping at (34,13)/(33,13),
+@ two tiles shy of Abuela so they never overlap a player standing at (35,13).
+SlateportCity_Movement_CopRunIn:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+SlateportCity_Movement_PairNotice:
+	face_left
+	emote_exclamation_mark
+	delay_16
+	step_end
+
+SlateportCity_Movement_PlayerStepBack:
+	walk_fast_down
+	face_up
+	step_end
+
+@ Diego (37,13) / Abuela (36,13): duck south to row 14, then sprint west off-screen
+SlateportCity_Movement_PairFlee:
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+@ Agents at (34,13)/(33,13): drop to row 14 and give chase
+SlateportCity_Movement_CopChase:
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+SlateportCity_Text_DiegoIntro:
+	.string "Yes Abuela, I have the coke up my…\p"
+	.string "OH! Sorry, didn't see you there.\p"
+	.string "I am Diego. Thanks to water-type\n"
+	.string "POKéMON, sneaking across borders to\l"
+	.string "steal your country's health care and\l"
+	.string "government-funded housing has never\l"
+	.string "been easier! Actually, I was just-$"
+
+SlateportCity_Text_IceStop:
+	.string "STOP! YOU ARE BEING DEPORTED!$"
+
+SlateportCity_Text_PowderGag:
+	.string "A mysterious powder fell out of\n"
+	.string "Diego's ass as he escaped!$"
