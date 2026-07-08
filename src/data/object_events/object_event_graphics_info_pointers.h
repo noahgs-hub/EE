@@ -335,6 +335,11 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CuttableTre
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BreakableRockFrlg;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PushableBoulderFrlg;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_FossilFrlg;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CameramanFrlg;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedWomanFrlg;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMan;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMaleReceptionist;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ItemBallFrlg;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Ruby;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Sapphire;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_OldAmber;
@@ -740,6 +745,11 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_BREAKABLE_ROCK_FRLG]      = &gObjectEventGraphicsInfo_BreakableRockFrlg,
     [OBJ_EVENT_GFX_PUSHABLE_BOULDER_FRLG]    = &gObjectEventGraphicsInfo_PushableBoulderFrlg,
     [OBJ_EVENT_GFX_FOSSIL_FRLG]              = &gObjectEventGraphicsInfo_FossilFrlg,
+    [OBJ_EVENT_GFX_CAMERAMAN_FRLG]           = &gObjectEventGraphicsInfo_CameramanFrlg,
+    [OBJ_EVENT_GFX_UNUSED_WOMAN_FRLG]        = &gObjectEventGraphicsInfo_UnusedWomanFrlg,
+    [OBJ_EVENT_GFX_UNUSED_MAN_FRLG]          = &gObjectEventGraphicsInfo_UnusedMan,
+    [OBJ_EVENT_GFX_UNUSED_MALE_RECEPTIONIST_FRLG] = &gObjectEventGraphicsInfo_UnusedMaleReceptionist,
+    [OBJ_EVENT_GFX_ITEM_BALL_FRLG]           = &gObjectEventGraphicsInfo_ItemBallFrlg,
     [OBJ_EVENT_GFX_RUBY]                     = &gObjectEventGraphicsInfo_Ruby,
     [OBJ_EVENT_GFX_SAPPHIRE]                 = &gObjectEventGraphicsInfo_Sapphire,
     [OBJ_EVENT_GFX_OLD_AMBER]                = &gObjectEventGraphicsInfo_OldAmber,
