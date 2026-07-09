@@ -1005,17 +1005,17 @@ static void BattleMode_DrawChoices(u8 selection)
     styles[2] = 0;
     styles[selection] = 1;
 
-    DrawOptionMenuChoice(gText_BattleModeSingles, 104, YPOS_BATTLEMODE, styles[0]);
+    DrawOptionMenuChoice(gText_BattleModeMixed, 104, YPOS_BATTLEMODE, styles[0]);
 
     widthSingles = GetStringWidth(FONT_NORMAL, gText_BattleModeSingles, 0);
     widthDoubles = GetStringWidth(FONT_NORMAL, gText_BattleModeDoubles, 0);
     widthMixed = GetStringWidth(FONT_NORMAL, gText_BattleModeMixed, 0);
 
-    widthDoubles -= 94;
-    xMid = (widthSingles - widthDoubles - widthMixed) / 2 + 104;
-    DrawOptionMenuChoice(gText_BattleModeDoubles, xMid, YPOS_BATTLEMODE, styles[1]);
+    widthSingles -= 94;
+    xMid = (widthMixed - widthSingles - widthDoubles) / 2 + 104;
+    DrawOptionMenuChoice(gText_BattleModeSingles, xMid, YPOS_BATTLEMODE, styles[1]);
 
-    DrawOptionMenuChoice(gText_BattleModeMixed, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleModeMixed, 198), YPOS_BATTLEMODE, styles[2]);
+    DrawOptionMenuChoice(gText_BattleModeDoubles, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleModeDoubles, 198), YPOS_BATTLEMODE, styles[2]);
 }
 #endif // OPT_BATTLE_MODE
 
