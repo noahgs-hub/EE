@@ -3,7 +3,6 @@
   "name": "Route109",
   "layout": "LAYOUT_ROUTE109",
   "music": "MUS_ROUTE104",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_ROUTE_109",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
@@ -339,6 +338,76 @@
       "trainer_sight_or_berry_tree_id": "3",
       "script": "Route109_EventScript_Elijah",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_ROUTE109_JEFF",
+      "graphics_id": "OBJ_EVENT_GFX_SCOTT",
+      "x": 24,
+      "y": 24,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_HIDE_ROUTE109_HYPNO_CREW"
+    },
+    {
+      "local_id": "LOCALID_ROUTE109_HYPNO_GIRL1",
+      "graphics_id": "OBJ_EVENT_GFX_TUBER_F",
+      "x": 24,
+      "y": 21,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route109_EventScript_HypnoGirl",
+      "flag": "FLAG_ROUTE109_HYPNO_EVENT_DONE"
+    },
+    {
+      "local_id": "LOCALID_ROUTE109_HYPNO_GIRL2",
+      "graphics_id": "OBJ_EVENT_GFX_LITTLE_GIRL",
+      "x": 25,
+      "y": 21,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route109_EventScript_HypnoGirl",
+      "flag": "FLAG_ROUTE109_HYPNO_EVENT_DONE"
+    },
+    {
+      "local_id": "LOCALID_ROUTE109_HYPNO_BOAT",
+      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
+      "x": 24,
+      "y": 40,
+      "elevation": 1,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_HIDE_ROUTE109_HYPNO_CREW"
+    },
+    {
+      "local_id": "LOCALID_ROUTE109_HYPNO",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(HYPNO)",
+      "x": 23,
+      "y": 23,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_HIDE_ROUTE109_HYPNO_CREW"
     }
   ],
   "warp_events": [
@@ -416,5 +485,6 @@
       "item": "ITEM_HEART_SCALE",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_3"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }
