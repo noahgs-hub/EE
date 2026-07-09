@@ -58,7 +58,7 @@
 #define FLAG_RUSTBORO_KIDS_ARRESTED    0x24
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag (dirty on dev saves - was FLAG_HIDE_RUSTBORO_POLICE)
 #define FLAG_LILYCOVE_PARKER_LINKING_CORD    0x26
-#define FLAG_UNUSED_0x027    0x27 // Unused Flag
+#define FLAG_POKEMON_FOLLOWERS    0x27 // Set = followers disabled (B_FLAG_FOLLOWERS_DISABLED); moved off 0x21 which is used by the Dewford trade
 #define FLAG_UNUSED_0x028    0x28 // Unused Flag
 #define FLAG_UNUSED_0x029    0x29 // Unused Flag
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
