@@ -61,8 +61,8 @@
 #define FLAG_POKEMON_FOLLOWERS    0x27 // Set = followers disabled (B_FLAG_FOLLOWERS_DISABLED); moved off 0x21 which is used by the Dewford trade
 #define FLAG_HIDE_ROUTE109_HYPNO_CREW    0x28 // Hides Jeff, his boat, and Hypno outside the Route 109 cutscene (set on every map transition)
 #define FLAG_ROUTE109_HYPNO_EVENT_DONE    0x29 // Route 109 Hypno kidnapping event completed; hides the two girls
-#define FLAG_UNUSED_0x02A    0x2A // Unused Flag
-#define FLAG_UNUSED_0x02B    0x2B // Unused Flag
+#define FLAG_LILYCOVE_ROOF_EVENT_DONE    0x2A // Spencer rooftop event completed; hides the challenger
+#define FLAG_HIDE_LILYCOVE_ROOF_PIKACHU    0x2B // Hides the rooftop Pikachu outside the Spencer cutscene (set on transition)
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
 #define FLAG_UNUSED_0x02D    0x2D // Unused Flag
 #define FLAG_UNUSED_0x02E    0x2E // Unused Flag

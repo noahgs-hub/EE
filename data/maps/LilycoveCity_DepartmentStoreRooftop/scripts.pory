@@ -1,3 +1,58 @@
+script LilycoveCity_DepartmentStoreRooftop_EventScript_Spencer {
+    lock
+    faceplayer
+    if (flag(FLAG_LILYCOVE_ROOF_EVENT_DONE)) {
+        msgbox(format("SPENCER: Let's kill more POKéMON!"), MSGBOX_DEFAULT)
+        release
+        end
+    }
+    msgbox(format("SPENCER: This FAG challenged me to a POKéMON battle.\pI told him that was gay and that we should just fight instead."), MSGBOX_DEFAULT)
+    closemessage
+    msgbox(format("Go, PIKACHU!"), MSGBOX_DEFAULT)
+    closemessage
+    playse(SE_BALL_THROW)
+    waitse
+    clearflag(FLAG_HIDE_LILYCOVE_ROOF_PIKACHU)
+    addobject(LOCALID_LILYCOVE_ROOF_PIKACHU)
+    applymovement(LOCALID_LILYCOVE_ROOF_PIKACHU, moves(jump_in_place_left))
+    waitmovement(0)
+    playmoncry(SPECIES_PIKACHU, CRY_MODE_NORMAL)
+    waitmoncry
+    delay(16)
+    # Step the player aside if they're standing where Spencer needs to go
+    if (var(VAR_FACING) == DIR_WEST) {
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right, face_left))
+        waitmovement(0)
+    }
+    # Spencer walks over in front of the Pikachu...
+    applymovement(LOCALID_LILYCOVE_ROOF_SPENCER, moves(walk_right, face_down))
+    waitmovement(0)
+    delay(16)
+    # ...and shoves it off the roof
+    playse(SE_M_MEGA_KICK)
+    playmoncry(SPECIES_PIKACHU, CRY_MODE_ENCOUNTER)
+    applymovement(LOCALID_LILYCOVE_ROOF_PIKACHU, moves(walk_fast_down * 2, jump_2_down, slide_down * 3))
+    waitmovement(0)
+    removeobject(LOCALID_LILYCOVE_ROOF_PIKACHU)
+    setflag(FLAG_HIDE_LILYCOVE_ROOF_PIKACHU)
+    delay(16)
+    msgbox(format("NOOOO!"), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(LOCALID_LILYCOVE_ROOF_CHALLENGER, moves(emote_exclamation_mark, walk_right, walk_fast_down * 2, jump_2_down, slide_down * 3))
+    waitmovement(0)
+    removeobject(LOCALID_LILYCOVE_ROOF_CHALLENGER)
+    delay(24)
+    msgbox(format("SPENCER: Hey, that was pretty fun. Maybe POKéMON games aren't as gay as I thought.\pIf I give you this, will you not tell the police about this?\pIt fell out of my underwear earlier, but I think you might enjoy it more than me."), MSGBOX_DEFAULT)
+    giveitem(ITEM_BLACK_SLUDGE)
+    setflag(FLAG_LILYCOVE_ROOF_EVENT_DONE)
+    release
+    end
+}
+
+script LilycoveCity_DepartmentStoreRooftop_EventScript_RoofChallenger {
+    msgbox("I'm going to challenge SPENCER to a\nPOKéMON battle!", MSGBOX_NPC)
+}
+
 script LilycoveCity_DepartmentStoreRooftop_EventScript_Neal {
     lock
     faceplayer
@@ -83,6 +138,7 @@ LilycoveCity_DepartmentStoreRooftop_OnTransition:
 	call_if_eq VAR_RESULT, TRUE, LilycoveCity_DepartmentStoreRooftop_EventScript_ShowSaleWoman
 	call_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStoreRooftop_EventScript_HideSaleWoman
 	call_if_unset FLAG_LILYCOVE_NEAL_FREED, LilycoveCity_DepartmentStoreRooftop_EventScript_HideMiles
+	setflag FLAG_HIDE_LILYCOVE_ROOF_PIKACHU
 	end
 
 LilycoveCity_DepartmentStoreRooftop_EventScript_HideMiles::
