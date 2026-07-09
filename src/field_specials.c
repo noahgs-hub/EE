@@ -4670,6 +4670,35 @@ void SetHiddenNature(void)
     CalculateMonStats(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004]);
 }
 
+u16 GetMonRealNature(void)
+{
+    return GetNatureFromPersonality(GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_PERSONALITY));
+}
+
+// Changes the mon's actual nature (personality), unlike the mint/hidden nature
+// system. Party slot in VAR_0x8004, target nature in VAR_RESULT. Preserves
+// gender, shininess, ability slot (stored separately), and Unown letter; also
+// syncs the hidden nature so mints don't mask the change.
+void ChangeMonNature(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u32 nature = gSpecialVar_Result;
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 gender = GetMonGender(mon);
+    bool32 isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
+    u32 letter = RANDOM_UNOWN_LETTER;
+    u32 personality;
+
+    if (GET_BASE_SPECIES_ID(species) == SPECIES_UNOWN)
+        letter = GET_UNOWN_LETTER(GetMonData(mon, MON_DATA_PERSONALITY)) + 1;
+
+    personality = GetMonPersonality(species, gender, nature, letter);
+    SetMonPersonality(mon, personality);
+    SetMonData(mon, MON_DATA_IS_SHINY, &isShiny);
+    SetMonData(mon, MON_DATA_HIDDEN_NATURE, &nature);
+    CalculateMonStats(mon);
+}
+
 void SetAbility(void)
 {
     u32 ability = gSpecialVar_Result;

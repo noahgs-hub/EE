@@ -572,6 +572,8 @@ gSpecials::
 	def_special SetMonIv
 	def_special GetHiddenNature
 	def_special SetHiddenNature
+	def_special GetMonRealNature
+	def_special ChangeMonNature
 	def_special SetAbility
 	def_special CanTeachMoveBoxMon
 	def_special ObjectEventInteractionGetApricornTreeData

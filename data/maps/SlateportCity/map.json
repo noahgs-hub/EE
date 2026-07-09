@@ -507,6 +507,7 @@
       "flag": "FLAG_HIDE_SLATEPORT_CITY_SCOTT"
     },
     {
+      "local_id": "LOCALID_SLATEPORT_DIEGO",
       "graphics_id": "OBJ_EVENT_GFX_HIKER",
       "x": 37,
       "y": 13,
@@ -517,10 +518,10 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "SlateportCity_EventScript_Diego",
-      "flag": "FLAG_HIDE_SLATEPORT_DIEGO_EVENT",
-      "local_id": "LOCALID_SLATEPORT_DIEGO"
+      "flag": "FLAG_HIDE_SLATEPORT_DIEGO_EVENT"
     },
     {
+      "local_id": "LOCALID_SLATEPORT_ABUELA",
       "graphics_id": "OBJ_EVENT_GFX_OLD_WOMAN",
       "x": 36,
       "y": 13,
@@ -531,10 +532,10 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "SlateportCity_EventScript_Diegoabuela",
-      "flag": "FLAG_HIDE_SLATEPORT_DIEGO_EVENT",
-      "local_id": "LOCALID_SLATEPORT_ABUELA"
+      "flag": "FLAG_HIDE_SLATEPORT_DIEGO_EVENT"
     },
     {
+      "local_id": "LOCALID_SLATEPORT_ICE_COP_1",
       "graphics_id": "OBJ_EVENT_GFX_SCOTT",
       "x": 26,
       "y": 13,
@@ -544,11 +545,11 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "local_id": "LOCALID_SLATEPORT_ICE_COP_1",
       "script": "0x0",
       "flag": "FLAG_HIDE_SLATEPORT_ICE_COPS"
     },
     {
+      "local_id": "LOCALID_SLATEPORT_ICE_COP_2",
       "graphics_id": "OBJ_EVENT_GFX_SCOTT",
       "x": 25,
       "y": 13,
@@ -558,9 +559,21 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "local_id": "LOCALID_SLATEPORT_ICE_COP_2",
       "script": "0x0",
       "flag": "FLAG_HIDE_SLATEPORT_ICE_COPS"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
+      "x": 12,
+      "y": 47,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "SlateportCity_EventScript_Abilityclerk",
+      "flag": "0"
     }
   ],
   "warp_events": [

@@ -1964,6 +1964,25 @@ static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 perso
     return &boxMon->secure.substructs[sSubstructOffsets[substructType][ConstantMod24(personality)]];
 }
 
+// The substructs are encrypted with (and ordered by) the personality, so it
+// cannot be written directly; the checksum is over the decrypted data and is
+// unaffected. Callers must re-assert shininess (MON_DATA_IS_SHINY) and other
+// personality-derived traits themselves.
+void SetMonPersonality(struct Pokemon *mon, u32 personality)
+{
+    struct BoxPokemon *boxMon = &mon->box;
+    union PokemonSubstruct tmp[ARRAY_COUNT(boxMon->secure.substructs)];
+    u32 i;
+
+    DecryptBoxMon(boxMon);
+    for (i = 0; i < ARRAY_COUNT(tmp); i++)
+        tmp[i] = *GetSubstruct(boxMon, boxMon->personality, i);
+    boxMon->personality = personality;
+    for (i = 0; i < ARRAY_COUNT(tmp); i++)
+        *GetSubstruct(boxMon, personality, i) = tmp[i];
+    EncryptBoxMon(boxMon);
+}
+
 /* GameFreak called GetMonData with either 2 or 3 arguments, for type
  * safety we have a GetMonData macro (in include/pokemon.h) which
  * dispatches to either GetMonData2 or GetMonData3 based on the number
