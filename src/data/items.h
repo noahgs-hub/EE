@@ -1520,7 +1520,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_HEALTH_FEATHER] =
     {
         .name = ITEM_NAME("Health Feather"),
-        .price = (I_PRICE >= GEN_7) ? 300 : 3000,
+        .price = 1200,
         .description = sHealthFeatherDesc,
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_FEATHER,
@@ -1535,7 +1535,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_MUSCLE_FEATHER] =
     {
         .name = ITEM_NAME("Muscle Feather"),
-        .price = (I_PRICE >= GEN_7) ? 300 : 3000,
+        .price = 1200,
         .description = sMuscleFeatherDesc,
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_FEATHER,
@@ -1550,7 +1550,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_RESIST_FEATHER] =
     {
         .name = ITEM_NAME("Resist Feather"),
-        .price = (I_PRICE >= GEN_7) ? 300 : 3000,
+        .price = 1200,
         .description = sResistFeatherDesc,
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_FEATHER,
@@ -1565,7 +1565,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_GENIUS_FEATHER] =
     {
         .name = ITEM_NAME("Genius Feather"),
-        .price = (I_PRICE >= GEN_7) ? 300 : 3000,
+        .price = 1200,
         .description = sGeniusFeatherDesc,
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_FEATHER,
@@ -1580,7 +1580,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_CLEVER_FEATHER] =
     {
         .name = ITEM_NAME("Clever Feather"),
-        .price = (I_PRICE >= GEN_7) ? 300 : 3000,
+        .price = 1200,
         .description = sCleverFeatherDesc,
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_FEATHER,
@@ -1595,7 +1595,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_SWIFT_FEATHER] =
     {
         .name = ITEM_NAME("Swift Feather"),
-        .price = (I_PRICE >= GEN_7) ? 300 : 3000,
+        .price = 1200,
         .description = sSwiftFeatherDesc,
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_FEATHER,
