@@ -492,6 +492,11 @@ static void RemoveExtraStartMenuWindows(void)
     }
 }
 
+// With 9 entries (e.g. DexNav unlocked) the rows are compressed slightly
+// so the menu fits on screen; 8 or fewer keeps the vanilla layout.
+#define START_MENU_ROW_SPACING (sNumStartMenuActions >= 9 ? 15 : 16)
+#define START_MENU_ROW_OFFSET  (sNumStartMenuActions >= 9 ? 4 : 9)
+
 static bool32 PrintStartMenuActions(s8 *pIndex, u32 count)
 {
     s8 index = *pIndex;
@@ -500,12 +505,12 @@ static bool32 PrintStartMenuActions(s8 *pIndex, u32 count)
     {
         if (sStartMenuItems[sCurrentStartMenuActions[index]].func.u8_void == StartMenuPlayerNameCallback)
         {
-            PrintPlayerNameOnWindow(GetStartMenuWindowId(), sStartMenuItems[sCurrentStartMenuActions[index]].text, 8, (index << 4) + 9);
+            PrintPlayerNameOnWindow(GetStartMenuWindowId(), sStartMenuItems[sCurrentStartMenuActions[index]].text, 8, index * START_MENU_ROW_SPACING + START_MENU_ROW_OFFSET);
         }
         else
         {
             StringExpandPlaceholders(gStringVar4, sStartMenuItems[sCurrentStartMenuActions[index]].text);
-            AddTextPrinterParameterized(GetStartMenuWindowId(), FONT_NORMAL, gStringVar4, 8, (index << 4) + 9, TEXT_SKIP_DRAW, NULL);
+            AddTextPrinterParameterized(GetStartMenuWindowId(), FONT_NORMAL, gStringVar4, 8, index * START_MENU_ROW_SPACING + START_MENU_ROW_OFFSET, TEXT_SKIP_DRAW, NULL);
         }
 
         index++;
@@ -554,7 +559,7 @@ static bool32 InitStartMenuStep(void)
             sInitStartMenuData[0]++;
         break;
     case 5:
-        sStartMenuCursorPos = InitMenuNormal(GetStartMenuWindowId(), FONT_NORMAL, 0, 9, 16, sNumStartMenuActions, sStartMenuCursorPos);
+        sStartMenuCursorPos = InitMenuNormal(GetStartMenuWindowId(), FONT_NORMAL, 0, START_MENU_ROW_OFFSET, START_MENU_ROW_SPACING, sNumStartMenuActions, sStartMenuCursorPos);
         CopyWindowToVram(GetStartMenuWindowId(), COPYWIN_MAP);
         return TRUE;
     }

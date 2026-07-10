@@ -392,8 +392,13 @@ void DisplayYesNoMenuWithDefault(u8 initialCursorPos)
 
 u8 AddStartMenuWindow(u8 numActions)
 {
+    // Cap at 18 tiles so the window plus its frame fits the 20-tile screen
+    // when the menu has 9 entries (e.g. with the DexNav unlocked).
+    u8 height = (numActions * 2) + 2;
+    if (height > 18)
+        height = 18;
     if (sStartMenuWindowId == WINDOW_NONE)
-        sStartMenuWindowId = AddWindowParameterized(0, 22, 1, 7, (numActions * 2) + 2, 15, 0x139);
+        sStartMenuWindowId = AddWindowParameterized(0, 22, 1, 7, height, 15, 0x139);
     return sStartMenuWindowId;
 }
 
