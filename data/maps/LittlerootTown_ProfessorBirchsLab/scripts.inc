@@ -507,6 +507,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedex::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_HeardYouBeatRivalTakePokedex, MSGBOX_DEFAULT
 	call LittlerootTown_ProfessorBirchsLab_EventScript_ReceivePokedex
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_ExplainPokedex, MSGBOX_DEFAULT
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_TakeExpShareToo, MSGBOX_DEFAULT
+	giveitem ITEM_EXP_SHARE
 	closemessage
 	applymovement LOCALID_BIRCHS_LAB_RIVAL, LittlerootTown_ProfessorBirchsLab_Movement_RivalApproachPlayer
 	waitmovement 0
@@ -752,6 +754,15 @@ LittlerootTown_ProfessorBirchsLab_Text_ExplainPokedex:
 	.string "and records its data in the POKéDEX,\l"
 	.string "why, {RIVAL} looks for me while I'm out\l"
 	.string "doing fieldwork, and shows me.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_TakeExpShareToo:
+	.string "PROF. BIRCH: Oh, and take this\n"
+	.string "EXP. SHARE, too.\p"
+	.string "A POKéMON holding it will receive\n"
+	.string "EXP. Points even if it doesn't\l"
+	.string "actually battle.\p"
+	.string "It's just the thing for raising\n"
+	.string "a young team!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_CountlessPokemonAwait:
 	.string "PROF. BIRCH: Countless POKéMON\n"

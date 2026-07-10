@@ -303,7 +303,7 @@
 #define FLAG_RECEIVED_TM_THIEF               0x10D
 #define FLAG_CONTEST_SKETCH_CREATED          0x10E  // Set but never read
 #define FLAG_EVIL_TEAM_ESCAPED_STERN_SPOKE   0x10F
-#define FLAG_RECEIVED_EXP_SHARE              0x110
+#define FLAG_RECEIVED_DEXNAV                 0x110 // was FLAG_RECEIVED_EXP_SHARE; Mr. Stone now gives the DexNav
 #define FLAG_POKERUS_EXPLAINED               0x111
 #define FLAG_RECEIVED_RUNNING_SHOES          0x112
 #define FLAG_RECEIVED_QUICK_CLAW             0x113
@@ -1392,7 +1392,7 @@
 #define FLAG_HIDE_SLATEPORT_DIEGO_EVENT             (SYSTEM_FLAGS + 0x23) // Slateport Diego/Abuela event; visibility reconciled from VAR_SLATEPORT_DIEGO_STATE on map entry
 #define FLAG_HIDE_SLATEPORT_ICE_COPS                (SYSTEM_FLAGS + 0x24) // Slateport Diego event; force-set on map entry, cops only appear mid-cutscene
 #define FLAG_UNUSED_0x885                           (SYSTEM_FLAGS + 0x25) // Unused Flag
-#define FLAG_UNUSED_0x886                           (SYSTEM_FLAGS + 0x26) // Unused Flag
+#define FLAG_SYS_DEXNAV_SEARCH                      (SYSTEM_FLAGS + 0x26) // DexNav: currently searching
 #define FLAG_UNUSED_0x887                           (SYSTEM_FLAGS + 0x27) // DO NOT REUSE: confirmed dirty (set) in Noah's save, July 2026 - hid the Route 109 ICE agents
 
 #define FLAG_SYS_USE_FLASH                          (SYSTEM_FLAGS + 0x28)
@@ -1403,8 +1403,8 @@
 #define FLAG_SYS_SAFARI_MODE                        (SYSTEM_FLAGS + 0x2C)
 #define FLAG_SYS_CRUISE_MODE                        (SYSTEM_FLAGS + 0x2D)
 
-#define FLAG_UNUSED_0x88E                           (SYSTEM_FLAGS + 0x2E) // Unused Flag
-#define FLAG_UNUSED_0x88F                           (SYSTEM_FLAGS + 0x2F) // Unused Flag
+#define FLAG_SYS_DETECTOR_MODE                      (SYSTEM_FLAGS + 0x2E) // DexNav: can find hidden mons
+#define FLAG_SYS_DEXNAV_GET                         (SYSTEM_FLAGS + 0x2F) // DexNav unlocked (shows in menu)
 
 #define FLAG_SYS_TV_HOME                            (SYSTEM_FLAGS + 0x30)
 #define FLAG_SYS_TV_WATCH                           (SYSTEM_FLAGS + 0x31)
