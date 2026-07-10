@@ -63,7 +63,7 @@
 #define FLAG_ROUTE109_HYPNO_EVENT_DONE    0x29 // Route 109 Hypno kidnapping event completed; hides the two girls
 #define FLAG_LILYCOVE_ROOF_EVENT_DONE    0x2A // Spencer rooftop event completed; hides the challenger
 #define FLAG_HIDE_LILYCOVE_ROOF_PIKACHU    0x2B // Hides the rooftop Pikachu outside the Spencer cutscene (set on transition)
-#define FLAG_UNUSED_0x02C    0x2C // Unused Flag
+#define FLAG_BOUGHT_SECOND_BIKE    0x2C // Rydel sold the player their second bike; no more swap/purchase offers
 #define FLAG_UNUSED_0x02D    0x2D // Unused Flag
 #define FLAG_UNUSED_0x02E    0x2E // Unused Flag
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag
