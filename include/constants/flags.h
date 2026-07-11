@@ -67,7 +67,7 @@
 #define FLAG_HIDE_ROUTE111_COLIN_HIKER    0x2D // Hides the fleeing Hiker outside the Route 111 Colin cutscene (set on transition)
 #define FLAG_HIDE_ROUTE111_COLIN_CHARIZARD    0x2E // Hides Colin's Charizard outside the Route 111 Colin cutscene (set on transition)
 #define FLAG_RECEIVED_HEAVY_DUTY_BOOTS_ROUTE111    0x2F // Colin's Route 111 border cutscene completed; Heavy-Duty Boots received
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
+#define FLAG_HIDE_GUILDHOUSE_DAVE    0x30 // Custom July 2026: Slateport Guildhouse Dave walked out (cleared hourly on map transition; verified clean in dev save)
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag
 #define FLAG_UNUSED_0x032    0x32 // Unused Flag
 #define FLAG_UNUSED_0x033    0x33 // Unused Flag

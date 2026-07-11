@@ -1,0 +1,177 @@
+// Slateport Guildhouse - tabletop gaming den.
+// Object event IDs (map.json order): 1 = Caleb, 2 = Dave, 3 = Twiddle guy.
+// Dave is referenced by raw ID 2 on purpose: Porymap strips local_id fields on resave.
+// Hourly resets: cooldown vars store hour+1 (0 = inactive) and are compared
+// against gettime's VAR_0x8000; see VAR_GUILDHOUSE_* in constants/vars.h.
+
+mapscripts SlateportCity_Guildhouse_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        if (var(VAR_GUILDHOUSE_DAVE_COOLDOWN) != 0) {
+            gettime
+            addvar(VAR_0x8000, 1)
+            if (var(VAR_GUILDHOUSE_DAVE_COOLDOWN) != VAR_0x8000) {
+                setvar(VAR_GUILDHOUSE_DAVE_COOLDOWN, 0)
+                clearflag(FLAG_HIDE_GUILDHOUSE_DAVE)
+            }
+        }
+    }
+}
+
+script SlateportCity_Guildhouse_EventScript_Caleb {
+    lock
+    faceplayer
+    gettime
+    addvar(VAR_0x8000, 1)
+    if (var(VAR_GUILDHOUSE_CALEB_COOLDOWN) == VAR_0x8000) {
+        msgbox(SlateportCity_Guildhouse_Text_CalebCooldown, MSGBOX_DEFAULT)
+        release
+        end
+    }
+    msgbox(SlateportCity_Guildhouse_Text_CalebIntro, MSGBOX_YESNO)
+    if (var(VAR_RESULT) == FALSE) {
+        msgbox(SlateportCity_Guildhouse_Text_CalebRefused, MSGBOX_DEFAULT)
+        release
+        end
+    }
+    showmoneybox(0, 0)
+    checkmoney(5000)
+    if (var(VAR_RESULT) == FALSE) {
+        hidemoneybox
+        msgbox(SlateportCity_Guildhouse_Text_CalebNoMoney, MSGBOX_DEFAULT)
+        release
+        end
+    }
+    removemoney(5000)
+    updatemoneybox
+    playse(SE_SHOP)
+    delay(30)
+    hidemoneybox
+    random(20)
+    addvar(VAR_RESULT, 1)
+    copyvar(VAR_0x8008, VAR_RESULT)
+    buffernumberstring(0, VAR_0x8008)
+    msgbox(SlateportCity_Guildhouse_Text_Rolling, MSGBOX_DEFAULT)
+    if (var(VAR_0x8008) == 1) {
+        msgbox(SlateportCity_Guildhouse_Text_Roll1, MSGBOX_DEFAULT)
+        closemessage
+        gettime
+        addvar(VAR_0x8000, 1)
+        copyvar(VAR_GUILDHOUSE_CALEB_COOLDOWN, VAR_0x8000)
+        special(SetCB2WhiteOut)
+        waitstate
+        end
+    } elif (var(VAR_0x8008) <= 7) {
+        msgbox(SlateportCity_Guildhouse_Text_Roll2To7, MSGBOX_DEFAULT)
+        giveitem(ITEM_POKE_BALL)
+        if (var(VAR_RESULT) == FALSE) {
+            goto(Common_EventScript_ShowBagIsFull)
+        }
+    } elif (var(VAR_0x8008) <= 12) {
+        msgbox(SlateportCity_Guildhouse_Text_Roll8To12, MSGBOX_DEFAULT)
+        giveitem(ITEM_NUGGET)
+        if (var(VAR_RESULT) == FALSE) {
+            goto(Common_EventScript_ShowBagIsFull)
+        }
+    } elif (var(VAR_0x8008) <= 16) {
+        msgbox(SlateportCity_Guildhouse_Text_Roll13To16, MSGBOX_DEFAULT)
+        giveitem(ITEM_ABILITY_CAPSULE)
+        if (var(VAR_RESULT) == FALSE) {
+            goto(Common_EventScript_ShowBagIsFull)
+        }
+    } elif (var(VAR_0x8008) <= 19) {
+        msgbox(SlateportCity_Guildhouse_Text_Roll17To19, MSGBOX_DEFAULT)
+        giveitem(ITEM_ABILITY_PATCH)
+        if (var(VAR_RESULT) == FALSE) {
+            goto(Common_EventScript_ShowBagIsFull)
+        }
+    } else {
+        msgbox(SlateportCity_Guildhouse_Text_Roll20, MSGBOX_DEFAULT)
+        giveitem(ITEM_MASTER_BALL)
+        if (var(VAR_RESULT) == FALSE) {
+            goto(Common_EventScript_ShowBagIsFull)
+        }
+    }
+    gettime
+    addvar(VAR_0x8000, 1)
+    copyvar(VAR_GUILDHOUSE_CALEB_COOLDOWN, VAR_0x8000)
+    release
+    end
+}
+
+script SlateportCity_Guildhouse_EventScript_Twiddle {
+    msgbox(SlateportCity_Guildhouse_Text_Twiddle, MSGBOX_NPC)
+    end
+}
+
+script SlateportCity_Guildhouse_EventScript_Dave {
+    lock
+    faceplayer
+    msgbox(SlateportCity_Guildhouse_Text_Dave, MSGBOX_DEFAULT)
+    closemessage
+    specialvar(VAR_RESULT, GetPlayerFacingDirection)
+    if (var(VAR_RESULT) == DIR_NORTH) {
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
+        waitmovement(0)
+    }
+    applymovement(2, moves(walk_down, walk_left * 7, walk_down))
+    waitmovement(0)
+    removeobject(2)
+    gettime
+    addvar(VAR_0x8000, 1)
+    copyvar(VAR_GUILDHOUSE_DAVE_COOLDOWN, VAR_0x8000)
+    setflag(FLAG_HIDE_GUILDHOUSE_DAVE)
+    release
+    end
+}
+
+text SlateportCity_Guildhouse_Text_CalebIntro {
+    format("Hi, I'm CALEB. My name is far too Polish to be spoken in the English language!\pI am a DUNGEON MASTER in my free time.\pWhat? No, it's not a sexual thing. I mean DUNGEONS & DRAGONS.\pRoll for initiative! It only costs ¥5,000!")
+}
+
+text SlateportCity_Guildhouse_Text_CalebRefused {
+    format("Fine. Come find me when you grow some balls.")
+}
+
+text SlateportCity_Guildhouse_Text_CalebNoMoney {
+    format("No gold, no glory! Come back when you have ¥5,000.")
+}
+
+text SlateportCity_Guildhouse_Text_CalebCooldown {
+    format("Come back later and try your luck again. I'm going to alter some MAGIC: THE GATHERING cards.")
+}
+
+text SlateportCity_Guildhouse_Text_Rolling {
+    format("Rolling……\pYou rolled a {STR_VAR_1}!")
+}
+
+text SlateportCity_Guildhouse_Text_Roll1 {
+    format("Critical failure!\pYou black out!")
+}
+
+text SlateportCity_Guildhouse_Text_Roll2To7 {
+    format("You failed your PERCEPTION check to realize this is a total scam!")
+}
+
+text SlateportCity_Guildhouse_Text_Roll8To12 {
+    format("You did OK. Take this!")
+}
+
+text SlateportCity_Guildhouse_Text_Roll13To16 {
+    format("That's pretty good! Here!")
+}
+
+text SlateportCity_Guildhouse_Text_Roll17To19 {
+    format("Wow! You notice something shiny in the room!")
+}
+
+text SlateportCity_Guildhouse_Text_Roll20 {
+    format("CRITICAL SUCCESS!\pYou notice something through the hole in my pocket. Here, take it!")
+}
+
+text SlateportCity_Guildhouse_Text_Twiddle {
+    format("I brought TWIDDLE VAULT to a casual meetup!")
+}
+
+text SlateportCity_Guildhouse_Text_Dave {
+    format("DAVE: This guy brought TWIDDLE VAULT to a casual meetup.\pI hope he enjoys playing with himself.")
+}
