@@ -13,7 +13,7 @@ text EverGrandeCity_Text_PeterDefeat {
 }
 
 text EverGrandeCity_Text_PeterPostBattle {
-    format("Go on, the POKéMON LEAGUE awaits.\pDon't worry about PSYDUCK. He's used to being kept in the back and ignored.")
+    format("Thanks for knocking my team unconscious! That was all a part of me achieving my… goals…")
 }
 
 raw `

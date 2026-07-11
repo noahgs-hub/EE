@@ -107,6 +107,6 @@ EverGrandeCity_Text_PeterDefeat::
 
 EverGrandeCity_Text_PeterPostBattle::
 # 15 "data/maps/EverGrandeCity/scripts.pory"
-	.string "Go on, the POKéMON LEAGUE awaits.\p"
-	.string "Don't worry about PSYDUCK. He's used to\n"
-	.string "being kept in the back and ignored.$"
+	.string "Thanks for knocking my team\n"
+	.string "unconscious! That was all a part of me\l"
+	.string "achieving my… goals…$"
