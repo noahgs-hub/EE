@@ -125,7 +125,7 @@ script SlateportCity_Guildhouse_EventScript_Dave {
 }
 
 text SlateportCity_Guildhouse_Text_CalebIntro {
-    format("Hi, I'm CALEB. My name is far too Polish to be spoken in the English language!\pI am a DUNGEON MASTER in my free time.\pWhat? No, it's not a sexual thing. I mean DUNGEONS & DRAGONS.\pRoll for initiative! It only costs ¥5,000!")
+    format("Hi, I'm CALEB M. Why M? my last name is far too Polish to be spoken in the English language!\pI am a DUNGEON MASTER in my free time.\pWhat? No, it's not a sexual thing. I mean DUNGEONS & DRAGONS.\pRoll for initiative! It only costs ¥5,000!")
 }
 
 text SlateportCity_Guildhouse_Text_CalebRefused {
