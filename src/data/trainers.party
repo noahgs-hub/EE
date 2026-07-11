@@ -16877,3 +16877,62 @@ Double Battle: No
 Kyogre
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_PETER ===
+Name: PETER
+Class: Masturbator
+Pic: Pokemaniac
+Gender: Male
+Music: Cool
+Items: Full Restore / Full Restore
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / Smart Switching / HP Aware / Ace Pokemon
+
+Lopunny (F) @ Wide Lens
+Level: 44
+Ability: Cute Charm
+Nature: Jolly
+EVs: 252 Atk / 4 Def / 252 Spe
+- Fake Out
+- High Jump Kick
+- Ice Punch
+- Attract
+
+Gardevoir (F) @ Sitrus Berry
+Level: 45
+Ability: Trace
+Nature: Modest
+EVs: 252 SpA / 4 SpD / 252 Spe
+- Psychic
+- Moonblast
+- Thunderbolt
+- Calm Mind
+
+Hatterene (F) @ Leftovers
+Level: 46
+Ability: Magic Bounce
+Nature: Modest
+EVs: 252 HP / 252 SpA / 4 SpD
+- Psychic
+- Dazzling Gleam
+- Mystical Fire
+- Calm Mind
+
+Vaporeon (F) @ Leftovers
+Level: 48
+Ability: Water Absorb
+Nature: Bold
+EVs: 252 HP / 252 Def / 4 SpA
+- Scald
+- Ice Beam
+- Wish
+- Attract
+
+Psyduck (M)
+Level: 100
+Nature: Quirky
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Hydro Pump
+- Psychic
+- Ice Beam
+- Amnesia

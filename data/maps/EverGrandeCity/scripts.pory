@@ -1,0 +1,56 @@
+script EverGrandeCity_EventScript_Peter {
+    trainerbattle_single(TRAINER_PETER, EverGrandeCity_Text_PeterIntro, EverGrandeCity_Text_PeterDefeat)
+    msgbox(EverGrandeCity_Text_PeterPostBattle, MSGBOX_AUTOCLOSE)
+    end
+}
+
+text EverGrandeCity_Text_PeterIntro {
+    format("HI I'M PETER! You just went through a long and arduous journey through VICTORY ROAD.\pIt taxed your resources, knocked out several of your POKéMON, and drained you both physically and emotionally.\pI figured I would wait outside in this literally unavoidable spot to beat you and take your money, as for whatever reason you take a financial loss in this game despite canonically being a ten-year-old fighting adults.\pAnyway, my team is handcrafted to accomplish very… specific goals.\pLet me show you!")
+}
+
+text EverGrandeCity_Text_PeterDefeat {
+    format("No! My handcrafted team! We never even got to accomplish our goals…")
+}
+
+text EverGrandeCity_Text_PeterPostBattle {
+    format("Go on, the POKéMON LEAGUE awaits.\pDon't worry about PSYDUCK. He's used to being kept in the back and ignored.")
+}
+
+raw `
+EverGrandeCity_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, EverGrandeCity_OnTransition
+	.byte 0
+
+EverGrandeCity_OnTransition:
+	call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
+	end
+
+EverGrandeCity_EventScript_VictoryRoadSign::
+	msgbox EverGrandeCity_Text_EnteringVictoryRoad, MSGBOX_SIGN
+	end
+
+EverGrandeCity_EventScript_CitySign::
+	msgbox EverGrandeCity_Text_CitySign, MSGBOX_SIGN
+	end
+
+EverGrandeCity_EventScript_PokemonLeagueSign::
+	msgbox EverGrandeCity_Text_EnteringPokemonLeague, MSGBOX_SIGN
+	end
+
+EverGrandeCity_EventScript_SetVisitedEverGrande::
+	setflag FLAG_VISITED_EVER_GRANDE_CITY
+	setvar VAR_TEMP_1, 1
+	end
+
+EverGrandeCity_Text_EnteringVictoryRoad:
+	.string "ENTERING VICTORY ROAD$"
+
+EverGrandeCity_Text_EnteringPokemonLeague:
+	.string "ENTERING POKéMON LEAGUE\n"
+	.string "CENTER GATE$"
+
+EverGrandeCity_Text_CitySign:
+	.string "EVER GRANDE CITY\p"
+	.string "“The paradise of flowers, the sea,\n"
+	.string "and POKéMON.”$"
+`
