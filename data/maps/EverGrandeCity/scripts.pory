@@ -9,7 +9,7 @@ text EverGrandeCity_Text_PeterIntro {
 }
 
 text EverGrandeCity_Text_PeterDefeat {
-    format("No! My handcrafted team! We never even got to accomplish our goals…")
+    format("Thanks for knocking my team unconscious! That was all a part of me achieving my… goals…")
 }
 
 text EverGrandeCity_Text_PeterPostBattle {

@@ -101,8 +101,9 @@ EverGrandeCity_Text_PeterIntro::
 
 EverGrandeCity_Text_PeterDefeat::
 # 11 "data/maps/EverGrandeCity/scripts.pory"
-	.string "No! My handcrafted team! We never even\n"
-	.string "got to accomplish our goals…$"
+	.string "Thanks for knocking my team\n"
+	.string "unconscious! That was all a part of me\l"
+	.string "achieving my… goals…$"
 
 EverGrandeCity_Text_PeterPostBattle::
 # 15 "data/maps/EverGrandeCity/scripts.pory"
