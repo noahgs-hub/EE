@@ -861,12 +861,12 @@
 #define TRAINER_MAY_PLACEHOLDER             854
 #define TRAINER_PETER                       855
 
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
-//       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
-//       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
+// NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs are capped at MAX_TRAINERS_COUNT_EMERALD.
+//       July 2026: raised 864 -> 1024 (shifts every flag >= 0x860 and grows SaveBlock1 by 20 bytes).
+//       Saves from before this change must be run through tools/convert_flag_save.py.
 
 #define TRAINERS_COUNT_EMERALD     856
-#define MAX_TRAINERS_COUNT_EMERALD 864
+#define MAX_TRAINERS_COUNT_EMERALD 1024
 
 #if IS_FRLG
 #define TRAINERS_COUNT                      TRAINERS_COUNT_FRLG
