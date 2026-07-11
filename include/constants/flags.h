@@ -64,9 +64,9 @@
 #define FLAG_LILYCOVE_ROOF_EVENT_DONE    0x2A // Spencer rooftop event completed; hides the challenger
 #define FLAG_HIDE_LILYCOVE_ROOF_PIKACHU    0x2B // Hides the rooftop Pikachu outside the Spencer cutscene (set on transition)
 #define FLAG_BOUGHT_SECOND_BIKE    0x2C // Rydel sold the player their second bike; no more swap/purchase offers
-#define FLAG_UNUSED_0x02D    0x2D // Unused Flag
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
-#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
+#define FLAG_HIDE_ROUTE111_COLIN_HIKER    0x2D // Hides the fleeing Hiker outside the Route 111 Colin cutscene (set on transition)
+#define FLAG_HIDE_ROUTE111_COLIN_CHARIZARD    0x2E // Hides Colin's Charizard outside the Route 111 Colin cutscene (set on transition)
+#define FLAG_RECEIVED_HEAVY_DUTY_BOOTS_ROUTE111    0x2F // Colin's Route 111 border cutscene completed; Heavy-Duty Boots received
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag
 #define FLAG_UNUSED_0x032    0x32 // Unused Flag
