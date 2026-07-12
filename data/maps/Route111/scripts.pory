@@ -42,10 +42,13 @@ script Route111_EventScript_Colin {
     waitmovement(LOCALID_ROUTE111_COLIN_CHARIZARD)
     # Flamethrower lands offscreen: white flash, then the ground rumbles.
     playse(SE_M_FLAMETHROWER)
-    fadescreen(FADE_TO_WHITE)
+    # swapbuffers variant: removing the Charizard (and freeing its species OW
+    # palette) while palettes are faded corrupts the restore with plain fadescreen,
+    # leaving the map dark until reload
+    fadescreenswapbuffers(FADE_TO_WHITE)
     removeobject(LOCALID_ROUTE111_COLIN_CHARIZARD)
     setflag(FLAG_HIDE_ROUTE111_COLIN_CHARIZARD)
-    fadescreen(FADE_FROM_WHITE)
+    fadescreenswapbuffers(FADE_FROM_WHITE)
     setvar(VAR_0x8004, 2)  # vertical pan
     setvar(VAR_0x8005, 2)  # horizontal pan
     setvar(VAR_0x8006, 8)  # num shakes
