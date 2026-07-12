@@ -46,6 +46,18 @@ PROTECTED = {"MOVE_COUNTER", "MOVE_MIRROR_COAT", "MOVE_BIDE", "MOVE_METAL_BURST"
 def eval_c_int(expr):
     """Evaluate '8 >= 5 ? 90 : 95' style constant expressions."""
     expr = expr.strip()
+    while expr.startswith("(") and expr.endswith(")"):
+        depth = 0
+        balanced = True
+        for i, ch in enumerate(expr):
+            depth += ch == "("
+            depth -= ch == ")"
+            if depth == 0 and i < len(expr) - 1:
+                balanced = False
+                break
+        if not balanced:
+            break
+        expr = expr[1:-1].strip()
     m = re.match(r"^(.+?)\?(.+?):(.+)$", expr)
     if m:
         cond, then, els = (p.strip() for p in m.groups())
