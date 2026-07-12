@@ -99,9 +99,11 @@ def evolve(species_data, const, level):
         if not info:
             break
         nxt = None
-        for method, param, target in info["evolutions"]:
+        for entry in info["evolutions"]:
+            method, param, target = entry[0], entry[1], entry[2]
+            conditioned = entry[3] if len(entry) > 3 else False
             # param 0 encodes condition-based level-up evos (friendship etc.) — skip those
-            if method == "EVO_LEVEL" and param.isdigit() and 2 <= int(param) <= level:
+            if not conditioned and method == "EVO_LEVEL" and param.isdigit() and 2 <= int(param) <= level:
                 nxt = target
                 break
         if not nxt:

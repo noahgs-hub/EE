@@ -125,12 +125,25 @@ def parse_species(text, learnsets):
         fg = field(r"\.growthRate = (\w+)")
         fn = field(r'\.speciesName = _\("([^"]*)"\)')
         fl = field(r"\.levelUpLearnset = (\w+)")
-        fe = field(r"\.evolutions = \(const struct Evolution\[\]\) \{(.*?)\},\n", None)
 
         evolutions = []
-        if fe:
-            for em in re.finditer(r"\{(\w+), ([^,}]+), (SPECIES_\w+)", fe.group(1)):
-                evolutions.append([em.group(1), em.group(2).strip(), em.group(3)])
+        emark = body.find(".evolutions = (const struct Evolution[])")
+        if emark != -1:
+            # brace-matched capture: entries may contain nested CONDITIONS blocks
+            estart = body.index("{", emark)
+            depth = 0
+            eend = estart
+            for k in range(estart, len(body)):
+                depth += body[k] == "{"
+                depth -= body[k] == "}"
+                if depth == 0:
+                    eend = k
+                    break
+            elist = body[estart + 1:eend]
+            # each entry: {METHOD, param, SPECIES_X} or {METHOD, param, SPECIES_X, <conditions>}
+            for em in re.finditer(r"\{(\w+),\s*([^,}]+),\s*(SPECIES_\w+)\s*([,}])", elist):
+                conditioned = em.group(4) == ","
+                evolutions.append([em.group(1), em.group(2).strip(), em.group(3), conditioned])
 
         species[sp] = {
             "name": fn.group(1) if fn else sp,
