@@ -857,10 +857,6 @@ u32 GetItemHoldEffectParam(enum Item itemId)
 
 const u8 *GetItemDescription(enum Item itemId)
 {
-    // TMs/HMs show their move's description rather than a static string
-    enum Move tmHmMove = GetItemTMHMMoveId(itemId);
-    if (tmHmMove != MOVE_NONE)
-        return GetMoveDescription(tmHmMove);
     return gItemsInfo[SanitizeItemId(itemId)].description;
 }
 

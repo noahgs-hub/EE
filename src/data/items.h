@@ -147,6 +147,10 @@ const u8 gQuestionMarksItemName[] = _("????????");
 
 static const u8 sQuestionMarksDesc[]  = _("?????");
 
+static const u8 sTMHMDescription[]    = _("A TM. Teaches a\n"
+                                          "POKéMON a new\n"
+                                          "battle move.");
+
 static const u8 sKeyToRoomDesc[]      = _("A key that opens a\n"
                                           "door inside the\n"
                                           "Abandoned Ship.");
@@ -12882,7 +12886,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM51"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12893,7 +12897,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM52"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12904,7 +12908,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM53"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12915,7 +12919,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM54"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12926,7 +12930,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM55"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12937,7 +12941,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM56"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12948,7 +12952,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM57"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12959,7 +12963,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM58"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12970,7 +12974,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM59"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12981,7 +12985,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM60"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12992,7 +12996,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM61"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13003,7 +13007,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM62"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13014,7 +13018,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM63"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13025,7 +13029,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM64"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13036,7 +13040,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM65"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13047,7 +13051,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM66"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13058,7 +13062,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM67"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13069,7 +13073,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM68"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13080,7 +13084,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM69"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13091,7 +13095,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM70"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13102,7 +13106,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM71"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13113,7 +13117,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM72"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13124,7 +13128,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM73"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13135,7 +13139,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM74"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13146,7 +13150,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM75"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13157,7 +13161,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM76"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13168,7 +13172,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM77"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13179,7 +13183,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM78"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13190,7 +13194,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM79"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13201,7 +13205,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM80"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13212,7 +13216,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM81"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13223,7 +13227,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM82"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13234,7 +13238,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM83"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13245,7 +13249,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM84"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13256,7 +13260,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM85"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13267,7 +13271,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM86"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13278,7 +13282,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM87"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13289,7 +13293,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM88"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13300,7 +13304,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM89"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13311,7 +13315,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM90"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13322,7 +13326,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM91"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13333,7 +13337,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM92"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13344,7 +13348,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM93"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13355,7 +13359,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM94"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13366,7 +13370,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM95"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13377,7 +13381,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM96"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13388,7 +13392,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM97"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13399,7 +13403,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM98"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13410,7 +13414,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM99"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13421,7 +13425,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM100"),
         .price = 3000,
-        .description = sQuestionMarksDesc, // Todo
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13432,7 +13436,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM101"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13443,7 +13447,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM102"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13454,7 +13458,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM103"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13465,7 +13469,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM104"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13476,7 +13480,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM105"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13487,7 +13491,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM106"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13498,7 +13502,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM107"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13509,7 +13513,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM108"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13520,7 +13524,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM109"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13531,7 +13535,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM110"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13542,7 +13546,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM111"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13553,7 +13557,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM112"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13564,7 +13568,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM113"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13575,7 +13579,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM114"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13586,7 +13590,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM115"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13597,7 +13601,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM116"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13608,7 +13612,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM117"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13619,7 +13623,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM118"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13630,7 +13634,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM119"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13641,7 +13645,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM120"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13652,7 +13656,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM121"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13663,7 +13667,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM122"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13674,7 +13678,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM123"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13685,7 +13689,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM124"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13696,7 +13700,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM125"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13707,7 +13711,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM126"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13718,7 +13722,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM127"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13729,7 +13733,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM128"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13740,7 +13744,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM129"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13751,7 +13755,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM130"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13762,7 +13766,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM131"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13773,7 +13777,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM132"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13784,7 +13788,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM133"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13795,7 +13799,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM134"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13806,7 +13810,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM135"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13817,7 +13821,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM136"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13828,7 +13832,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM137"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13839,7 +13843,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM138"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13850,7 +13854,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM139"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13861,7 +13865,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM140"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13872,7 +13876,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM141"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13883,7 +13887,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM142"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13894,7 +13898,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM143"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13905,7 +13909,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM144"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13916,7 +13920,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM145"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13927,7 +13931,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM146"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13938,7 +13942,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM147"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13949,7 +13953,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM148"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13960,7 +13964,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM149"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13971,7 +13975,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM150"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13982,7 +13986,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM151"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13993,7 +13997,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM152"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14004,7 +14008,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM153"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14015,7 +14019,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM154"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14026,7 +14030,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM155"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14037,7 +14041,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM156"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14048,7 +14052,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM157"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14059,7 +14063,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM158"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14070,7 +14074,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM159"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14081,7 +14085,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM160"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14092,7 +14096,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM161"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14103,7 +14107,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM162"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14114,7 +14118,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM163"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14125,7 +14129,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM164"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14136,7 +14140,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM165"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14147,7 +14151,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM166"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14158,7 +14162,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM167"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14169,7 +14173,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM168"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14180,7 +14184,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM169"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14191,7 +14195,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM170"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14202,7 +14206,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM171"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14213,7 +14217,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM172"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14224,7 +14228,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM173"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14235,7 +14239,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM174"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14246,7 +14250,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM175"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14257,7 +14261,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM176"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14268,7 +14272,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM177"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14279,7 +14283,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM178"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14290,7 +14294,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM179"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14301,7 +14305,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM180"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14312,7 +14316,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM181"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14323,7 +14327,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM182"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14334,7 +14338,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM183"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14345,7 +14349,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM184"),
         .price = 3000,
-        .description = sQuestionMarksDesc,
+        .description = sTMHMDescription,
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
