@@ -31,6 +31,7 @@
 #include "constants/items.h"
 #include "constants/battle_frontier.h"
 #include "constants/abilities.h"
+#include "constants/moves.h"
 #include "wild_encounter.h"
 
 static void CB2_ReturnFromChooseHalfParty(void);
@@ -165,6 +166,22 @@ void CreateScriptedDoubleWildMon(enum Species species1, u8 level1, enum Item ite
         heldItem2[1] = item2 >> 8;
         SetMonData(&gParties[B_TRAINER_OPPONENT_A][1], MON_DATA_HELD_ITEM, heldItem2);
     }
+}
+
+// Overrides the scripted wild mon's moves with its ORAS Sky Pillar moveset.
+// Called after setwildbattle, before the battle starts.
+void SetScriptedRayquazaMoves(void)
+{
+    static const u16 sRayquazaMoves[MAX_MON_MOVES] = {
+        MOVE_DRAGON_ASCENT,
+        MOVE_DRAGON_CLAW,
+        MOVE_EXTREME_SPEED,
+        MOVE_DRAGON_DANCE,
+    };
+    u32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        SetMonMoveSlot(&gParties[B_TRAINER_OPPONENT_A][0], sRayquazaMoves[i], i);
 }
 
 void ScriptSetMonMoveSlot(u8 monIndex, enum Move move, u8 slot)
