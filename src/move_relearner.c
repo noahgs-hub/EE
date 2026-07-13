@@ -316,6 +316,9 @@ void TeachMoveRelearnerMove(void)
     LockPlayerFieldControls();
     CreateTask(Task_WaitForFadeOut, 10);
     gRelearnMode = RELEARN_MODE_SCRIPT;
+    // The summary-screen relearner cycles this state and leaves it sticky;
+    // the NPC tutor has no category switcher, so always start on level-up moves.
+    gMoveRelearnerState = MOVE_RELEARNER_LEVEL_UP_MOVES;
     // Fade to black
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
 }
