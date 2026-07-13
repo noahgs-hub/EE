@@ -2429,7 +2429,19 @@ static void Task_DexNavMain(u8 taskId)
         // check selection is valid. Play sound if invalid
         species = DexNavGetSpecies();
 
-        if (species != SPECIES_NONE)
+        if (species == SPECIES_NONE)
+        {
+            PlaySE(SE_FAILURE);
+        }
+        else if (species == (VarGet(DN_VAR_SPECIES) & DEXNAV_MASK_SPECIES))
+        {
+            // pressing R on the already-registered species unregisters it,
+            // freeing the overworld R button
+            PrintSearchableSpecies(SPECIES_NONE);
+            PlaySE(SE_PC_OFF);
+            VarSet(DN_VAR_SPECIES, SPECIES_NONE);
+        }
+        else
         {
             PrintSearchableSpecies(species);
             //PlaySE(SE_DEX_SEARCH);
@@ -2437,10 +2449,6 @@ static void Task_DexNavMain(u8 taskId)
 
             // create value to store in a var
             VarSet(DN_VAR_SPECIES, ((sDexNavUiDataPtr->environment << 14) | species));
-        }
-        else
-        {
-            PlaySE(SE_FAILURE);
         }
     }
     else if (JOY_NEW(A_BUTTON))
