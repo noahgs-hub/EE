@@ -18,6 +18,7 @@
 #include "shop_criteria.h"
 #include "constants/battle.h"
 #include "constants/items.h"
+#include "move.h"
 #include "constants/moves.h"
 #include "constants/item_effects.h"
 #include "constants/hold_effects.h"
@@ -856,6 +857,10 @@ u32 GetItemHoldEffectParam(enum Item itemId)
 
 const u8 *GetItemDescription(enum Item itemId)
 {
+    // TMs/HMs show their move's description rather than a static string
+    enum Move tmHmMove = GetItemTMHMMoveId(itemId);
+    if (tmHmMove != MOVE_NONE)
+        return GetMoveDescription(tmHmMove);
     return gItemsInfo[SanitizeItemId(itemId)].description;
 }
 

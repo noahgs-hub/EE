@@ -113,7 +113,7 @@ enum Language
 #define BAG_ITEMS_COUNT 60
 #define BAG_KEYITEMS_COUNT 40
 #define BAG_POKEBALLS_COUNT 30
-#define BAG_TMHM_COUNT 110
+#define BAG_TMHM_COUNT 192 // July 2026: holds all 184 TMs + 8 HMs (save-breaking; tools/convert_tmpocket_save.py)
 #define BAG_BERRIES_COUNT 70
 
 // Number of facilities for Ranking Hall.
