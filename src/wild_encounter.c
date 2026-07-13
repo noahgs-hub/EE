@@ -1049,7 +1049,8 @@ bool8 IsWildLevelAllowedByRepel(u8 wildLevel)
 {
     u8 i;
 
-    if (!REPEL_STEP_COUNT)
+    // Repel Charm: acts as a permanent repel while toggled on
+    if (!REPEL_STEP_COUNT && !FlagGet(FLAG_REPEL_CHARM_ON))
         return TRUE;
 
     for (i = 0; i < PARTY_SIZE; i++)

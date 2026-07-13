@@ -13607,6 +13607,22 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_ExpCharm,
     },
 
+    [ITEM_REPEL_CHARM] =
+    {
+        .name = ITEM_NAME("Repel Charm"),
+        .price = 0,
+        .importance = 1,
+        .description = COMPOUND_STRING(
+            "Repels weak wild\n"
+            "POKéMON while on.\n"
+            "Use it to toggle."),
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_RepelCharm,
+        .iconPic = gItemIcon_Repel,
+        .iconPalette = gItemIconPalette_Repel,
+    },
+
 // Form-changing Key Items
 
     [ITEM_ROTOM_CATALOG] =

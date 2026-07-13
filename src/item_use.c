@@ -783,6 +783,33 @@ void ItemUseOutOfBattle_CoinCase(u8 taskId)
     }
 }
 
+static const u8 sText_RepelCharmOn[] = _("The REPEL CHARM was switched on!\nWeak wild POKéMON will stay away.{PAUSE_UNTIL_PRESS}");
+static const u8 sText_RepelCharmOff[] = _("The REPEL CHARM was switched off.{PAUSE_UNTIL_PRESS}");
+
+void ItemUseOutOfBattle_RepelCharm(u8 taskId)
+{
+    if (FlagGet(FLAG_REPEL_CHARM_ON))
+    {
+        FlagClear(FLAG_REPEL_CHARM_ON);
+        StringExpandPlaceholders(gStringVar4, sText_RepelCharmOff);
+    }
+    else
+    {
+        FlagSet(FLAG_REPEL_CHARM_ON);
+        PlaySE(SE_REPEL);
+        StringExpandPlaceholders(gStringVar4, sText_RepelCharmOn);
+    }
+
+    if (!gTasks[taskId].tUsingRegisteredKeyItem)
+    {
+        DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, CloseItemMessage);
+    }
+    else
+    {
+        DisplayItemMessageOnField(taskId, gStringVar4, Task_CloseCantUseKeyItemMessage);
+    }
+}
+
 void ItemUseOutOfBattle_PowderJar(u8 taskId)
 {
     ConvertIntToDecimalStringN(gStringVar1, GetBerryPowder(), STR_CONV_MODE_LEFT_ALIGN, 5);

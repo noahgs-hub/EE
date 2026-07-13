@@ -1,7 +1,19 @@
 script EverGrandeCity_EventScript_Peter {
     trainerbattle_single(TRAINER_PETER, EverGrandeCity_Text_PeterIntro, EverGrandeCity_Text_PeterDefeat)
+    # Runs right after the first victory AND on later chats; gate the gift.
+    if (!flag(FLAG_RECEIVED_REPEL_CHARM)) {
+        msgbox(EverGrandeCity_Text_PeterGiveCharm, MSGBOX_DEFAULT)
+        giveitem(ITEM_REPEL_CHARM)
+        setflag(FLAG_RECEIVED_REPEL_CHARM)
+        release
+        end
+    }
     msgbox(EverGrandeCity_Text_PeterPostBattle, MSGBOX_AUTOCLOSE)
     end
+}
+
+text EverGrandeCity_Text_PeterGiveCharm {
+    format("Whew. You know what, kid? You've earned this.\pIt's my REPEL CHARM. Turn it on and weak wild POKéMON will leave you alone. Permanently. No steps, no spray, no hassle.\pI don't need it anymore. Nothing out here bothers me… for very different reasons.")
 }
 
 text EverGrandeCity_Text_PeterIntro {

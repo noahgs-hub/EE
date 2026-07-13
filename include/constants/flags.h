@@ -68,8 +68,8 @@
 #define FLAG_HIDE_ROUTE111_COLIN_CHARIZARD    0x2E // Hides Colin's Charizard outside the Route 111 Colin cutscene (set on transition)
 #define FLAG_RECEIVED_HEAVY_DUTY_BOOTS_ROUTE111    0x2F // Colin's Route 111 border cutscene completed; Heavy-Duty Boots received
 #define FLAG_HIDE_GUILDHOUSE_DAVE    0x30 // Custom July 2026: Slateport Guildhouse Dave walked out (cleared hourly on map transition; verified clean in dev save)
-#define FLAG_UNUSED_0x031    0x31 // Unused Flag
-#define FLAG_UNUSED_0x032    0x32 // Unused Flag
+#define FLAG_REPEL_CHARM_ON    0x31 // Custom July 2026: Repel Charm key item toggle (permanent repel while set)
+#define FLAG_RECEIVED_REPEL_CHARM    0x32 // Custom July 2026: Lilycove Dept. Store greeter gave the Repel Charm
 #define FLAG_UNUSED_0x033    0x33 // Unused Flag
 #define FLAG_UNUSED_0x034    0x34 // Unused Flag
 #define FLAG_UNUSED_0x035    0x35 // Unused Flag
