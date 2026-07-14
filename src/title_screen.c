@@ -12,7 +12,9 @@
 #include "m4a.h"
 #include "main.h"
 #include "main_menu.h"
+#include "overworld.h"
 #include "palette.h"
+#include "save.h"
 #include "reset_rtc_screen.h"
 #include "berry_fix_program.h"
 #include "sound.h"
@@ -48,6 +50,7 @@ static void Task_TitleScreenPhase1(u8);
 static void Task_TitleScreenPhase2(u8);
 static void Task_TitleScreenPhase3(u8);
 static void CB2_GoToMainMenu(void);
+static void CB2_GoToContinueSavedGame(void);
 static void CB2_GoToClearSaveDataScreen(void);
 static void CB2_GoToResetRtcScreen(void);
 static void CB2_GoToBerryFixScreen(void);
@@ -783,7 +786,14 @@ static void Task_TitleScreenPhase3(u8 taskId)
     if (QUICKSTART && JOY_NEW(SELECT_BUTTON))
         Quickstart();
 
-    if (JOY_NEW(A_BUTTON) || JOY_NEW(START_BUTTON))
+    // Quick start: press START to jump straight into the saved game, skipping the main menu.
+    if (JOY_NEW(START_BUTTON) && gSaveFileStatus == SAVE_STATUS_OK)
+    {
+        FadeOutBGM(4);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        SetMainCallback2(CB2_GoToContinueSavedGame);
+    }
+    else if (JOY_NEW(A_BUTTON) || JOY_NEW(START_BUTTON))
     {
         FadeOutBGM(4);
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_WHITEALPHA);
@@ -829,6 +839,16 @@ static void CB2_GoToMainMenu(void)
 {
     if (!UpdatePaletteFade())
         SetMainCallback2(CB2_InitMainMenu);
+}
+
+static void CB2_GoToContinueSavedGame(void)
+{
+    if (!UpdatePaletteFade())
+    {
+        gPlttBufferUnfaded[0] = RGB_BLACK;
+        gPlttBufferFaded[0] = RGB_BLACK;
+        SetMainCallback2(CB2_ContinueSavedGame);
+    }
 }
 
 static void CB2_GoToCopyrightScreen(void)

@@ -12,6 +12,7 @@
 #include "load_save.h"
 #include "save.h"
 #include "new_game.h"
+#include "overworld.h"
 #include "m4a.h"
 #include "random.h"
 #include "decompress.h"
@@ -110,6 +111,7 @@ static void SpriteCB_Lightning(struct Sprite *sprite);
 static void SpriteCB_RayquazaOrb(struct Sprite *sprite);
 
 static void MainCB2_EndIntro(void);
+static void MainCB2_EndIntroToContinueGame(void);
 
 extern const struct BattleAnimation gBattleAnimTable[ANIM_TAG_COUNT];
 extern const struct SpriteTemplate gAncientPowerRockSpriteTemplate;
@@ -1026,7 +1028,19 @@ void MainCB2_Intro(void)
     BuildOamBuffer();
     UpdatePaletteFade();
     if (gMain.newKeys != 0 && !gPaletteFade.active)
-        SetMainCallback2(MainCB2_EndIntro);
+    {
+        // Quick start: press START during the intro to jump straight into the saved game.
+        if (JOY_NEW(START_BUTTON) && gSaveFileStatus == SAVE_STATUS_OK)
+        {
+            FadeOutBGM(4);
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+            SetMainCallback2(MainCB2_EndIntroToContinueGame);
+        }
+        else
+        {
+            SetMainCallback2(MainCB2_EndIntro);
+        }
+    }
     else if (gIntroFrameCounter != -1)
         gIntroFrameCounter++;
 }
@@ -1035,6 +1049,16 @@ static void MainCB2_EndIntro(void)
 {
     if (!UpdatePaletteFade())
         SetMainCallback2(CB2_InitTitleScreen);
+}
+
+static void MainCB2_EndIntroToContinueGame(void)
+{
+    if (!UpdatePaletteFade())
+    {
+        gPlttBufferUnfaded[0] = RGB_BLACK;
+        gPlttBufferFaded[0] = RGB_BLACK;
+        SetMainCallback2(CB2_ContinueSavedGame);
+    }
 }
 
 static void LoadCopyrightGraphics(u16 tilesetAddress, u16 tilemapAddress, u16 paletteOffset)
