@@ -335,7 +335,15 @@ static void CB2_Credits(void)
     RunTasks();
     AnimateSprites();
 
-    if ((JOY_HELD(B_BUTTON))
+    if (JOY_NEW(START_BUTTON))
+    {
+        // Skip the rest of the credits and go straight to the ending.
+        FadeOutBGM(4);
+        ResetTasks();
+        BeginNormalPaletteFade(PALETTES_ALL, 8, 0, 16, RGB_WHITEALPHA);
+        sSavedTaskId = CreateTask(Task_CreditsSoftReset, 0);
+    }
+    else if ((JOY_HELD(B_BUTTON))
      && gHasHallOfFameRecords
      && gTasks[sSavedTaskId].func == Task_CreditsMain)
     {
