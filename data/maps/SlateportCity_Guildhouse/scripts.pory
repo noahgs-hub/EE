@@ -1,6 +1,7 @@
 // Slateport Guildhouse - tabletop gaming den.
-// Object event IDs (map.json order): 1 = Caleb, 2 = Dave, 3 = Twiddle guy.
-// Dave is referenced by raw ID 2 on purpose: Porymap strips local_id fields on resave.
+// Object event IDs (map.json order): 1 = Caleb, 2 = Dave, 3 = Twiddle guy,
+//   4 = Stoomie (right), 5 = John (left).
+// Dave/Stoomie are referenced by raw ID on purpose: Porymap strips local_id fields on resave.
 // Hourly resets: cooldown vars store hour+1 (0 = inactive) and are compared
 // against gettime's VAR_0x8000; see VAR_GUILDHOUSE_* in constants/vars.h.
 
@@ -12,6 +13,14 @@ mapscripts SlateportCity_Guildhouse_MapScripts {
             if (var(VAR_GUILDHOUSE_DAVE_COOLDOWN) != VAR_0x8000) {
                 setvar(VAR_GUILDHOUSE_DAVE_COOLDOWN, 0)
                 clearflag(FLAG_HIDE_GUILDHOUSE_DAVE)
+            }
+        }
+        if (var(VAR_GUILDHOUSE_STOOMIE_COOLDOWN) != 0) {
+            gettime
+            addvar(VAR_0x8000, 1)
+            if (var(VAR_GUILDHOUSE_STOOMIE_COOLDOWN) != VAR_0x8000) {
+                setvar(VAR_GUILDHOUSE_STOOMIE_COOLDOWN, 0)
+                clearflag(FLAG_HIDE_GUILDHOUSE_STOOMIE)
             }
         }
     }
@@ -103,6 +112,58 @@ script SlateportCity_Guildhouse_EventScript_Twiddle {
     end
 }
 
+// Stoomie (ID 4, right) and John (ID 5, left) face each other, not the player,
+// so neither script calls faceplayer. Talking to either drops you into the
+// overheard match. Once Stoomie storms out he is hidden (FLAG_HIDE_GUILDHOUSE_STOOMIE)
+// until the next hour; John then gives an aftermath line.
+script SlateportCity_Guildhouse_EventScript_Stoomie {
+    lock
+    goto(SlateportCity_Guildhouse_EventScript_MoxEvent)
+}
+
+script SlateportCity_Guildhouse_EventScript_John {
+    lock
+    if (flag(FLAG_HIDE_GUILDHOUSE_STOOMIE)) {
+        faceplayer
+        msgbox(SlateportCity_Guildhouse_Text_JohnAftermath, MSGBOX_DEFAULT)
+        release
+        end
+    }
+    goto(SlateportCity_Guildhouse_EventScript_MoxEvent)
+}
+
+script SlateportCity_Guildhouse_EventScript_MoxEvent {
+    msgbox(SlateportCity_Guildhouse_Text_StoomieDecklist, MSGBOX_DEFAULT)
+    closemessage
+    applymovement(5, moves(emote_exclamation_mark, delay_16, delay_16))
+    waitmovement(0)
+    msgbox(SlateportCity_Guildhouse_Text_JohnPoints, MSGBOX_DEFAULT)
+    closemessage
+    applymovement(4, moves(emote_exclamation_mark, delay_16, delay_16))
+    waitmovement(0)
+    msgbox(SlateportCity_Guildhouse_Text_StoomieCounting, MSGBOX_DEFAULT)
+    closemessage
+    // If the player talked from below an NPC they're standing on Stoomie's exit
+    // aisle (row y9, facing north) — step them aside so he isn't blocked.
+    specialvar(VAR_RESULT, GetPlayerFacingDirection)
+    if (var(VAR_RESULT) == DIR_NORTH) {
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+        waitmovement(0)
+    }
+    // Stoomie bolts down to the clear y9 aisle, west to column 7, then out the
+    // south door. Every tile is walkable floor - keeps him off the tables and
+    // clear of Dave/Twiddle at the lower table.
+    applymovement(4, moves(walk_fast_down, walk_fast_left, walk_fast_left, walk_fast_left, walk_fast_left, walk_fast_left, walk_fast_left, walk_fast_left, walk_fast_down, walk_fast_down, walk_fast_down, walk_fast_down))
+    waitmovement(0)
+    removeobject(4)
+    gettime
+    addvar(VAR_0x8000, 1)
+    copyvar(VAR_GUILDHOUSE_STOOMIE_COOLDOWN, VAR_0x8000)
+    setflag(FLAG_HIDE_GUILDHOUSE_STOOMIE)
+    release
+    end
+}
+
 script SlateportCity_Guildhouse_EventScript_Dave {
     lock
     faceplayer
@@ -174,4 +235,20 @@ text SlateportCity_Guildhouse_Text_Twiddle {
 
 text SlateportCity_Guildhouse_Text_Dave {
     format("DAVE: This guy brought TWIDDLE VAULT to a casual meetup.\pI hope he enjoys playing with himself.")
+}
+
+text SlateportCity_Guildhouse_Text_StoomieDecklist {
+    format("STOOMIE: Land, Lotus, Mox Ruby, Mox Jet, Mind Twist!")
+}
+
+text SlateportCity_Guildhouse_Text_JohnPoints {
+    format("JOHN: Stoomie, this is 10 points. How many points are you running?")
+}
+
+text SlateportCity_Guildhouse_Text_StoomieCounting {
+    format("STOOMIE: Oh shit, NOAH gave me this list, let me check.\p1, 2, 3……36.\pI am running 36 points.\pI think I need to build a different deck.")
+}
+
+text SlateportCity_Guildhouse_Text_JohnAftermath {
+    format("JOHN: That certainly felt like more than 10 points!")
 }

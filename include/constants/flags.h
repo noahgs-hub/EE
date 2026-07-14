@@ -70,7 +70,7 @@
 #define FLAG_HIDE_GUILDHOUSE_DAVE    0x30 // Custom July 2026: Slateport Guildhouse Dave walked out (cleared hourly on map transition; verified clean in dev save)
 #define FLAG_REPEL_CHARM_ON    0x31 // Custom July 2026: Repel Charm key item toggle (permanent repel while set)
 #define FLAG_RECEIVED_REPEL_CHARM    0x32 // Custom July 2026: Lilycove Dept. Store greeter gave the Repel Charm
-#define FLAG_UNUSED_0x033    0x33 // Unused Flag
+#define FLAG_HIDE_GUILDHOUSE_STOOMIE    0x33 // Custom July 2026: Slateport Guildhouse Stoomie ran out mid-Mox event (cleared hourly on map transition; verified clean in dev save)
 #define FLAG_UNUSED_0x034    0x34 // Unused Flag
 #define FLAG_UNUSED_0x035    0x35 // Unused Flag
 #define FLAG_UNUSED_0x036    0x36 // Unused Flag
