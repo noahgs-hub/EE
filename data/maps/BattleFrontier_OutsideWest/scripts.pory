@@ -1,30 +1,107 @@
-script BattleFrontier_OutsideWest_EventScript_NatureManiac {
+// Min-Maxer hub (July 14 2026): the Maniac at (36,39) now runs all five
+// tune-up services (nature/IVs/ability/moves/friendship). The other four
+// service NPCs were removed from map.json; their flows live on below as
+// branches of this menu. Costs unchanged: 5 BP nature/IVs/ability, 2 BP
+// moves/friendship. After each job the menu reopens; B backs out.
+script BattleFrontier_OutsideWest_EventScript_ServiceNerd {
     lock
     faceplayer
+    msgbox(format("Hiya! I'm the MIN-MAXER! Natures, potential, abilities, moves, friendship--if your POKéMON has a stat, I can tweak it!\pThe other guys who worked here? Obsolete. I automated them away!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+}
 
-    msgbox(format("Hiya! I'm the NATURE MANIAC! For just 5 Battle Points, I can bring out a whole new side of your POKéMON's personality! Any nature you like! Interested?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == NO) {
-        goto(BattleFrontier_OutsideWest_EventScript_NatureManiacDecline)
+script BattleFrontier_OutsideWest_EventScript_ServiceMenu {
+    msgbox(format("So! What are we optimizing today?"), MSGBOX_DEFAULT)
+    dynmultipush(ServiceNerd_Text_Nature, 0)
+    dynmultipush(ServiceNerd_Text_IVs, 1)
+    dynmultipush(ServiceNerd_Text_Ability, 2)
+    dynmultipush(ServiceNerd_Text_Moves, 3)
+    dynmultipush(ServiceNerd_Text_Friendship, 4)
+    dynmultipush(ServiceNerd_Text_EVReset, 5)
+    dynmultipush(ServiceNerd_Text_Done, 6)
+    dynmultistack(0, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    switch (var(VAR_RESULT)) {
+        case 0:
+            goto(BattleFrontier_OutsideWest_EventScript_NatureService)
+        case 1:
+            goto(BattleFrontier_OutsideWest_EventScript_IVManiac)
+        case 2:
+            goto(BattleFrontier_OutsideWest_EventScript_Ability)
+        case 3:
+            goto(BattleFrontier_OutsideWest_EventScript_MoveRelearner)
+        case 4:
+            goto(BattleFrontier_OutsideWest_EventScript_friendship)
+        case 5:
+            goto(BattleFrontier_OutsideWest_EventScript_EVReset)
     }
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceNerdDecline)
+}
 
+text ServiceNerd_Text_Nature { "Nature (5BP)" }
+text ServiceNerd_Text_IVs { "IVs (5BP)" }
+text ServiceNerd_Text_Ability { "Ability (5BP)" }
+text ServiceNerd_Text_Moves { "Moves (2BP)" }
+text ServiceNerd_Text_Friendship { "Friendship (2BP)" }
+text ServiceNerd_Text_EVReset { "EV reset (2BP)" }
+text ServiceNerd_Text_Done { "That's all" }
+
+script BattleFrontier_OutsideWest_EventScript_EVReset {
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
-    if (var(VAR_TEMP_1) < 5) {
-        msgbox(format("Oh, but... You don't have enough Battle Points! Come back when you've earned at least 5."), MSGBOX_DEFAULT)
-        release
-        end
+    if (var(VAR_TEMP_1) < 2) {
+        msgbox(format("Wiping training data costs 2 Battle Points, and you're short!"), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    msgbox(format("Which POKéMON should I work on?"), MSGBOX_DEFAULT)
+    msgbox(format("A clean slate! Which POKéMON's training should I erase?"), MSGBOX_DEFAULT)
     special(ChoosePartyMon)
     if (var(VAR_0x8004) >= PARTY_SIZE) {
-        goto(BattleFrontier_OutsideWest_EventScript_NatureManiacDecline)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    specialvar(VAR_RESULT, IsSelectedMonEgg)
+    if (var(VAR_RESULT) == TRUE) {
+        msgbox(format("An EGG hasn't trained a day in its life!"), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    specialvar(VAR_TEMP_3, GetMonEvTotal)
+    if (var(VAR_TEMP_3) == 0) {
+        msgbox(format("That POKéMON is ALREADY a blank slate! I can't take your Battle Points to erase nothing!"), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    buffernumberstring(STR_VAR_1, VAR_TEMP_3)
+    msgbox(format("It's carrying {STR_VAR_1} EVs of training. Wipe it all for 2 Battle Points?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    special(ResetMonEvs)
+    setvar(VAR_0x8004, 2)
+    special(TakeFrontierBattlePoints)
+    playse(SE_SHOP)
+    waitse
+    msgbox(format("Scrubbed to zero! It's ready for a whole new training regimen!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+}
+
+script BattleFrontier_OutsideWest_EventScript_NatureService {
+    specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
+    if (var(VAR_TEMP_1) < 5) {
+        msgbox(format("Oh, but... You don't have enough Battle Points! A new nature costs 5."), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    msgbox(format("A whole new personality, coming up! Which POKéMON should I work on?"), MSGBOX_DEFAULT)
+    special(ChoosePartyMon)
+    if (var(VAR_0x8004) >= PARTY_SIZE) {
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     specialvar(VAR_RESULT, IsSelectedMonEgg)
     if (var(VAR_RESULT) == TRUE) {
         msgbox(format("That's an EGG! Who knows what's even in there? I can't work with that!"), MSGBOX_DEFAULT)
-        release
-        end
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     specialvar(VAR_TEMP_3, GetHiddenNature)
@@ -80,38 +157,27 @@ script BattleFrontier_OutsideWest_EventScript_NatureManiacChooseNature {
     special(TakeFrontierBattlePoints)
     playse(SE_SHOP)
     waitse
-    msgbox(format("...And done! Your POKéMON has a whole new outlook on life! Come back anytime!"), MSGBOX_DEFAULT)
-    release
-    end
+    msgbox(format("...And done! Your POKéMON has a whole new outlook on life!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 script BattleFrontier_OutsideWest_EventScript_IVManiac {
-    lock
-    faceplayer
-
-    msgbox(format("Ehehehe... I can see a POKéMON's hidden potential. For 5 Battle Points, I'll rewrite it! Any stat, any value! Interested?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == NO) {
-        goto(BattleFrontier_OutsideWest_EventScript_IVManiacDecline)
-    }
-
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
     if (var(VAR_TEMP_1) < 5) {
-        msgbox(format("Ehehe... No Battle Points, no potential! Come back with at least 5."), MSGBOX_DEFAULT)
-        release
-        end
+        msgbox(format("No Battle Points, no potential! Rewriting a stat costs 5."), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    msgbox(format("Which POKéMON shall we tinker with?"), MSGBOX_DEFAULT)
+    msgbox(format("I can see a POKéMON's hidden potential--any stat, any value! Which POKéMON shall we tinker with?"), MSGBOX_DEFAULT)
     special(ChoosePartyMon)
     if (var(VAR_0x8004) >= PARTY_SIZE) {
-        goto(BattleFrontier_OutsideWest_EventScript_IVManiacDecline)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     specialvar(VAR_RESULT, IsSelectedMonEgg)
     if (var(VAR_RESULT) == TRUE) {
         msgbox(format("An EGG's potential is still a mystery, even to me!"), MSGBOX_DEFAULT)
-        release
-        end
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     msgbox(format("Which stat should I rewrite?"), MSGBOX_DEFAULT)
@@ -148,7 +214,7 @@ script BattleFrontier_OutsideWest_EventScript_IVManiacChooseValue {
     copyvar(VAR_TEMP_4, VAR_RESULT)
 
     if (var(VAR_TEMP_4) == VAR_TEMP_3) {
-        msgbox(format("Ehehehe! That's ALREADY that stat's potential! I can't take your Battle Points to rewrite what's already written! Pick a different number."), MSGBOX_DEFAULT)
+        msgbox(format("That's ALREADY that stat's potential! I can't take your Battle Points to rewrite what's already written! Pick a different number."), MSGBOX_DEFAULT)
         goto(BattleFrontier_OutsideWest_EventScript_IVManiacChooseValue)
     }
 
@@ -165,15 +231,12 @@ script BattleFrontier_OutsideWest_EventScript_IVManiacChooseValue {
     special(TakeFrontierBattlePoints)
     playse(SE_SHOP)
     waitse
-    msgbox(format("Ehehehe... It is done! Your POKéMON will never be the same!"), MSGBOX_DEFAULT)
-    release
-    end
+    msgbox(format("It is done! Your POKéMON will never be the same!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 script BattleFrontier_OutsideWest_EventScript_IVManiacDecline {
-    msgbox(format("Ehehe... Scared of a little potential? Come back anytime."), MSGBOX_DEFAULT)
-    release
-    end
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 text IVManiac_Text_HP { "HP" }
@@ -190,28 +253,23 @@ text Friendship_Text_Highest { "Highest" }
 text Friendship_Text_Lowest { "Lowest" }
 
 script BattleFrontier_OutsideWest_EventScript_NatureManiacDecline {
-    msgbox(format("Oh, fine. Come back if you change your mind!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+}
+
+script BattleFrontier_OutsideWest_EventScript_ServiceNerdDecline {
+    msgbox(format("Suboptimal choice, but sure. Come back when something needs tweaking!"), MSGBOX_DEFAULT)
     release
     end
 }
 
 script BattleFrontier_OutsideWest_EventScript_MoveRelearner {
-    lock
-    faceplayer
-
-    msgbox(format("I'm the MOVE TUTOR. I know all the moves that POKéMON learn--every one of them--and I can teach POKéMON those moves. My fee is 2 Battle Points per move. Want me to teach a move?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == NO) {
-        goto(BattleFrontier_OutsideWest_EventScript_MoveRelearnerDecline)
-    }
-
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
     if (var(VAR_TEMP_1) < 2) {
-        msgbox(format("Hmm... You're short on Battle Points. Come back when you have at least 2!"), MSGBOX_DEFAULT)
-        release
-        end
+        msgbox(format("Hmm... You're short on Battle Points. A move is 2 apiece!"), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    msgbox(format("What kind of move should I teach?"), MSGBOX_DEFAULT)
+    msgbox(format("I know every move a POKéMON can learn--2 Battle Points per move. What kind of move should I teach?"), MSGBOX_DEFAULT)
     dynmultipush(FrontierTutor_Text_LevelUpMoves, MOVE_RELEARNER_LEVEL_UP_MOVES)
     dynmultipush(FrontierTutor_Text_EggMoves, MOVE_RELEARNER_EGG_MOVES)
     dynmultipush(FrontierTutor_Text_TutorMoves, MOVE_RELEARNER_TUTOR_MOVES)
@@ -251,38 +309,27 @@ script BattleFrontier_OutsideWest_EventScript_MoveRelearnerChooseMon {
     special(TakeFrontierBattlePoints)
     playse(SE_SHOP)
     waitse
-    msgbox(format("That's 2 Battle Points, thank you! Come back whenever you need another move!"), MSGBOX_DEFAULT)
-    release
-    end
+    msgbox(format("That's 2 Battle Points, thank you!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 script BattleFrontier_OutsideWest_EventScript_friendship {
-    lock
-    faceplayer
-
-    msgbox(format("Heehee! POKéMON hearts are putty in my hands! For 2 Battle Points, I'll make your POKéMON adore you... or utterly despise you! Interested?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == NO) {
-        goto(BattleFrontier_OutsideWest_EventScript_FriendshipDecline)
-    }
-
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
     if (var(VAR_TEMP_1) < 2) {
-        msgbox(format("Aww... You don't have enough Battle Points. Come back when you have at least 2!"), MSGBOX_DEFAULT)
-        release
-        end
+        msgbox(format("Aww... You don't have enough Battle Points. Meddling with hearts costs 2!"), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    msgbox(format("Which POKéMON's heart shall I meddle with?"), MSGBOX_DEFAULT)
+    msgbox(format("POKéMON hearts are putty in my hands--adoration or despair, 2 Battle Points! Which POKéMON's heart shall I meddle with?"), MSGBOX_DEFAULT)
     special(ChoosePartyMon)
     if (var(VAR_0x8004) >= PARTY_SIZE) {
-        goto(BattleFrontier_OutsideWest_EventScript_FriendshipDecline)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     specialvar(VAR_RESULT, IsSelectedMonEgg)
     if (var(VAR_RESULT) == TRUE) {
         msgbox(format("An EGG can't love anyone yet! Silly!"), MSGBOX_DEFAULT)
-        release
-        end
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     goto(BattleFrontier_OutsideWest_EventScript_FriendshipChoose)
@@ -300,7 +347,7 @@ script BattleFrontier_OutsideWest_EventScript_FriendshipChoose {
 
     specialvar(VAR_TEMP_3, GetMonFriendship)
     if (var(VAR_TEMP_2) == VAR_TEMP_3) {
-        msgbox(format("Heehee! Its friendship is ALREADY there! I can't take your Battle Points for that!"), MSGBOX_DEFAULT)
+        msgbox(format("Its friendship is ALREADY there! I can't take your Battle Points for that!"), MSGBOX_DEFAULT)
         goto(BattleFrontier_OutsideWest_EventScript_FriendshipChoose)
     }
 
@@ -315,45 +362,33 @@ script BattleFrontier_OutsideWest_EventScript_FriendshipChoose {
     special(TakeFrontierBattlePoints)
     playse(SE_SHOP)
     waitse
-    msgbox(format("Heehee... It is done! Your POKéMON will never feel the same about you again!"), MSGBOX_DEFAULT)
-    release
-    end
+    msgbox(format("It is done! Your POKéMON will never feel the same about you again!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 script BattleFrontier_OutsideWest_EventScript_Ability {
-    lock
-    faceplayer
-
-    msgbox(format("Every POKéMON has untapped talents! For 5 Battle Points, I'll bring out a different ability--even a hidden one, if your POKéMON has it in them! Interested?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == NO) {
-        goto(BattleFrontier_OutsideWest_EventScript_AbilityDecline)
-    }
-
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
     if (var(VAR_TEMP_1) < 5) {
-        msgbox(format("Sorry, friend. It's 5 Battle Points--come back when you've got them!"), MSGBOX_DEFAULT)
-        release
-        end
+        msgbox(format("Sorry, friend. A new ability is 5 Battle Points!"), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    msgbox(format("Which POKéMON should I work with?"), MSGBOX_DEFAULT)
+    msgbox(format("Every POKéMON has untapped talents--even hidden ones, if it has them in it! Which POKéMON should I work with?"), MSGBOX_DEFAULT)
     special(ChoosePartyMon)
     if (var(VAR_0x8004) >= PARTY_SIZE) {
-        goto(BattleFrontier_OutsideWest_EventScript_AbilityDecline)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     specialvar(VAR_RESULT, IsSelectedMonEgg)
     if (var(VAR_RESULT) == TRUE) {
         msgbox(format("An EGG's talents haven't even hatched yet!"), MSGBOX_DEFAULT)
-        release
-        end
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     specialvar(VAR_RESULT, BufferMonOtherAbilities)
     if (var(VAR_RESULT) == 0) {
         msgbox(format("Hmm... {STR_VAR_1} is the only ability that POKéMON can ever have. There's nothing for me to do!"), MSGBOX_DEFAULT)
-        release
-        end
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
     msgbox(format("Right now its ability is {STR_VAR_1}. Which ability should I bring out?"), MSGBOX_DEFAULT)
@@ -374,27 +409,20 @@ script BattleFrontier_OutsideWest_EventScript_Ability {
     special(TakeFrontierBattlePoints)
     playse(SE_SHOP)
     waitse
-    msgbox(format("There! Your POKéMON's new talent is shining through! Come back anytime!"), MSGBOX_DEFAULT)
-    release
-    end
+    msgbox(format("There! Your POKéMON's new talent is shining through!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 script BattleFrontier_OutsideWest_EventScript_AbilityDecline {
-    msgbox(format("No worries! Come back if you ever want to try a new talent!"), MSGBOX_DEFAULT)
-    release
-    end
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 script BattleFrontier_OutsideWest_EventScript_FriendshipDecline {
-    msgbox(format("Heehee, come back when you're ready to toy with some feelings!"), MSGBOX_DEFAULT)
-    release
-    end
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 script BattleFrontier_OutsideWest_EventScript_MoveRelearnerDecline {
-    msgbox(format("Come back if a move ever slips your POKéMON's mind!"), MSGBOX_DEFAULT)
-    release
-    end
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
 text NatureManiac_Text_Hardy { "Hardy" }

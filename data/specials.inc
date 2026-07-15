@@ -571,6 +571,8 @@ gSpecials::
 	def_special SetMonFriendship
 	def_special GetMonIv
 	def_special SetMonIv
+	def_special GetMonEvTotal
+	def_special ResetMonEvs
 	def_special GetHiddenNature
 	def_special SetHiddenNature
 	def_special GetMonRealNature

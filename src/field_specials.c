@@ -4658,6 +4658,25 @@ void SetMonIv(void)
     CalculateMonStats(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004]);
 }
 
+// Total EVs across all six stats for the party mon in VAR_0x8004. Used by the
+// frontier Min-Maxer to refuse charging for a reset when there's nothing to wipe.
+u16 GetMonEvTotal(void)
+{
+    u32 i, total = 0;
+    for (i = 0; i < NUM_STATS; i++)
+        total += GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HP_EV + i);
+    return total;
+}
+
+// Zeroes all six EVs for the party mon in VAR_0x8004 and recalculates stats.
+void ResetMonEvs(void)
+{
+    u32 i, zero = 0;
+    for (i = 0; i < NUM_STATS; i++)
+        SetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HP_EV + i, &zero);
+    CalculateMonStats(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004]);
+}
+
 u16 GetHiddenNature(void)
 {
     return GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HIDDEN_NATURE);
