@@ -13,6 +13,7 @@ void UpdateRoamerHPStatus(struct Pokemon *mon);
 void SetRoamerInactive(u32 roamerIndex);
 void GetRoamerLocation(u32 roamerIndex, u8 *mapGroup, u8 *mapNum);
 bool8 TryAddRoamer(enum Species species, u8 level);
+void TryReleaseLegendaryBeastRoamers(void);
 void MoveAllRoamersToOtherLocationSets(void);
 void MoveAllRoamers(void);
 

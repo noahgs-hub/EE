@@ -3536,6 +3536,44 @@ void CreateAbnormalWeatherEvent(void)
     }
 }
 
+static const struct {
+    u16 species;
+    u16 flag;
+} sStationaryLegendaries[] = {
+    { SPECIES_REGIROCK, FLAG_DEFEATED_REGIROCK },
+    { SPECIES_REGICE,   FLAG_DEFEATED_REGICE },
+    { SPECIES_REGISTEEL,FLAG_DEFEATED_REGISTEEL },
+    { SPECIES_GROUDON,  FLAG_DEFEATED_GROUDON },
+    { SPECIES_KYOGRE,   FLAG_DEFEATED_KYOGRE },
+    { SPECIES_RAYQUAZA, FLAG_DEFEATED_RAYQUAZA },
+    { SPECIES_MEW,      FLAG_DEFEATED_MEW },
+    { SPECIES_LUGIA,    FLAG_DEFEATED_LUGIA },
+    { SPECIES_HO_OH,    FLAG_DEFEATED_HO_OH },
+    { SPECIES_DEOXYS,   FLAG_DEFEATED_DEOXYS },
+};
+
+// Champion-win hook (EverGrandeCity_ChampionsRoom EventScript_Defeated):
+// respawn stationary legendaries that were KO'd or fled from but never caught.
+// Every encounter script sets its FLAG_DEFEATED_* on both WON and RAN, and the
+// maps re-show the objects on transition while the flag is clear, so clearing
+// the flag is a full reset. The dex caught-flag stays set forever once caught,
+// which keeps caught legendaries from respawning.
+void TryResetStationaryLegendaries(void)
+{
+    u32 i;
+    // Southern Island holds whichever Lati the player did NOT pick to roam.
+    u16 latiSpecies = (VarGet(VAR_ROAMER_POKEMON) == 0) ? SPECIES_LATIOS : SPECIES_LATIAS;
+
+    for (i = 0; i < ARRAY_COUNT(sStationaryLegendaries); i++)
+    {
+        if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(sStationaryLegendaries[i].species), FLAG_GET_CAUGHT))
+            FlagClear(sStationaryLegendaries[i].flag);
+    }
+
+    if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(latiSpecies), FLAG_GET_CAUGHT))
+        FlagClear(FLAG_DEFEATED_LATIAS_OR_LATIOS);
+}
+
 // Saves the map name for the current abnormal weather location in gStringVar1, then
 // returns TRUE if the weather is for Kyogre, and FALSE if it's for Groudon.
 bool32 GetAbnormalWeatherMapNameAndType(void)

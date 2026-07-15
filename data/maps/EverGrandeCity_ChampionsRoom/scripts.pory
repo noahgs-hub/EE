@@ -4,7 +4,12 @@
 // Falls superboss TRAINER_STEVEN).
 // The champion object (LOCALID_CHAMPIONS_ROOM_WALLACE) uses OBJ_EVENT_GFX_VAR_1;
 // the roll happens ON_TRANSITION: VAR_OBJ_GFX_ID_1 = sprite, VAR_TEMP_4 = 1 if Steven.
-// Everything below is the original scripts.inc with the rotation hooks added.
+// Everything below is the original scripts.inc with the rotation hooks added,
+// plus TryReleaseLegendaryBeastRoamers in EventScript_Defeated (releases
+// Raikou/Entei/Suicune as roamers after every champion win; re-releases
+// KO'd-but-uncaught beasts) and TryResetStationaryLegendaries (clears the
+// FLAG_DEFEATED_* of every stationary legendary that was KO'd/fled but not
+// caught, so it respawns).
 
 raw `
 EverGrandeCity_ChampionsRoom_MapScripts::
@@ -72,6 +77,8 @@ EverGrandeCity_ChampionsRoom_EventScript_Steven::
 	end
 
 EverGrandeCity_ChampionsRoom_EventScript_Defeated::
+	special TryReleaseLegendaryBeastRoamers
+	special TryResetStationaryLegendaries
 	playse SE_DOOR
 	setmetatile 6, 1, METATILE_EliteFour_OpenDoorChampion_Frame, FALSE
 	setmetatile 6, 2, METATILE_EliteFour_OpenDoorChampion_Opening, FALSE

@@ -1,6 +1,7 @@
 #include "global.h"
 #include "event_data.h"
 #include "ow_abilities.h"
+#include "pokedex.h"
 #include "pokemon.h"
 #include "random.h"
 #include "roamer.h"
@@ -296,4 +297,41 @@ void GetRoamerLocation(u32 roamerIndex, u8 *mapGroup, u8 *mapNum)
 {
     *mapGroup = sRoamerLocation[roamerIndex][MAP_GRP];
     *mapNum = sRoamerLocation[roamerIndex][MAP_NUM];
+}
+
+static const struct
+{
+    enum Species species;
+    u8 level;
+} sLegendaryBeasts[] =
+{
+    { SPECIES_RAIKOU,  40 },
+    { SPECIES_ENTEI,   40 },
+    { SPECIES_SUICUNE, 40 },
+};
+
+static bool32 IsSpeciesActiveRoamer(enum Species species)
+{
+    u32 i;
+
+    for (i = 0; i < ROAMER_COUNT; i++)
+    {
+        if (ROAMER(i)->active && ROAMER(i)->species == species)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+// Runs after every champion defeat. A beast that was knocked out (or Roared
+// away) but never caught gets re-released on the next league clear.
+void TryReleaseLegendaryBeastRoamers(void)
+{
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sLegendaryBeasts); i++)
+    {
+        if (!IsSpeciesActiveRoamer(sLegendaryBeasts[i].species)
+         && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(sLegendaryBeasts[i].species), FLAG_GET_CAUGHT))
+            TryAddRoamer(sLegendaryBeasts[i].species, sLegendaryBeasts[i].level);
+    }
 }
