@@ -4677,6 +4677,36 @@ void ResetMonEvs(void)
     CalculateMonStats(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004]);
 }
 
+// Current EVs of one stat (VAR_0x8005) for the party mon in VAR_0x8004.
+u16 GetMonEv(void)
+{
+    return GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HP_EV + gSpecialVar_0x8005);
+}
+
+// Highest value the stat in VAR_0x8005 could be set to without breaking the
+// per-stat (252) or total (510) EV caps, given the mon's other stats' EVs.
+u16 GetMonEvCap(void)
+{
+    u32 i, total = 0;
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    for (i = 0; i < NUM_STATS; i++)
+        total += GetMonData(mon, MON_DATA_HP_EV + i);
+    total -= GetMonData(mon, MON_DATA_HP_EV + gSpecialVar_0x8005);
+    if (total >= MAX_TOTAL_EVS)
+        return 0;
+    return min(MAX_TOTAL_EVS - total, MAX_PER_STAT_EVS);
+}
+
+// Sets one stat's EVs (stat in VAR_0x8005, value in VAR_0x8006) and
+// recalculates stats. Clamps to the caps as a backstop; the Min-Maxer script
+// pre-clamps so it can tell the player about it.
+void SetMonEv(void)
+{
+    u32 ev = min(gSpecialVar_0x8006, GetMonEvCap());
+    SetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HP_EV + gSpecialVar_0x8005, &ev);
+    CalculateMonStats(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004]);
+}
+
 u16 GetHiddenNature(void)
 {
     return GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HIDDEN_NATURE);

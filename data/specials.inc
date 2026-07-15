@@ -573,6 +573,9 @@ gSpecials::
 	def_special SetMonIv
 	def_special GetMonEvTotal
 	def_special ResetMonEvs
+	def_special GetMonEv
+	def_special GetMonEvCap
+	def_special SetMonEv
 	def_special GetHiddenNature
 	def_special SetHiddenNature
 	def_special GetMonRealNature

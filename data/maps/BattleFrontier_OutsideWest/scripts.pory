@@ -17,9 +17,10 @@ script BattleFrontier_OutsideWest_EventScript_ServiceMenu {
     dynmultipush(ServiceNerd_Text_Ability, 2)
     dynmultipush(ServiceNerd_Text_Moves, 3)
     dynmultipush(ServiceNerd_Text_Friendship, 4)
-    dynmultipush(ServiceNerd_Text_EVReset, 5)
-    dynmultipush(ServiceNerd_Text_Done, 6)
-    dynmultistack(0, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    dynmultipush(ServiceNerd_Text_EVEdit, 5)
+    dynmultipush(ServiceNerd_Text_EVReset, 6)
+    dynmultipush(ServiceNerd_Text_Done, 7)
+    dynmultistack(0, 0, FALSE, 8, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
     switch (var(VAR_RESULT)) {
         case 0:
             goto(BattleFrontier_OutsideWest_EventScript_NatureService)
@@ -32,18 +33,149 @@ script BattleFrontier_OutsideWest_EventScript_ServiceMenu {
         case 4:
             goto(BattleFrontier_OutsideWest_EventScript_friendship)
         case 5:
+            goto(BattleFrontier_OutsideWest_EventScript_EVEdit)
+        case 6:
             goto(BattleFrontier_OutsideWest_EventScript_EVReset)
     }
     goto(BattleFrontier_OutsideWest_EventScript_ServiceNerdDecline)
 }
 
 text ServiceNerd_Text_Nature { "Nature (5BP)" }
-text ServiceNerd_Text_IVs { "IVs (5BP)" }
+text ServiceNerd_Text_IVs { "IVs (2BP)" }
 text ServiceNerd_Text_Ability { "Ability (5BP)" }
 text ServiceNerd_Text_Moves { "Moves (2BP)" }
 text ServiceNerd_Text_Friendship { "Friendship (2BP)" }
+text ServiceNerd_Text_EVEdit { "EV edit (2BP)" }
 text ServiceNerd_Text_EVReset { "EV reset (2BP)" }
 text ServiceNerd_Text_Done { "That's all" }
+
+// EV editor: pick a stat, then punch in the new value as three digits
+// (hundreds 0-2, tens 0-9, ones 0-9) instead of scrolling 0-252. The result
+// is clamped to the 252 per-stat cap, then to the mon's remaining room under
+// the 510 total cap (GetMonEvCap), with a message when either clamp hits.
+script BattleFrontier_OutsideWest_EventScript_EVEdit {
+    specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
+    if (var(VAR_TEMP_1) < 2) {
+        msgbox(format("Precision training costs 2 Battle Points per stat, and you're short!"), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    msgbox(format("Precision training--2 Battle Points per stat, punched in digit by digit! Which POKéMON are we retraining?"), MSGBOX_DEFAULT)
+    special(ChoosePartyMon)
+    if (var(VAR_0x8004) >= PARTY_SIZE) {
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    specialvar(VAR_RESULT, IsSelectedMonEgg)
+    if (var(VAR_RESULT) == TRUE) {
+        msgbox(format("An EGG hasn't trained a day in its life!"), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    msgbox(format("Which stat should we retrain?"), MSGBOX_DEFAULT)
+    dynmultipush(IVManiac_Text_HP, STAT_HP)
+    dynmultipush(IVManiac_Text_Attack, STAT_ATK)
+    dynmultipush(IVManiac_Text_Defense, STAT_DEF)
+    dynmultipush(IVManiac_Text_SpAtk, STAT_SPATK)
+    dynmultipush(IVManiac_Text_SpDef, STAT_SPDEF)
+    dynmultipush(IVManiac_Text_Speed, STAT_SPEED)
+    dynmultistack(0, 0, FALSE, 6, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE)
+    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+    copyvar(VAR_TEMP_2, VAR_RESULT)
+    goto(BattleFrontier_OutsideWest_EventScript_EVEditDigits)
+}
+
+script BattleFrontier_OutsideWest_EventScript_EVEditDigits {
+    copyvar(VAR_0x8005, VAR_TEMP_2)
+    specialvar(VAR_TEMP_3, GetMonEv)
+    buffernumberstring(STR_VAR_1, VAR_TEMP_3)
+    msgbox(format("That stat is at {STR_VAR_1} EVs right now. Punch in the new value! Hundreds digit first."), MSGBOX_DEFAULT)
+    setvar(VAR_TEMP_4, 0)
+    while (var(VAR_TEMP_4) < 3) {
+        buffernumberstring(STR_VAR_1, VAR_TEMP_4)
+        dynmultipush(IVManiac_Text_Number, VAR_TEMP_4)
+        addvar(VAR_TEMP_4, 1)
+    }
+    dynmultistack(0, 0, FALSE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+    setvar(VAR_TEMP_4, 0)
+    if (var(VAR_RESULT) == 1) {
+        setvar(VAR_TEMP_4, 100)
+    } elif (var(VAR_RESULT) == 2) {
+        setvar(VAR_TEMP_4, 200)
+    }
+
+    msgbox(format("Tens digit!"), MSGBOX_DEFAULT)
+    setvar(VAR_TEMP_5, 0)
+    while (var(VAR_TEMP_5) < 10) {
+        buffernumberstring(STR_VAR_1, VAR_TEMP_5)
+        dynmultipush(IVManiac_Text_Number, VAR_TEMP_5)
+        addvar(VAR_TEMP_5, 1)
+    }
+    dynmultistack(0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+    copyvar(VAR_TEMP_5, VAR_RESULT)
+    while (var(VAR_TEMP_5) != 0) {
+        addvar(VAR_TEMP_4, 10)
+        subvar(VAR_TEMP_5, 1)
+    }
+
+    msgbox(format("Ones digit!"), MSGBOX_DEFAULT)
+    setvar(VAR_TEMP_5, 0)
+    while (var(VAR_TEMP_5) < 10) {
+        buffernumberstring(STR_VAR_1, VAR_TEMP_5)
+        dynmultipush(IVManiac_Text_Number, VAR_TEMP_5)
+        addvar(VAR_TEMP_5, 1)
+    }
+    dynmultistack(0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+    copyvar(VAR_TEMP_5, VAR_RESULT)
+    while (var(VAR_TEMP_5) != 0) {
+        addvar(VAR_TEMP_4, 1)
+        subvar(VAR_TEMP_5, 1)
+    }
+
+    if (var(VAR_TEMP_4) > 252) {
+        msgbox(format("A single stat maxes out at 252 EVs! I'll call it 252."), MSGBOX_DEFAULT)
+        setvar(VAR_TEMP_4, 252)
+    }
+    copyvar(VAR_0x8005, VAR_TEMP_2)
+    specialvar(VAR_TEMP_5, GetMonEvCap)
+    if (var(VAR_TEMP_4) > VAR_TEMP_5) {
+        buffernumberstring(STR_VAR_1, VAR_TEMP_5)
+        msgbox(format("A POKéMON can only hold 510 EVs of training in total! The most that stat can take is {STR_VAR_1}, so I'll use that."), MSGBOX_DEFAULT)
+        copyvar(VAR_TEMP_4, VAR_TEMP_5)
+    }
+
+    if (var(VAR_TEMP_4) == VAR_TEMP_3) {
+        msgbox(format("That's EXACTLY what it's at now! I can't take your Battle Points for a no-op! Punch in a different number."), MSGBOX_DEFAULT)
+        goto(BattleFrontier_OutsideWest_EventScript_EVEditDigits)
+    }
+
+    buffernumberstring(STR_VAR_1, VAR_TEMP_4)
+    msgbox(format("{STR_VAR_1} EVs it is! That'll be 2 Battle Points. Ready?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+    }
+
+    copyvar(VAR_0x8005, VAR_TEMP_2)
+    copyvar(VAR_0x8006, VAR_TEMP_4)
+    special(SetMonEv)
+    setvar(VAR_0x8004, 2)
+    special(TakeFrontierBattlePoints)
+    playse(SE_SHOP)
+    waitse
+    msgbox(format("Recalibrated! That's what I call efficient allocation!"), MSGBOX_DEFAULT)
+    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
+}
 
 script BattleFrontier_OutsideWest_EventScript_EVReset {
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
@@ -163,8 +295,8 @@ script BattleFrontier_OutsideWest_EventScript_NatureManiacChooseNature {
 
 script BattleFrontier_OutsideWest_EventScript_IVManiac {
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
-    if (var(VAR_TEMP_1) < 5) {
-        msgbox(format("No Battle Points, no potential! Rewriting a stat costs 5."), MSGBOX_DEFAULT)
+    if (var(VAR_TEMP_1) < 2) {
+        msgbox(format("No Battle Points, no potential! Rewriting a stat costs 2."), MSGBOX_DEFAULT)
         goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
@@ -219,7 +351,7 @@ script BattleFrontier_OutsideWest_EventScript_IVManiacChooseValue {
     }
 
     buffernumberstring(STR_VAR_1, VAR_TEMP_4)
-    msgbox(format("{STR_VAR_1}, is it? That'll be 5 Battle Points. Ready?"), MSGBOX_YESNO)
+    msgbox(format("{STR_VAR_1}, is it? That'll be 2 Battle Points. Ready?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
         goto(BattleFrontier_OutsideWest_EventScript_IVManiacDecline)
     }
@@ -227,7 +359,7 @@ script BattleFrontier_OutsideWest_EventScript_IVManiacChooseValue {
     copyvar(VAR_0x8005, VAR_TEMP_2)
     copyvar(VAR_0x8006, VAR_TEMP_4)
     special(SetMonIv)
-    setvar(VAR_0x8004, 5)
+    setvar(VAR_0x8004, 2)
     special(TakeFrontierBattlePoints)
     playse(SE_SHOP)
     waitse
@@ -246,9 +378,6 @@ text IVManiac_Text_SpAtk { "Sp. Atk" }
 text IVManiac_Text_SpDef { "Sp. Def" }
 text IVManiac_Text_Speed { "Speed" }
 text IVManiac_Text_Number { "{STR_VAR_1}" }
-text FrontierTutor_Text_LevelUpMoves { "Level-up moves" }
-text FrontierTutor_Text_EggMoves { "Egg moves" }
-text FrontierTutor_Text_TutorMoves { "Tutor moves" }
 text Friendship_Text_Highest { "Highest" }
 text Friendship_Text_Lowest { "Lowest" }
 
@@ -262,6 +391,9 @@ script BattleFrontier_OutsideWest_EventScript_ServiceNerdDecline {
     end
 }
 
+// One flow for all move categories: MOVE_RELEARNER_ALL accepts any mon with
+// level-up, egg or tutor moves to relearn, and inside the teaching UI
+// LEFT/RIGHT cycles between the three lists (custom, src/move_relearner.c).
 script BattleFrontier_OutsideWest_EventScript_MoveRelearner {
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
     if (var(VAR_TEMP_1) < 2) {
@@ -269,22 +401,13 @@ script BattleFrontier_OutsideWest_EventScript_MoveRelearner {
         goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    msgbox(format("I know every move a POKéMON can learn--2 Battle Points per move. What kind of move should I teach?"), MSGBOX_DEFAULT)
-    dynmultipush(FrontierTutor_Text_LevelUpMoves, MOVE_RELEARNER_LEVEL_UP_MOVES)
-    dynmultipush(FrontierTutor_Text_EggMoves, MOVE_RELEARNER_EGG_MOVES)
-    dynmultipush(FrontierTutor_Text_TutorMoves, MOVE_RELEARNER_TUTOR_MOVES)
-    dynmultistack(0, 0, FALSE, 6, FALSE, MOVE_RELEARNER_LEVEL_UP_MOVES, DYN_MULTICHOICE_CB_NONE)
-    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
-        goto(BattleFrontier_OutsideWest_EventScript_MoveRelearnerDecline)
-    }
-    copyvar(VAR_TEMP_2, VAR_RESULT)
-
+    msgbox(format("I know every move a POKéMON can learn--level-up, egg AND tutor moves--for 2 Battle Points apiece!"), MSGBOX_DEFAULT)
     goto(BattleFrontier_OutsideWest_EventScript_MoveRelearnerChooseMon)
 }
 
 script BattleFrontier_OutsideWest_EventScript_MoveRelearnerChooseMon {
     msgbox(format("Which POKéMON needs tutoring?"), MSGBOX_DEFAULT)
-    setmoverelearnerstate(VAR_TEMP_2)
+    setmoverelearnerstate(MOVE_RELEARNER_ALL)
     chooseboxmon(SELECT_PC_MON_MOVE_RELEARNER)
     waitstate
     if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN) {
@@ -300,7 +423,7 @@ script BattleFrontier_OutsideWest_EventScript_MoveRelearnerChooseMon {
         msgbox(format("Sorry, I don't have any move I can teach that POKéMON."), MSGBOX_DEFAULT)
         goto(BattleFrontier_OutsideWest_EventScript_MoveRelearnerChooseMon)
     }
-    msgbox(format("Which move should I teach?"), MSGBOX_DEFAULT)
+    msgbox(format("Which move should I teach? Press LEFT or RIGHT in the list to flip between level-up, egg and tutor moves!"), MSGBOX_DEFAULT)
     special(TeachMoveRelearnerMove)
     if (var(VAR_RESULT) == FALSE) {
         goto(BattleFrontier_OutsideWest_EventScript_MoveRelearnerChooseMon)

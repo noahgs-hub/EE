@@ -56,6 +56,7 @@ TwoIsland_House_EventScript_ChooseMonToTutor::
 
 TwoIsland_House_EventScript_ChooseMoveToTeach::
 	msgbox TwoIsland_House_Text_TeachWhichMove
+	setmoverelearnerstate MOVE_RELEARNER_LEVEL_UP_MOVES @ state no longer auto-reset by TeachMoveRelearnerMove
 	special TeachMoveRelearnerMove
 	goto_if_eq VAR_0x8004, 0, TwoIsland_House_EventScript_ChooseMonToTutor
 	goto_if_set HAS_BOTH_MUSHROOMS, TwoIsland_House_EventScript_ChooseMushroom

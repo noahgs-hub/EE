@@ -272,6 +272,7 @@ static u32 GetRelearnerTutorMoves(struct BoxPokemon *mon, u16 *moves);
 static void Task_MoveRelearner_HandleInput(u8 taskId);
 static void Task_MoveRelearner_LearnMove(u8 taskId);
 static void Task_MoveRelearner_Quit(u8 taskId);
+static void SwitchRelearnMoveCategory(bool32 backward);
 static void SortMovesAlphabetically(u16 *moves, u32 numMoves);
 static void QuickSortMoves(u16 *moves, s32 left, s32 right);
 
@@ -316,9 +317,14 @@ void TeachMoveRelearnerMove(void)
     LockPlayerFieldControls();
     CreateTask(Task_WaitForFadeOut, 10);
     gRelearnMode = RELEARN_MODE_SCRIPT;
-    // The summary-screen relearner cycles this state and leaves it sticky;
-    // the NPC tutor has no category switcher, so always start on level-up moves.
-    gMoveRelearnerState = MOVE_RELEARNER_LEVEL_UP_MOVES;
+    // NPC scripts choose the starting category via setmoverelearnerstate
+    // before calling this special; every script caller must set it explicitly
+    // so the summary-screen relearner's sticky state can't leak in (Fallarbor,
+    // TwoIsland and move_relearner.inc all do). The MOVE_RELEARNER_ALL
+    // sentinel (used for mon filtering) opens on level-up moves; the player
+    // can cycle categories in the UI with LEFT/RIGHT.
+    if (gMoveRelearnerState >= MOVE_RELEARNER_COUNT)
+        gMoveRelearnerState = MOVE_RELEARNER_LEVEL_UP_MOVES;
     // Fade to black
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
 }
@@ -618,6 +624,14 @@ static void Task_MoveRelearner_HandleInput(u8 taskId)
 
         PlaySE(SE_SELECT);
 
+        // NPC tutor: LEFT/RIGHT cycles the taught category
+        // (level-up/egg/tutor) instead of the battle/contest info panel.
+        if (gRelearnMode == RELEARN_MODE_SCRIPT)
+        {
+            SwitchRelearnMoveCategory(JOY_NEW(DPAD_LEFT) || GetLRKeysPressed() == MENU_L_PRESSED);
+            break;
+        }
+
         if (gTasks[taskId].tCategory == BATTLE_INFO)
         {
             PutWindowTilemap(RELEARNERWIN_DESC_CONTEST);
@@ -669,6 +683,43 @@ static void Task_MoveRelearner_HandleInput(u8 taskId)
 static s32 GetCurrentSelectedMove(void)
 {
     return sMoveRelearnerStruct->menuItems[sMoveRelearnerScrollState.listRow + sMoveRelearnerScrollState.listOffset].id;
+}
+
+// NPC tutor only: swap the move list to the previous/next relearn category
+// and rebuild the list menu from scratch (list length changes per category).
+// The teach prompt re-renders with the category name so the player can see
+// which list they're on; an empty category just shows CANCEL.
+static void SwitchRelearnMoveCategory(bool32 backward)
+{
+    static const enum MoveRelearnerStates sCycleOrder[] =
+    {
+        MOVE_RELEARNER_LEVEL_UP_MOVES,
+        MOVE_RELEARNER_EGG_MOVES,
+        MOVE_RELEARNER_TUTOR_MOVES,
+    };
+    u32 i, idx = 0;
+
+    for (i = 0; i < ARRAY_COUNT(sCycleOrder); i++)
+    {
+        if (sCycleOrder[i] == gMoveRelearnerState)
+            idx = i;
+    }
+    idx = (idx + (backward ? ARRAY_COUNT(sCycleOrder) - 1 : 1)) % ARRAY_COUNT(sCycleOrder);
+    gMoveRelearnerState = sCycleOrder[idx];
+
+    RemoveScrollArrows();
+    DestroyListMenuTask(sMoveRelearnerStruct->moveListMenuTask, NULL, NULL);
+    sMoveRelearnerScrollState.listOffset = 0;
+    sMoveRelearnerScrollState.listRow = 0;
+    StoreMoveText();
+    CreateLearnableMovesList();
+    sMoveRelearnerStruct->moveListMenuTask = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+    ShowTeachMoveText();
+    MoveRelearnerShowHideHearts(GetCurrentSelectedMove());
+    if (B_SHOW_CATEGORY_ICON == TRUE)
+        MoveRelearnerShowHideCategoryIcon(GetCurrentSelectedMove());
+    AddScrollArrows();
+    ScheduleBgCopyTilemapToVram(1);
 }
 
 static void ShowTeachMoveText(void)
@@ -996,6 +1047,13 @@ bool32 CanBoxMonRelearnMoves(struct BoxPokemon *boxMon, enum MoveRelearnerStates
 
 bool32 HasMoveToRelearn(struct BoxPokemon *boxMon, enum MoveRelearnerStates state)
 {
+    if (state == MOVE_RELEARNER_ALL)
+    {
+        // NPC tutor: eligible if any category the UI can cycle to has a move.
+        return sRelearnTypes[MOVE_RELEARNER_LEVEL_UP_MOVES].hasMoveToRelearn(boxMon)
+            || sRelearnTypes[MOVE_RELEARNER_EGG_MOVES].hasMoveToRelearn(boxMon)
+            || sRelearnTypes[MOVE_RELEARNER_TUTOR_MOVES].hasMoveToRelearn(boxMon);
+    }
     return sRelearnTypes[state].hasMoveToRelearn(boxMon);
 }
 

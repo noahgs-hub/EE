@@ -14,6 +14,11 @@ enum MoveRelearnerStates
     MOVE_RELEARNER_TM_MOVES,
     MOVE_RELEARNER_TUTOR_MOVES,
     MOVE_RELEARNER_COUNT,
+    // Sentinel for NPC tutor scripts (not a sRelearnTypes index): the box-mon
+    // filter accepts a mon with level-up, egg OR tutor moves to relearn, and
+    // TeachMoveRelearnerMove opens the UI on level-up moves, where LEFT/RIGHT
+    // cycles between the three categories.
+    MOVE_RELEARNER_ALL,
 };
 
 enum RelearnMode
