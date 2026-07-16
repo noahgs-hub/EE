@@ -28,7 +28,6 @@ const struct Tileset gTileset_SecretBaseRedCave =
 const struct Tileset *const gTilesetPointer_SecretBase = &gTileset_SecretBase;
 const struct Tileset *const gTilesetPointer_SecretBaseRedCave = &gTileset_SecretBaseRedCave;
 
-#if !IS_FRLG
 
 const struct Tileset gTileset_General =
 {
@@ -833,7 +832,6 @@ const struct Tileset gTileset_UnionRoom =
     .callback = NULL,
 };
 
-#else
 
 // FRLG tilesets
 const struct Tileset gTileset_BuildingFrlg =
@@ -1540,4 +1538,3 @@ const struct Tileset gTileset_HallOfFame =
     .callback = NULL,
 };
 
-#endif // IS_FRLG
