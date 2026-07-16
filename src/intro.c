@@ -1032,6 +1032,9 @@ void MainCB2_Intro(void)
         // Quick start: press START during the intro to jump straight into the saved game.
         if (JOY_NEW(START_BUTTON) && gSaveFileStatus == SAVE_STATUS_OK)
         {
+            // Scene-load frames run with a NULL VBlank callback; without one,
+            // TransferPlttBuffer never runs and the fade below can't complete.
+            SetVBlankCallback(VBlankCB_Intro);
             FadeOutBGM(4);
             BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
             SetMainCallback2(MainCB2_EndIntroToContinueGame);
