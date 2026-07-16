@@ -3033,6 +3033,14 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 effect++;
             }
             break;
+        case ABILITY_NUCLEAR_FUSION:
+            if (shouldAbilityTrigger)
+            {
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NUCLEAR_FUSION;
+                BattleScriptCall(BattleScript_SwitchInAbilityMsg);
+                effect++;
+            }
+            break;
         case ABILITY_TERAVOLT:
             if (shouldAbilityTrigger)
             {
@@ -3608,6 +3616,21 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                     gEffectBattler = gBattlerAbility = battler;
                     SetStatChange(battler, STAT_SPEED, 1);
                     BattleScriptCall(BattleScript_AbilityStatChange);
+                    effect++;
+                }
+                break;
+            case ABILITY_NUCLEAR_FUSION:
+                if (gBattleMons[battler].volatiles.nuclearFusionSpentCharge)
+                {
+                    // Expended its charge this turn; skip recharging so charge moves can't fire instantly on consecutive turns.
+                    gBattleMons[battler].volatiles.nuclearFusionSpentCharge = FALSE;
+                }
+                else if (!gBattleMons[battler].volatiles.nuclearFusionCharge)
+                {
+                    gBattleMons[battler].volatiles.nuclearFusionCharge = TRUE;
+                    gBattlerAbility = battler;
+                    gBattleScripting.battler = battler;
+                    BattleScriptCall(BattleScript_NuclearFusionCharges);
                     effect++;
                 }
                 break;
@@ -5873,6 +5896,8 @@ static bool32 IsBattlerUngroundedByAbilityItemOrEffect(enum BattlerId battler, e
     if (holdEffect == HOLD_EFFECT_AIR_BALLOON)
         return TRUE;
     if (ability == ABILITY_LEVITATE)
+        return TRUE;
+    if (ability == ABILITY_NUCLEAR_FUSION)
         return TRUE;
     return FALSE;
 }
@@ -8163,12 +8188,12 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
         && !(ctx->holdEffects[ctx->battlerDef] == HOLD_EFFECT_RING_TARGET && IS_BATTLER_OF_TYPE(ctx->battlerDef, TYPE_FLYING) && !IsBattlerUngroundedByAbilityItemOrEffect(ctx->battlerDef, ctx->abilities[ctx->battlerDef], ctx->holdEffects[ctx->battlerDef])))
     {
         modifier = UQ_4_12(0.0);
-        if (ctx->updateFlags && ctx->abilities[ctx->battlerDef] == ABILITY_LEVITATE)
+        if (ctx->updateFlags && (ctx->abilities[ctx->battlerDef] == ABILITY_LEVITATE || ctx->abilities[ctx->battlerDef] == ABILITY_NUCLEAR_FUSION))
         {
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
-            gLastUsedAbility = ABILITY_LEVITATE;
+            gLastUsedAbility = ctx->abilities[ctx->battlerDef];
             ctx->abilityBlocked = TRUE;
-            RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
+            RecordAbilityBattle(ctx->battlerDef, ctx->abilities[ctx->battlerDef]);
         }
         else if (ctx->holdEffects[ctx->battlerDef] == HOLD_EFFECT_AIR_BALLOON)
         {
@@ -8255,7 +8280,7 @@ uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(enum Move move, enum Species sp
         if (GetSpeciesType(speciesDef, 1) != GetSpeciesType(speciesDef, 0))
             MulByTypeEffectiveness(&ctx, &modifier, GetSpeciesType(speciesDef, 1));
 
-        if (ctx.moveType == TYPE_GROUND && abilityDef == ABILITY_LEVITATE && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
+        if (ctx.moveType == TYPE_GROUND && (abilityDef == ABILITY_LEVITATE || abilityDef == ABILITY_NUCLEAR_FUSION) && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
             modifier = UQ_4_12(0.0);
         if (abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0) && GetMovePower(move) != 0)
             modifier = UQ_4_12(0.0);

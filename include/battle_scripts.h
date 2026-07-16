@@ -251,6 +251,8 @@ extern const u8 BattleScript_MoveStatDrain[];
 extern const u8 BattleScript_PoisonHealActivates[];
 extern const u8 BattleScript_BadDreamsActivates[];
 extern const u8 BattleScript_SwitchInAbilityMsg[];
+extern const u8 BattleScript_NuclearFusionCharges[];
+extern const u8 BattleScript_NuclearFusionChargeSkip[];
 extern const u8 BattleScript_ToxicSpikesPoisoned[];
 extern const u8 BattleScript_ToxicSpikesBadlyPoisoned[];
 extern const u8 BattleScript_ToxicSpikesAbsorbed[];

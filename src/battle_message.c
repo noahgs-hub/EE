@@ -886,6 +886,9 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_LIGHTSCREENWOREOFF]                   = COMPOUND_STRING("{B_DEF_TEAM1} team's Light Screen wore off!"),
     [STRINGID_AURORAVEILWOREOFF]                    = COMPOUND_STRING("{B_DEF_TEAM1} team's Aurora Veil wore off!"),
     [STRINGID_STICKYWEBDISAPPEAREDFROMYOU]          = COMPOUND_STRING("The sticky web has disappeared from the ground around you!"),
+    [STRINGID_NUCLEARFUSIONENTERS]                  = COMPOUND_STRING("Nuclear Fusion causes {B_SCR_NAME_WITH_PREFIX} to levitate!"),
+    [STRINGID_NUCLEARFUSIONCHARGES]                 = COMPOUND_STRING("Nuclear Fusion charges {B_SCR_NAME_WITH_PREFIX}!"),
+    [STRINGID_NUCLEARFUSIONUNLEASHED]               = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} became fully charged by Nuclear Fusion!"),
 };
 
 const u16 gTrainerUsedItemStringIds[] =
@@ -988,6 +991,7 @@ const u16 gSwitchInAbilityStringIds[] =
     [B_MSG_SWITCHIN_CURIOUS_MEDICINE] = STRINGID_CURIOUSMEDICINEENTERS,
     [B_MSG_SWITCHIN_PASTEL_VEIL] = STRINGID_PKMNHEALEDPOISON,
     [B_MSG_SWITCHIN_NEUTRALIZING_GAS] = STRINGID_NEUTRALIZINGGASENTERS,
+    [B_MSG_SWITCHIN_NUCLEAR_FUSION] = STRINGID_NUCLEARFUSIONENTERS,
 };
 
 const u16 gNoEscapeStringIds[] =

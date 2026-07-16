@@ -1773,6 +1773,20 @@ static enum CancelerResult CancelerCharging(struct BattleCalcValues *cv)
                 gBattleMons[cv->battlerAtk].volatiles.semiInvulnerable = STATE_NONE;
             result = CANCELER_RESULT_SUCCESS;
         }
+        else if (cv->abilities[cv->battlerAtk] == ABILITY_NUCLEAR_FUSION
+              && gBattleMons[cv->battlerAtk].volatiles.nuclearFusionCharge
+              && !gBattleMoveEffects[cv->moveEffect].semiInvulnerableEffect)
+        {
+            gBattleScripting.animTurn = 1;
+            gBattleScripting.animTargetsHit = 0;
+            gProtectStructs[cv->battlerAtk].chargingTurn = FALSE;
+            gBattleMons[cv->battlerAtk].volatiles.nuclearFusionCharge = FALSE;
+            gBattleMons[cv->battlerAtk].volatiles.nuclearFusionSpentCharge = TRUE;
+            gBattlerAbility = cv->battlerAtk;
+            gBattleScripting.battler = cv->battlerAtk;
+            BattleScriptCall(BattleScript_NuclearFusionChargeSkip);
+            result = CANCELER_RESULT_RUN_SCRIPT_AND_INCREMENT;
+        }
         else if (cv->holdEffects[cv->battlerAtk] == HOLD_EFFECT_POWER_HERB)
         {
             gBattleScripting.animTurn = 1;

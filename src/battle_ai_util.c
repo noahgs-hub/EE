@@ -3150,6 +3150,7 @@ bool32 IsTwoTurnNotSemiInvulnerableMove(enum BattlerId battlerAtk, enum Move mov
     case EFFECT_SOLAR_BEAM:
     case EFFECT_TWO_TURNS_ATTACK:
         return !(gAiLogicData->holdEffects[battlerAtk] == HOLD_EFFECT_POWER_HERB
+              || (gAiLogicData->abilities[battlerAtk] == ABILITY_NUCLEAR_FUSION && gBattleMons[battlerAtk].volatiles.nuclearFusionCharge)
               || (AI_GetWeather() & GetMoveTwoTurnAttackWeather(move)));
     default:
         return FALSE;

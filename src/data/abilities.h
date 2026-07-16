@@ -2480,4 +2480,12 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Spicy Spray"),
         .description = COMPOUND_STRING("Burns the foe when damaged."),
     },
+
+    [ABILITY_NUCLEAR_FUSION] =
+    {
+        .name = _("Nuclear Fusion"),
+        .description = COMPOUND_STRING("Levitates, charges moves."),
+        .aiRating = 8,
+        .breakable = TRUE,
+    },
 };

@@ -5004,6 +5004,18 @@ BattleScript_SwitchInAbilityMsg::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+BattleScript_NuclearFusionCharges::
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_NUCLEARFUSIONCHARGES
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_NuclearFusionChargeSkip::
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_NUCLEARFUSIONUNLEASHED
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_ActivateAsOne::
 	call BattleScript_AbilityPopUp
 	printfromtable gSwitchInAbilityStringIds

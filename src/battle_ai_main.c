@@ -3366,6 +3366,7 @@ static s32 AI_DoubleBattle(enum BattlerId battlerAtk, enum BattlerId battlerDef,
                 break;
             case ABILITY_EARTH_EATER:
             case ABILITY_LEVITATE:
+            case ABILITY_NUCLEAR_FUSION:
                 if (moveType == TYPE_GROUND)
                 {
                     if (moveTarget == TARGET_FOES_AND_ALLY)
@@ -4332,7 +4333,8 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
         ADJUST_SCORE(GetStatChangeScore(battlerAtk, battlerDef, move));
         break;
     case EFFECT_GEOMANCY:
-        if (aiData->holdEffects[battlerAtk] != HOLD_EFFECT_POWER_HERB)
+        if (aiData->holdEffects[battlerAtk] != HOLD_EFFECT_POWER_HERB
+         && !(aiData->abilities[battlerAtk] == ABILITY_NUCLEAR_FUSION && gBattleMons[battlerAtk].volatiles.nuclearFusionCharge))
             break; // Don't incrase stats if no Power Herb
         ADJUST_SCORE(GetStatChangeScore(battlerAtk, battlerDef, move));
         break;
