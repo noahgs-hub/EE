@@ -561,7 +561,7 @@ static bool32 ShouldSwitchIfWonderGuard(struct SwitchAiContext *switchContext)
 static bool32 FindMonThatAbsorbsOpponentsMove(struct SwitchAiContext *switchContext)
 {
     u8 numAbsorbingAbilities = 0;
-    enum Ability absorbingTypeAbilities[8]; // Max needed for type + move property absorbers
+    enum Ability absorbingTypeAbilities[10]; // Max needed for type + move property absorbers
     enum Ability partyMonAbility;
     enum Type incomingType = CheckDynamicMoveType(GetBattlerMon(switchContext->opposingBattler), switchContext->incomingMove, switchContext->opposingBattler, MON_IN_BATTLE);
 
@@ -592,6 +592,7 @@ static bool32 FindMonThatAbsorbsOpponentsMove(struct SwitchAiContext *switchCont
         absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_DRY_SKIN;
         if (GetConfig(B_REDIRECT_ABILITY_IMMUNITY) >= GEN_5)
             absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_STORM_DRAIN;
+            absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_ORBITING;
     }
     if (incomingType == TYPE_ELECTRIC)
     {
@@ -609,6 +610,7 @@ static bool32 FindMonThatAbsorbsOpponentsMove(struct SwitchAiContext *switchCont
         absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_EARTH_EATER;
         absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_LEVITATE;
         absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_NUCLEAR_FUSION;
+        absorbingTypeAbilities[numAbsorbingAbilities++] = ABILITY_ORBITING;
     }
     if (IsSoundMove(switchContext->incomingMove))
     {
@@ -862,7 +864,7 @@ static bool32 GetHitEscapeTransformState(enum BattlerId battlerAtk, enum Move mo
 
         if (AI_CanMoveBeBlockedByTarget(&ctx))
         {
-            if ((moveType == TYPE_WATER && abilityDef == ABILITY_STORM_DRAIN)
+            if ((moveType == TYPE_WATER && (abilityDef == ABILITY_STORM_DRAIN || abilityDef == ABILITY_ORBITING))
              || (moveType == TYPE_ELECTRIC && abilityDef == ABILITY_LIGHTNING_ROD))
                 absorberOnField = TRUE;
             gAiLogicData->effectiveness[battlerAtk][battlerDef][moveIndex] = UQ_4_12(0.0);

@@ -2488,4 +2488,12 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 8,
         .breakable = TRUE,
     },
+
+    [ABILITY_ORBITING] =
+    {
+        .name = _("Orbiting"),
+        .description = COMPOUND_STRING("Levitates, draws in Water."),
+        .aiRating = 8,
+        .breakable = TRUE,
+    },
 };

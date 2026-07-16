@@ -845,7 +845,7 @@ static bool32 HandleMoveTargetRedirection(struct BattleCalcValues *cv, enum Move
     enum Type moveType = GetBattleMoveType(cv->move);
     enum Ability ability = cv->abilities[cv->battlerDef];
     bool32 currTargetCantAbsorb = ((ability != ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
-                                || (ability != ABILITY_STORM_DRAIN && moveType == TYPE_WATER));
+                                || (ability != ABILITY_STORM_DRAIN && ability != ABILITY_ORBITING && moveType == TYPE_WATER));
 
     if (currTargetCantAbsorb
      && IsDoubleBattle()
@@ -867,7 +867,7 @@ static bool32 HandleMoveTargetRedirection(struct BattleCalcValues *cv, enum Move
                 && battler != cv->battlerAtk
                 && battler != cv->battlerDef
                 && ((ability == ABILITY_LIGHTNING_ROD && moveType == TYPE_ELECTRIC)
-                 || (ability == ABILITY_STORM_DRAIN && moveType == TYPE_WATER))
+                 || ((ability == ABILITY_STORM_DRAIN || ability == ABILITY_ORBITING) && moveType == TYPE_WATER))
                 && GetBattlerTurnOrderNum(battler) < redirectorOrderNum
                 && !IsAbilityAndRecord(cv->battlerAtk, abilityAtk, ABILITY_PROPELLER_TAIL)
                 && !IsAbilityAndRecord(cv->battlerAtk, abilityAtk, ABILITY_STALWART))
