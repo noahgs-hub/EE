@@ -2496,4 +2496,11 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 8,
         .breakable = TRUE,
     },
+
+    [ABILITY_STRONG_LEGS] =
+    {
+        .name = _("Strong Legs"),
+        .description = COMPOUND_STRING("Powers up kicking moves."),
+        .aiRating = 6,
+    },
 };
