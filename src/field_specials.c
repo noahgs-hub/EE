@@ -5971,3 +5971,32 @@ bool8 CheckAddCoins(void)
     else
         return TRUE;
 }
+
+static const u8 sText_DeoxysNormalForme[] = _("NORMAL FORME");
+static const u8 sText_DeoxysAttackForme[] = _("ATTACK FORME");
+static const u8 sText_DeoxysDefenseForme[] = _("DEFENSE FORME");
+static const u8 sText_DeoxysSpeedForme[] = _("SPEED FORME");
+
+// Meteorite in Cozmo's house: cycles the party mon in VAR_0x8004 through
+// DEOXYS's formes using the ORAS ITEM_METEORITE form-change table
+// (FORM_CHANGE_ITEM_USE reads the item from gSpecialVar_ItemId). On success
+// returns TRUE with the new forme's name in gStringVar2 and the new species
+// in VAR_0x8005 for playmoncry; FALSE for any mon the METEORITE can't affect.
+u16 MeteoriteTryDeoxysFormChange(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+
+    gSpecialVar_ItemId = ITEM_METEORITE;
+    if (!TryFormChange(mon, FORM_CHANGE_ITEM_USE, B_TRAINER_PLAYER))
+        return FALSE;
+
+    gSpecialVar_0x8005 = GetMonData(mon, MON_DATA_SPECIES);
+    switch (gSpecialVar_0x8005)
+    {
+    case SPECIES_DEOXYS_ATTACK:  StringCopy(gStringVar2, sText_DeoxysAttackForme);  break;
+    case SPECIES_DEOXYS_DEFENSE: StringCopy(gStringVar2, sText_DeoxysDefenseForme); break;
+    case SPECIES_DEOXYS_SPEED:   StringCopy(gStringVar2, sText_DeoxysSpeedForme);   break;
+    default:                     StringCopy(gStringVar2, sText_DeoxysNormalForme);  break;
+    }
+    return TRUE;
+}

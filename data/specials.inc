@@ -578,6 +578,7 @@ gSpecials::
 	def_special GetMonEv
 	def_special GetMonEvCap
 	def_special SetMonEv
+	def_special MeteoriteTryDeoxysFormChange
 	def_special GetHiddenNature
 	def_special SetHiddenNature
 	def_special GetMonRealNature
