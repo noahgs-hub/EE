@@ -24,6 +24,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_TryPurchasePrize::
 	goto_if_eq VAR_TEMP_2, EXCHANGE_CORNER_DECOR1_CLERK, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseDecor1
 	goto_if_eq VAR_TEMP_2, EXCHANGE_CORNER_DECOR2_CLERK, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseDecor2
 	goto_if_eq VAR_TEMP_2, EXCHANGE_CORNER_VITAMIN_CLERK, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseVitamin
+	goto_if_eq VAR_TEMP_2, EXCHANGE_CORNER_HOLD_ITEM2_CLERK, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem2
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem
 	end
 
@@ -62,6 +63,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_TryGiveItem::
 	playse SE_SHOP
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_HereIsYourPrize, MSGBOX_DEFAULT
 	goto_if_eq VAR_TEMP_2, EXCHANGE_CORNER_VITAMIN_CLERK, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseVitamin
+	goto_if_eq VAR_TEMP_2, EXCHANGE_CORNER_HOLD_ITEM2_CLERK, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem2
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem
 	end
 
@@ -275,7 +277,56 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem::
 	case 6, BattleFrontier_ExchangeServiceCorner_EventScript_KingsRock
 	case 7, BattleFrontier_ExchangeServiceCorner_EventScript_FocusBand
 	case 8, BattleFrontier_ExchangeServiceCorner_EventScript_ScopeLens
-	case 9, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
+	case 9, BattleFrontier_ExchangeServiceCorner_EventScript_ChoiceScarf
+	case 10, BattleFrontier_ExchangeServiceCorner_EventScript_ChoiceSpecs
+	case 11, BattleFrontier_ExchangeServiceCorner_EventScript_LifeOrb
+	case 12, BattleFrontier_ExchangeServiceCorner_EventScript_FocusSash
+	case 13, BattleFrontier_ExchangeServiceCorner_EventScript_RockyHelmet
+	case 14, BattleFrontier_ExchangeServiceCorner_EventScript_AssaultVest
+	case 15, BattleFrontier_ExchangeServiceCorner_EventScript_HeavyDutyBoots
+	case 16, BattleFrontier_ExchangeServiceCorner_EventScript_WeaknessPolicy
+	case 17, BattleFrontier_ExchangeServiceCorner_EventScript_CovertCloak
+	case 18, BattleFrontier_ExchangeServiceCorner_EventScript_ClearAmulet
+	case 19, BattleFrontier_ExchangeServiceCorner_EventScript_LoadedDice
+	case 20, BattleFrontier_ExchangeServiceCorner_EventScript_BoosterEnergy
+	case 21, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
+	case MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_HoldItem2Clerk::
+	lock
+	faceplayer
+	setvar VAR_TEMP_2, EXCHANGE_CORNER_HOLD_ITEM2_CLERK
+	call BattleFrontier_ExchangeServiceCorner_EventScript_ClerkWelcome
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem2
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem2::
+	setvar VAR_0x8004, SCROLL_MULTI_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR_2
+	special ShowFrontierExchangeCornerItemIconWindow
+	special ShowScrollableMultichoice
+	special CloseFrontierExchangeCornerItemIconWindow
+	switch VAR_RESULT
+	case 0, BattleFrontier_ExchangeServiceCorner_EventScript_AirBalloon
+	case 1, BattleFrontier_ExchangeServiceCorner_EventScript_RedCard
+	case 2, BattleFrontier_ExchangeServiceCorner_EventScript_EjectButton
+	case 3, BattleFrontier_ExchangeServiceCorner_EventScript_EjectPack
+	case 4, BattleFrontier_ExchangeServiceCorner_EventScript_PowerHerb
+	case 5, BattleFrontier_ExchangeServiceCorner_EventScript_BlackSludge
+	case 6, BattleFrontier_ExchangeServiceCorner_EventScript_LightClay
+	case 7, BattleFrontier_ExchangeServiceCorner_EventScript_HeatRock
+	case 8, BattleFrontier_ExchangeServiceCorner_EventScript_TerrainExtender
+	case 9, BattleFrontier_ExchangeServiceCorner_EventScript_ToxicOrb
+	case 10, BattleFrontier_ExchangeServiceCorner_EventScript_StickyBarb
+	case 11, BattleFrontier_ExchangeServiceCorner_EventScript_GrassySeed
+	case 12, BattleFrontier_ExchangeServiceCorner_EventScript_Metronome
+	case 13, BattleFrontier_ExchangeServiceCorner_EventScript_WiseGlasses
+	case 14, BattleFrontier_ExchangeServiceCorner_EventScript_BlackGlasses
+	case 15, BattleFrontier_ExchangeServiceCorner_EventScript_MysticWater
+	case 16, BattleFrontier_ExchangeServiceCorner_EventScript_NeverMeltIce
+	case 17, BattleFrontier_ExchangeServiceCorner_EventScript_MetalCoat
+	case 18, BattleFrontier_ExchangeServiceCorner_EventScript_SpellTag
+	case 19, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
 	case MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
 	end
 
@@ -283,6 +334,13 @@ BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem::
 	bufferitemname STR_VAR_1, VAR_0x8009
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmPurchase, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_TryPurchasePrize
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2::
+	bufferitemname STR_VAR_1, VAR_0x8009
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmPurchase, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem2
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_TryPurchasePrize
 	end
 
@@ -321,6 +379,130 @@ BattleFrontier_ExchangeServiceCorner_EventScript_FocusBand::
 BattleFrontier_ExchangeServiceCorner_EventScript_ScopeLens::
 	setitemandprice ITEM_SCOPE_LENS, 64
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_ChoiceScarf::
+	setitemandprice ITEM_CHOICE_SCARF, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_ChoiceSpecs::
+	setitemandprice ITEM_CHOICE_SPECS, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_LifeOrb::
+	setitemandprice ITEM_LIFE_ORB, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_FocusSash::
+	setitemandprice ITEM_FOCUS_SASH, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_RockyHelmet::
+	setitemandprice ITEM_ROCKY_HELMET, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_AssaultVest::
+	setitemandprice ITEM_ASSAULT_VEST, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_HeavyDutyBoots::
+	setitemandprice ITEM_HEAVY_DUTY_BOOTS, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_WeaknessPolicy::
+	setitemandprice ITEM_WEAKNESS_POLICY, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_CovertCloak::
+	setitemandprice ITEM_COVERT_CLOAK, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_ClearAmulet::
+	setitemandprice ITEM_CLEAR_AMULET, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_LoadedDice::
+	setitemandprice ITEM_LOADED_DICE, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_BoosterEnergy::
+	setitemandprice ITEM_BOOSTER_ENERGY, 64
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem
+
+BattleFrontier_ExchangeServiceCorner_EventScript_AirBalloon::
+	setitemandprice ITEM_AIR_BALLOON, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_RedCard::
+	setitemandprice ITEM_RED_CARD, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_EjectButton::
+	setitemandprice ITEM_EJECT_BUTTON, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_EjectPack::
+	setitemandprice ITEM_EJECT_PACK, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_PowerHerb::
+	setitemandprice ITEM_POWER_HERB, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_BlackSludge::
+	setitemandprice ITEM_BLACK_SLUDGE, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_LightClay::
+	setitemandprice ITEM_LIGHT_CLAY, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_HeatRock::
+	setitemandprice ITEM_HEAT_ROCK, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_TerrainExtender::
+	setitemandprice ITEM_TERRAIN_EXTENDER, 48
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_ToxicOrb::
+	setitemandprice ITEM_TOXIC_ORB, 32
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_StickyBarb::
+	setitemandprice ITEM_STICKY_BARB, 32
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_GrassySeed::
+	setitemandprice ITEM_GRASSY_SEED, 32
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_Metronome::
+	setitemandprice ITEM_METRONOME, 32
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_WiseGlasses::
+	setitemandprice ITEM_WISE_GLASSES, 32
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_BlackGlasses::
+	setitemandprice ITEM_BLACK_GLASSES, 16
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_MysticWater::
+	setitemandprice ITEM_MYSTIC_WATER, 16
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_NeverMeltIce::
+	setitemandprice ITEM_NEVER_MELT_ICE, 16
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_MetalCoat::
+	setitemandprice ITEM_METAL_COAT, 16
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
+
+BattleFrontier_ExchangeServiceCorner_EventScript_SpellTag::
+	setitemandprice ITEM_SPELL_TAG, 16
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseHoldItem2
 
 BattleFrontier_ExchangeServiceCorner_EventScript_Man::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_GoGetYourOwnDoll, MSGBOX_NPC
@@ -517,3 +699,127 @@ BattleFrontier_ExchangeServiceCorner_Text_FocusBandDesc::
 BattleFrontier_ExchangeServiceCorner_Text_ScopeLensDesc::
 	.string "A hold item that raises the\n"
 	.string "critical-hit rate.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_ChoiceScarfDesc::
+	.string "A hold item that boosts SPEED but\n"
+	.string "locks the holder into one move.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_ChoiceSpecsDesc::
+	.string "A hold item that boosts SP. ATK but\n"
+	.string "locks the holder into one move.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_LifeOrbDesc::
+	.string "A hold item that boosts moves at\n"
+	.string "the cost of some HP each turn.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_FocusSashDesc::
+	.string "A hold item that lets the holder\n"
+	.string "survive a KO blow at full HP.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_RockyHelmetDesc::
+	.string "A hold item that hurts any foe\n"
+	.string "that hits the holder on contact.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_AssaultVestDesc::
+	.string "A hold item that raises SP. DEF but\n"
+	.string "prevents status moves.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_HeavyDutyBootsDesc::
+	.string "A hold item that protects against\n"
+	.string "traps set on the battlefield.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_WeaknessPolicyDesc::
+	.string "A hold item that sharply boosts\n"
+	.string "attacks when hit super effectively.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_CovertCloakDesc::
+	.string "A hold item that blocks the added\n"
+	.string "effects of moves.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_ClearAmuletDesc::
+	.string "A hold item that prevents the\n"
+	.string "holder's stats from being lowered.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_LoadedDiceDesc::
+	.string "A hold item that makes multistrike\n"
+	.string "moves hit more often.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_BoosterEnergyDesc::
+	.string "A hold item that boosts the best\n"
+	.string "stat of certain POKéMON.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_AirBalloonDesc::
+	.string "A hold item that makes the holder\n"
+	.string "float until it is hit.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_RedCardDesc::
+	.string "A hold item that switches out a foe\n"
+	.string "that hits the holder.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_EjectButtonDesc::
+	.string "A hold item that switches out the\n"
+	.string "holder when it is hit.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_EjectPackDesc::
+	.string "A hold item that switches out the\n"
+	.string "holder when its stats are lowered.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_PowerHerbDesc::
+	.string "A hold item that lets a charge-up\n"
+	.string "move fire on the first turn.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_BlackSludgeDesc::
+	.string "A hold item that restores the HP\n"
+	.string "of POISON types in battle.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_LightClayDesc::
+	.string "A hold item that makes barriers\n"
+	.string "like REFLECT last longer.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_HeatRockDesc::
+	.string "A hold item that lengthens harsh\n"
+	.string "sunlight set by the holder.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_TerrainExtenderDesc::
+	.string "A hold item that lengthens terrain\n"
+	.string "set by the holder.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_ToxicOrbDesc::
+	.string "A hold item that badly poisons the\n"
+	.string "holder in battle.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_StickyBarbDesc::
+	.string "A hold item that hurts the holder\n"
+	.string "and clings to attackers.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_GrassySeedDesc::
+	.string "A hold item that raises DEFENSE\n"
+	.string "on GRASSY TERRAIN.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_MetronomeDesc::
+	.string "A hold item that boosts moves\n"
+	.string "used repeatedly in a row.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_WiseGlassesDesc::
+	.string "A hold item that slightly boosts\n"
+	.string "special moves.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_BlackGlassesDesc::
+	.string "A hold item that boosts\n"
+	.string "DARK-type moves.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_MysticWaterDesc::
+	.string "A hold item that boosts\n"
+	.string "WATER-type moves.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_NeverMeltIceDesc::
+	.string "A hold item that boosts\n"
+	.string "ICE-type moves.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_MetalCoatDesc::
+	.string "A hold item that boosts\n"
+	.string "STEEL-type moves.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_SpellTagDesc::
+	.string "A hold item that boosts\n"
+	.string "GHOST-type moves.$"

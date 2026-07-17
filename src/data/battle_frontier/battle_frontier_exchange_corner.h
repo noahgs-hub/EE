@@ -45,6 +45,42 @@ static const u16 sFrontierExchangeCorner_HoldItems[] =
     ITEM_KINGS_ROCK,
     ITEM_FOCUS_BAND,
     ITEM_SCOPE_LENS,
+    ITEM_CHOICE_SCARF,
+    ITEM_CHOICE_SPECS,
+    ITEM_LIFE_ORB,
+    ITEM_FOCUS_SASH,
+    ITEM_ROCKY_HELMET,
+    ITEM_ASSAULT_VEST,
+    ITEM_HEAVY_DUTY_BOOTS,
+    ITEM_WEAKNESS_POLICY,
+    ITEM_COVERT_CLOAK,
+    ITEM_CLEAR_AMULET,
+    ITEM_LOADED_DICE,
+    ITEM_BOOSTER_ENERGY,
+    ITEM_LIST_END
+};
+
+static const u16 sFrontierExchangeCorner_HoldItems2[] =
+{
+    ITEM_AIR_BALLOON,
+    ITEM_RED_CARD,
+    ITEM_EJECT_BUTTON,
+    ITEM_EJECT_PACK,
+    ITEM_POWER_HERB,
+    ITEM_BLACK_SLUDGE,
+    ITEM_LIGHT_CLAY,
+    ITEM_HEAT_ROCK,
+    ITEM_TERRAIN_EXTENDER,
+    ITEM_TOXIC_ORB,
+    ITEM_STICKY_BARB,
+    ITEM_GRASSY_SEED,
+    ITEM_METRONOME,
+    ITEM_WISE_GLASSES,
+    ITEM_BLACK_GLASSES,
+    ITEM_MYSTIC_WATER,
+    ITEM_NEVER_MELT_ICE,
+    ITEM_METAL_COAT,
+    ITEM_SPELL_TAG,
     ITEM_LIST_END
 };
 
@@ -95,5 +131,41 @@ static const u8 *const sFrontierExchangeCorner_HoldItemsDescriptions[] =
     BattleFrontier_ExchangeServiceCorner_Text_KingsRockDesc,
     BattleFrontier_ExchangeServiceCorner_Text_FocusBandDesc,
     BattleFrontier_ExchangeServiceCorner_Text_ScopeLensDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_ChoiceScarfDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_ChoiceSpecsDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_LifeOrbDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_FocusSashDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_RockyHelmetDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_AssaultVestDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_HeavyDutyBootsDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_WeaknessPolicyDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_CovertCloakDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_ClearAmuletDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_LoadedDiceDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_BoosterEnergyDesc,
+    gText_Exit
+};
+
+static const u8 *const sFrontierExchangeCorner_HoldItems2Descriptions[] =
+{
+    BattleFrontier_ExchangeServiceCorner_Text_AirBalloonDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_RedCardDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_EjectButtonDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_EjectPackDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_PowerHerbDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_BlackSludgeDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_LightClayDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_HeatRockDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_TerrainExtenderDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_ToxicOrbDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_StickyBarbDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_GrassySeedDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_MetronomeDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_WiseGlassesDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_BlackGlassesDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_MysticWaterDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_NeverMeltIceDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_MetalCoatDesc,
+    BattleFrontier_ExchangeServiceCorner_Text_SpellTagDesc,
     gText_Exit
 };
