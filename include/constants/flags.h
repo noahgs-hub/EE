@@ -1575,7 +1575,7 @@
 #define FLAG_DAILY_CONTEST_LOBBY_RECEIVED_BERRY     (DAILY_FLAGS_START + 0x1)
 #define FLAG_DAILY_SECRET_BASE                      (DAILY_FLAGS_START + 0x2)
 #define FLAG_DAILY_ABILITY_CLERK_NATURE             (DAILY_FLAGS_START + 0x3)  // Slateport market Ability Clerk's once-a-day nature change
-#define FLAG_UNUSED_0x924                           (DAILY_FLAGS_START + 0x4)  // Unused Flag
+#define FLAG_DAILY_HIDE_ROUTE_104_SNORLAX           (DAILY_FLAGS_START + 0x4)  // Bridge SNORLAX pushed into the pond; cleared daily so it respawns
 #define FLAG_UNUSED_0x925                           (DAILY_FLAGS_START + 0x5)  // Unused Flag
 #define FLAG_UNUSED_0x926                           (DAILY_FLAGS_START + 0x6)  // Unused Flag
 #define FLAG_UNUSED_0x927                           (DAILY_FLAGS_START + 0x7)  // Unused Flag

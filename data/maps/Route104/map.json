@@ -474,6 +474,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route104_EventScript_Rival",
       "flag": "FLAG_HIDE_ROUTE_104_RIVAL"
+    },
+    {
+      "local_id": "LOCALID_ROUTE104_SNORLAX",
+      "graphics_id": "OBJ_EVENT_GFX_SNORLAX",
+      "x": 20,
+      "y": 16,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route104_EventScript_SNORLAX",
+      "flag": "FLAG_DAILY_HIDE_ROUTE_104_SNORLAX"
     }
   ],
   "warp_events": [
