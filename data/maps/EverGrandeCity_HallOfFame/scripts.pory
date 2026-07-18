@@ -60,7 +60,12 @@ EverGrandeCity_HallOfFame_EventScript_EnterHallOfFame::
 EverGrandeCity_HallOfFame_EventScript_HonorMsg::
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_STEVEN, EverGrandeCity_HallOfFame_EventScript_HonorMsgSteven
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_BLUE, EverGrandeCity_HallOfFame_EventScript_HonorMsgGary
+	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LANCE, EverGrandeCity_HallOfFame_EventScript_HonorMsgLance
 	msgbox EverGrandeCity_HallOfFame_Text_HereWeHonorLeagueChampions, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_HonorMsgLance::
+	msgbox EverGrandeCity_HallOfFame_Text_LanceHereWeHonorLeagueChampions, MSGBOX_DEFAULT
 	return
 
 EverGrandeCity_HallOfFame_EventScript_HonorMsgSteven::
@@ -74,7 +79,12 @@ EverGrandeCity_HallOfFame_EventScript_HonorMsgGary::
 EverGrandeCity_HallOfFame_EventScript_RecordMsg::
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_STEVEN, EverGrandeCity_HallOfFame_EventScript_RecordMsgSteven
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_BLUE, EverGrandeCity_HallOfFame_EventScript_RecordMsgGary
+	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LANCE, EverGrandeCity_HallOfFame_EventScript_RecordMsgLance
 	msgbox EverGrandeCity_HallOfFame_Text_LetsRecordYouAndYourPartnersNames, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_RecordMsgLance::
+	msgbox EverGrandeCity_HallOfFame_Text_LanceLetsRecordYourNames, MSGBOX_DEFAULT
 	return
 
 EverGrandeCity_HallOfFame_EventScript_RecordMsgSteven::
@@ -158,4 +168,23 @@ EverGrandeCity_HallOfFame_Text_GaryLetsRecordYourNames:
 	.string "You and your whole team.\p"
 	.string "It's not every day I let somebody\n"
 	.string "else hog the spotlight!$"
+
+EverGrandeCity_HallOfFame_Text_LanceHereWeHonorLeagueChampions:
+	.string "LANCE: This room…\p"
+	.string "Here rest the names of POKéMON that\n"
+	.string "prevailed through the harshest of\l"
+	.string "battles.\p"
+	.string "It is here that the LEAGUE CHAMPIONS\n"
+	.string "are honored.\p"
+	.string "KANTO keeps such a hall as well.\n"
+	.string "Standing in one never loses its\l"
+	.string "weight.$"
+
+EverGrandeCity_HallOfFame_Text_LanceLetsRecordYourNames:
+	.string "LANCE: Come.\p"
+	.string "Let's record your name as a TRAINER\n"
+	.string "who triumphed over the POKéMON\l"
+	.string "LEAGUE, and the names of the\l"
+	.string "partners who fought at your side.\p"
+	.string "Wear the title with pride.$"
 `
