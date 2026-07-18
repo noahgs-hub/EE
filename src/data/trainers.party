@@ -4629,6 +4629,14 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Strength
 - Facade
 
+Lunatone
+Level: 67
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Dark Pulse
+- Power Gem
+- Psychic
+- Ice Beam
+
 Absol @ Sitrus Berry
 Level: 69
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
@@ -4648,13 +4656,13 @@ Double Battle: No
 AI: Basic Trainer
 Mugshot: Green
 
-Dusclops
+Gengar
 Level: 65
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Punch
-- Confuse Ray
-- Curse
-- Protect
+- Shadow Ball
+- Sludge Bomb
+- Thunderbolt
+- Destiny Bond
 
 Banette
 Level: 66
@@ -4672,21 +4680,29 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Night Shade
 - Foul Play
 
-Banette
+Noctowl
 Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Shadow Ball
-- Psychic
-- Thunderbolt
-- Facade
+- Air Slash
+- Hypnosis
+- Roost
 
-Dusclops @ Sitrus Berry
+Mismagius
+Level: 67
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Shadow Ball
+- Dazzling Gleam
+- Mystical Fire
+- Thunderbolt
+
+Dusknoir @ Sitrus Berry
 Level: 69
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Shadow Ball
-- Ice Beam
-- Rock Slide
+- Shadow Punch
 - Earthquake
+- Ice Punch
+- Rock Slide
 
 === TRAINER_GLACIA ===
 Name: GLACIA
@@ -4699,13 +4715,13 @@ Double Battle: No
 AI: Basic Trainer
 Mugshot: Pink
 
-Walrein
+Jynx
 Level: 65
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Encore
-- Body Slam
-- Hail
-- Ice Fang
+- Ice Beam
+- Psychic
+- Lovely Kiss
+- Focus Blast
 
 Glalie
 Level: 65
@@ -4715,21 +4731,29 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Freeze-Dry
 - Ice Beam
 
-Walrein
-Level: 68
+Piloswine
+Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Attract
-- Double Edge
-- Hail
-- Blizzard
+- Earthquake
+- Icicle Crash
+- Rock Slide
+- Curse
 
-Glalie
+Lapras
 Level: 68
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Ball
-- Explosion
-- Hail
+- Surf
 - Ice Beam
+- Thunderbolt
+- Body Slam
+
+Froslass
+Level: 68
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Ice Beam
+- Shadow Ball
+- Thunderbolt
+- Destiny Bond
 
 Walrein @ Sitrus Berry
 Level: 69
@@ -4750,13 +4774,13 @@ Double Battle: No
 AI: Basic Trainer
 Mugshot: Blue
 
-Salamence
+Sceptile
 Level: 66
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Rock Tomb
+- Leaf Blade
 - Dragon Claw
-- Protect
-- Double Edge
+- Earthquake
+- X-Scissor
 
 Altaria
 Level: 69
@@ -4780,6 +4804,14 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Flamethrower
 - Crunch
 - Dragon Breath
+- Earthquake
+
+Dragonite
+Level: 68
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Dragon Claw
+- Extreme Speed
+- Fire Punch
 - Earthquake
 
 Salamence @ Sitrus Berry
