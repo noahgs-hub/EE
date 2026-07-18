@@ -97,10 +97,27 @@ PlayersHouse_2F_EventScript_MomComesUpstairsFemale::
 
 PlayersHouse_2F_EventScript_CheckWallClock::
 	incrementgamestat GAME_STAT_CHECKED_CLOCK
+	msgbox PlayersHouse_2F_Text_AdjustTheClock, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PlayersHouse_2F_EventScript_AdjustWallClock
+	closemessage
 	fadescreen FADE_TO_BLACK
 	special Special_ViewWallClock
 	releaseall
 	end
+
+PlayersHouse_2F_EventScript_AdjustWallClock::
+	closemessage
+	fadescreen FADE_TO_BLACK
+	special StartWallClock
+	msgbox PlayersHouse_2F_Text_ClockWasAdjusted, MSGBOX_DEFAULT
+	releaseall
+	end
+
+PlayersHouse_2F_Text_AdjustTheClock:
+	.string "Adjust the clock's time?$"
+
+PlayersHouse_2F_Text_ClockWasAdjusted:
+	.string "The clock's time was adjusted.$"
 
 PlayersHouse_2F_EventScript_SetWallClock::
 	fadescreen FADE_TO_BLACK
