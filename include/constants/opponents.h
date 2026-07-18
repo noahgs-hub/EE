@@ -863,12 +863,13 @@
 #define TRAINER_STEVEN_E4                   856
 #define TRAINER_GARY                        857
 #define TRAINER_LANCE                       858
+#define TRAINER_NOAH                        859
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs are capped at MAX_TRAINERS_COUNT_EMERALD.
 //       July 2026: raised 864 -> 1024 (shifts every flag >= 0x860 and grows SaveBlock1 by 20 bytes).
 //       Saves from before this change must be run through tools/convert_flag_save.py.
 
-#define TRAINERS_COUNT_EMERALD     859
+#define TRAINERS_COUNT_EMERALD     860
 #define MAX_TRAINERS_COUNT_EMERALD 1024
 
 #if IS_FRLG

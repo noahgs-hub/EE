@@ -1,14 +1,15 @@
 // Champions Room - rotating champion.
-// First clear: always Wallace. After FLAG_SYS_GAME_CLEAR: 1/4 each Wallace,
+// First clear: always Wallace. After FLAG_SYS_GAME_CLEAR: 1/5 each Wallace,
 // Steven (TRAINER_STEVEN_E4, his R/S champion team, distinct from the Meteor
 // Falls superboss TRAINER_STEVEN), Gary (TRAINER_GARY, FRLG rival champion
 // team at Steven's 72-76 band, OBJ_EVENT_GFX_BLUE / Champion Rival Frlg pic),
-// or Lance (TRAINER_LANCE, dragon team 72-76, OBJ_EVENT_GFX_LANCE /
-// Elite Four Lance Frlg pic).
+// Lance (TRAINER_LANCE, dragon team 72-76, OBJ_EVENT_GFX_LANCE /
+// Elite Four Lance Frlg pic), or Noah (TRAINER_NOAH, the romhack creator's
+// self-insert: forced DOUBLE battle, competitive EV builds, Lt Surge sprite/pic).
 // The champion object (LOCALID_CHAMPIONS_ROOM_WALLACE) uses OBJ_EVENT_GFX_VAR_1;
 // the roll happens ON_TRANSITION: VAR_OBJ_GFX_ID_1 = sprite, VAR_TEMP_4 =
-// 0 Wallace / 1 Steven / 2 Gary / 3 Lance. VAR_OBJ_GFX_ID_1 survives the warp,
-// so the Hall of Fame map branches on it for the escort's sprite/dialogue.
+// 0 Wallace / 1 Steven / 2 Gary / 3 Lance / 4 Noah. VAR_OBJ_GFX_ID_1 survives the
+// warp, so the Hall of Fame map branches on it for the escort's sprite/dialogue.
 // Everything below is the original scripts.inc with the rotation hooks added,
 // plus TryReleaseLegendaryBeastRoamers in EventScript_Defeated (releases
 // Raikou/Entei/Suicune as roamers after every champion win; re-releases
@@ -28,10 +29,11 @@ EverGrandeCity_ChampionsRoom_OnTransition:
 	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_WALLACE
 	setvar VAR_TEMP_4, 0
 	goto_if_unset FLAG_SYS_GAME_CLEAR, EverGrandeCity_ChampionsRoom_OnTransition_End
-	random 4
+	random 5
 	goto_if_eq VAR_RESULT, 0, EverGrandeCity_ChampionsRoom_OnTransition_End
 	goto_if_eq VAR_RESULT, 2, EverGrandeCity_ChampionsRoom_OnTransition_Gary
 	goto_if_eq VAR_RESULT, 3, EverGrandeCity_ChampionsRoom_OnTransition_Lance
+	goto_if_eq VAR_RESULT, 4, EverGrandeCity_ChampionsRoom_OnTransition_Noah
 	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_STEVEN
 	setvar VAR_TEMP_4, 1
 	goto EverGrandeCity_ChampionsRoom_OnTransition_End
@@ -44,6 +46,11 @@ EverGrandeCity_ChampionsRoom_OnTransition_Gary:
 EverGrandeCity_ChampionsRoom_OnTransition_Lance:
 	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LANCE
 	setvar VAR_TEMP_4, 3
+	goto EverGrandeCity_ChampionsRoom_OnTransition_End
+
+EverGrandeCity_ChampionsRoom_OnTransition_Noah:
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LT_SURGE
+	setvar VAR_TEMP_4, 4
 	goto EverGrandeCity_ChampionsRoom_OnTransition_End
 
 EverGrandeCity_ChampionsRoom_OnTransition_End:
@@ -72,6 +79,7 @@ EverGrandeCity_ChampionsRoom_EventScript_EnterRoom::
 	goto_if_eq VAR_TEMP_4, 1, EverGrandeCity_ChampionsRoom_EventScript_Steven
 	goto_if_eq VAR_TEMP_4, 2, EverGrandeCity_ChampionsRoom_EventScript_Gary
 	goto_if_eq VAR_TEMP_4, 3, EverGrandeCity_ChampionsRoom_EventScript_Lance
+	goto_if_eq VAR_TEMP_4, 4, EverGrandeCity_ChampionsRoom_EventScript_Noah
 	goto EverGrandeCity_ChampionsRoom_EventScript_Wallace
 	releaseall
 	end
@@ -109,6 +117,13 @@ EverGrandeCity_ChampionsRoom_EventScript_Lance::
 	goto EverGrandeCity_ChampionsRoom_EventScript_Defeated
 	end
 
+EverGrandeCity_ChampionsRoom_EventScript_Noah::
+	playbgm MUS_ENCOUNTER_CHAMPION, FALSE
+	msgbox EverGrandeCity_ChampionsRoom_Text_NoahIntroSpeech, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_NOAH, EverGrandeCity_ChampionsRoom_Text_NoahDefeat
+	goto EverGrandeCity_ChampionsRoom_EventScript_Defeated
+	end
+
 EverGrandeCity_ChampionsRoom_EventScript_Defeated::
 	special TryReleaseLegendaryBeastRoamers
 	special TryResetStationaryLegendaries
@@ -120,6 +135,7 @@ EverGrandeCity_ChampionsRoom_EventScript_Defeated::
 	call_if_eq VAR_TEMP_4, 1, EverGrandeCity_ChampionsRoom_EventScript_StevenPostBattleMsg
 	call_if_eq VAR_TEMP_4, 2, EverGrandeCity_ChampionsRoom_EventScript_GaryPostBattleMsg
 	call_if_eq VAR_TEMP_4, 3, EverGrandeCity_ChampionsRoom_EventScript_LancePostBattleMsg
+	call_if_eq VAR_TEMP_4, 4, EverGrandeCity_ChampionsRoom_EventScript_NoahPostBattleMsg
 	closemessage
 	playse SE_DOOR
 	checkplayergender
@@ -146,6 +162,10 @@ EverGrandeCity_ChampionsRoom_EventScript_GaryPostBattleMsg::
 
 EverGrandeCity_ChampionsRoom_EventScript_LancePostBattleMsg::
 	msgbox EverGrandeCity_ChampionsRoom_Text_LancePostBattleSpeech, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_ChampionsRoom_EventScript_NoahPostBattleMsg::
+	msgbox EverGrandeCity_ChampionsRoom_Text_NoahPostBattleSpeech, MSGBOX_DEFAULT
 	return
 
 EverGrandeCity_ChampionsRoom_EventScript_PlayMayMusic::
@@ -201,6 +221,7 @@ EverGrandeCity_ChampionsRoom_EventScript_BirchArrivesExitForHoF::
 	call_if_eq VAR_TEMP_4, 1, EverGrandeCity_ChampionsRoom_EventScript_StevenComeWithMeMsg
 	call_if_eq VAR_TEMP_4, 2, EverGrandeCity_ChampionsRoom_EventScript_GaryComeWithMeMsg
 	call_if_eq VAR_TEMP_4, 3, EverGrandeCity_ChampionsRoom_EventScript_LanceComeWithMeMsg
+	call_if_eq VAR_TEMP_4, 4, EverGrandeCity_ChampionsRoom_EventScript_NoahComeWithMeMsg
 	closemessage
 	delay 30
 	applymovement LOCALID_CHAMPIONS_ROOM_WALLACE, EverGrandeCity_ChampionsRoom_Movement_WallaceExitStart
@@ -215,6 +236,7 @@ EverGrandeCity_ChampionsRoom_EventScript_BirchArrivesExitForHoF::
 	call_if_eq VAR_TEMP_4, 1, EverGrandeCity_ChampionsRoom_EventScript_StevenWaitOutsideMsg
 	call_if_eq VAR_TEMP_4, 2, EverGrandeCity_ChampionsRoom_EventScript_GaryWaitOutsideMsg
 	call_if_eq VAR_TEMP_4, 3, EverGrandeCity_ChampionsRoom_EventScript_LanceWaitOutsideMsg
+	call_if_eq VAR_TEMP_4, 4, EverGrandeCity_ChampionsRoom_EventScript_NoahWaitOutsideMsg
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, EverGrandeCity_ChampionsRoom_EventScript_MayCongratulations
 	call_if_eq VAR_RESULT, FEMALE, EverGrandeCity_ChampionsRoom_EventScript_BrendanCongratulations
@@ -258,6 +280,14 @@ EverGrandeCity_ChampionsRoom_EventScript_LanceComeWithMeMsg::
 
 EverGrandeCity_ChampionsRoom_EventScript_LanceWaitOutsideMsg::
 	msgbox EverGrandeCity_ChampionsRoom_Text_LanceWaitOutside, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_ChampionsRoom_EventScript_NoahComeWithMeMsg::
+	msgbox EverGrandeCity_ChampionsRoom_Text_NoahComeWithMe, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_ChampionsRoom_EventScript_NoahWaitOutsideMsg::
+	msgbox EverGrandeCity_ChampionsRoom_Text_NoahWaitOutside, MSGBOX_DEFAULT
 	return
 
 EverGrandeCity_ChampionsRoom_EventScript_MayCongratulations::
@@ -536,6 +566,42 @@ EverGrandeCity_ChampionsRoom_Text_LanceWaitOutside:
 	.string "admits only CHAMPIONS.\p"
 	.string "Please wait outside with\n"
 	.string "PROF. BIRCH.$"
+
+EverGrandeCity_ChampionsRoom_Text_NoahIntroSpeech:
+	.string "NOAH: Hi, I am NOAH, the creator\n"
+	.string "of this ROMHACK.\p"
+	.string "We will fight using my favorite\n"
+	.string "ruleset, doubles.\p"
+	.string "These are some of my favorites!$"
+
+EverGrandeCity_ChampionsRoom_Text_NoahDefeat:
+	.string "Beaten in my own game…\p"
+	.string "I guess I did balance this thing\n"
+	.string "pretty well after all.$"
+
+EverGrandeCity_ChampionsRoom_Text_NoahPostBattleSpeech:
+	.string "NOAH: That was exactly the kind of\n"
+	.string "battle I built this game hoping to\l"
+	.string "see one day.\p"
+	.string "You played around PRANKSTER, broke\n"
+	.string "through the VEST, dodged the\l"
+	.string "DYNAMIC PUNCHES…\p"
+	.string "Honestly? I couldn't have written a\n"
+	.string "better ending myself.\p"
+	.string "You now stand at the peak of the\n"
+	.string "POKéMON LEAGUE…$"
+
+EverGrandeCity_ChampionsRoom_Text_NoahComeWithMe:
+	.string "NOAH: Well, CHAMPION…\p"
+	.string "Yeah, that's you I'm talking to.\p"
+	.string "Come on, there's one last room\n"
+	.string "I want to show you.$"
+
+EverGrandeCity_ChampionsRoom_Text_NoahWaitOutside:
+	.string "NOAH: Sorry, house rules…\n"
+	.string "and I would know, I wrote them.\p"
+	.string "CHAMPIONS only past this point.\p"
+	.string "Keep PROF. BIRCH company, okay?$"
 
 EverGrandeCity_ChampionsRoom_Text_MayAdvice:
 	.string "MAY: {PLAYER}{KUN}!\p"

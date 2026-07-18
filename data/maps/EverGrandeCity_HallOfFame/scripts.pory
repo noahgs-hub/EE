@@ -61,11 +61,16 @@ EverGrandeCity_HallOfFame_EventScript_HonorMsg::
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_STEVEN, EverGrandeCity_HallOfFame_EventScript_HonorMsgSteven
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_BLUE, EverGrandeCity_HallOfFame_EventScript_HonorMsgGary
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LANCE, EverGrandeCity_HallOfFame_EventScript_HonorMsgLance
+	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LT_SURGE, EverGrandeCity_HallOfFame_EventScript_HonorMsgNoah
 	msgbox EverGrandeCity_HallOfFame_Text_HereWeHonorLeagueChampions, MSGBOX_DEFAULT
 	return
 
 EverGrandeCity_HallOfFame_EventScript_HonorMsgLance::
 	msgbox EverGrandeCity_HallOfFame_Text_LanceHereWeHonorLeagueChampions, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_HonorMsgNoah::
+	msgbox EverGrandeCity_HallOfFame_Text_NoahHereWeHonorLeagueChampions, MSGBOX_DEFAULT
 	return
 
 EverGrandeCity_HallOfFame_EventScript_HonorMsgSteven::
@@ -80,11 +85,16 @@ EverGrandeCity_HallOfFame_EventScript_RecordMsg::
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_STEVEN, EverGrandeCity_HallOfFame_EventScript_RecordMsgSteven
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_BLUE, EverGrandeCity_HallOfFame_EventScript_RecordMsgGary
 	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LANCE, EverGrandeCity_HallOfFame_EventScript_RecordMsgLance
+	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LT_SURGE, EverGrandeCity_HallOfFame_EventScript_RecordMsgNoah
 	msgbox EverGrandeCity_HallOfFame_Text_LetsRecordYouAndYourPartnersNames, MSGBOX_DEFAULT
 	return
 
 EverGrandeCity_HallOfFame_EventScript_RecordMsgLance::
 	msgbox EverGrandeCity_HallOfFame_Text_LanceLetsRecordYourNames, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_RecordMsgNoah::
+	msgbox EverGrandeCity_HallOfFame_Text_NoahLetsRecordYourNames, MSGBOX_DEFAULT
 	return
 
 EverGrandeCity_HallOfFame_EventScript_RecordMsgSteven::
@@ -187,4 +197,21 @@ EverGrandeCity_HallOfFame_Text_LanceLetsRecordYourNames:
 	.string "LEAGUE, and the names of the\l"
 	.string "partners who fought at your side.\p"
 	.string "Wear the title with pride.$"
+
+EverGrandeCity_HallOfFame_Text_NoahHereWeHonorLeagueChampions:
+	.string "NOAH: This room…\p"
+	.string "I might be biased, but I think it's\n"
+	.string "the best one I ever made.\p"
+	.string "Every POKéMON that wins it all gets\n"
+	.string "its name written down in here.\p"
+	.string "The LEAGUE CHAMPIONS are honored\n"
+	.string "in this hall forever.$"
+
+EverGrandeCity_HallOfFame_Text_NoahLetsRecordYourNames:
+	.string "NOAH: Go ahead.\p"
+	.string "Record your name as a TRAINER who\n"
+	.string "triumphed over the POKéMON LEAGUE,\l"
+	.string "and the partners who battled\l"
+	.string "beside you.\p"
+	.string "This is my favorite part.$"
 `
