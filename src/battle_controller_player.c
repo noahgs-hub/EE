@@ -231,6 +231,44 @@ static enum Item GetNextBall(enum Item ballId)
     return ballId;
 }
 
+static void HandleInputChooseAction(enum BattlerId battler);
+
+static bool32 ShinyProtectionActive(void)
+{
+    u32 i;
+
+    if (!gSaveBlock2Ptr->optionsWildShinyProtect)
+        return FALSE;
+    if (gBattleStruct->shinyProtectAcked)
+        return FALSE;
+    if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED))
+        return FALSE;
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (GetBattlerSide(i) == B_SIDE_OPPONENT && IsBattlerAlive(i)
+         && GetMonData(GetBattlerMon(i), MON_DATA_IS_SHINY))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static void HandleInputShinyProtection(enum BattlerId battler)
+{
+    DoBounceEffect(battler, BOUNCE_HEALTHBOX, 7, 1);
+    DoBounceEffect(battler, BOUNCE_MON, 7, 1);
+
+    if (JOY_NEW(START_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        gBattleStruct->shinyProtectAcked = TRUE;
+        PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, battler, gBattlerPartyIndexes[battler]);
+        BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillPkmnDo);
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+        gBattlerControllerFuncs[battler] = HandleInputChooseAction;
+    }
+}
+
 static void HandleInputChooseAction(enum BattlerId battler)
 {
     enum Item itemId = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
@@ -2011,7 +2049,10 @@ static void HandleChooseActionAfterDma3(enum BattlerId battler)
             gBattleStruct->aiDelayTimer = 0;
             gBattleStruct->aiDelayFrames = 0;
         }
-        gBattlerControllerFuncs[battler] = HandleInputChooseAction;
+        if (ShinyProtectionActive())
+            gBattlerControllerFuncs[battler] = HandleInputShinyProtection;
+        else
+            gBattlerControllerFuncs[battler] = HandleInputChooseAction;
     }
 }
 
@@ -2070,6 +2111,12 @@ static void PlayerHandleChooseAction(enum BattlerId battler)
     else
     {
         BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+    }
+
+    if (ShinyProtectionActive())
+    {
+        static const u8 sText_ShinyProtection[] = _("A SHINY appeared!\nPress {START_BUTTON} to act");
+        BattlePutTextOnWindow(sText_ShinyProtection, B_WIN_ACTION_PROMPT);
     }
 }
 

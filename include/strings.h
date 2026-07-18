@@ -234,6 +234,8 @@ extern const u8 gText_BattleSpeed2x[];
 extern const u8 gText_BattleSpeed3x[];
 extern const u8 gText_BattleSpeed4x[];
 extern const u8 gText_Autorun[];
+extern const u8 gText_ShinyAnim[];
+extern const u8 gText_ShinyProtect[];
 
 extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];

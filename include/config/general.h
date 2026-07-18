@@ -94,5 +94,7 @@
 #define OPT_BATTLE_MODE              TRUE    // Battle mode (1v1 / 2v2 / Mix) toggle
 #define OPT_BATTLE_SPEED             TRUE    // Battle speed (1x-4x) toggle
 #define OPT_AUTORUN                  TRUE    // Autorun (always sprint) toggle
+#define OPT_SHINY_ANIM               TRUE    // Shiny sparkle animation on/off toggle (appearance unaffected)
+#define OPT_SHINY_PROTECT            TRUE    // Wild shiny protection: require START press before battle menu unlocks
 
 #endif // GUARD_CONFIG_GENERAL_H

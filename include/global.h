@@ -604,7 +604,8 @@ struct SaveBlock2
              u16 battleMode:2;
              u16 optionsBattleSpeed:2;       // Battle speed setting (0-3 for 1x/2x/3x/4x)
              u16 optionsAutoRun:1;           // Autorun setting (TRUE = automatically run)
-             //u16 padding1:1;
+             u16 optionsShinyAnimOff:1;      // TRUE = skip the shiny sparkle animation in battle
+             u16 optionsWildShinyProtect:1;  // TRUE = require START press before acting against a wild shiny
     /*0x18*/ struct Pokedex pokedex;
     /*0x90*/ u8 filler_90[0x8];
     /*0x98*/ struct Time localTimeOffset;

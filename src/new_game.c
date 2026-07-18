@@ -114,6 +114,12 @@ static void SetDefaultOptions(void)
 #if OPT_AUTORUN == TRUE
     gSaveBlock2Ptr->optionsAutoRun = FALSE;  // Default to OFF (classic behavior)
 #endif
+#if OPT_SHINY_ANIM == TRUE
+    gSaveBlock2Ptr->optionsShinyAnimOff = FALSE;  // Shiny sparkles play by default
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+    gSaveBlock2Ptr->optionsWildShinyProtect = FALSE;  // Wild shiny protection off by default
+#endif
 }
 
 static void ClearPokedexFlags(void)

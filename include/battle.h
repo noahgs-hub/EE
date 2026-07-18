@@ -676,7 +676,8 @@ struct BattleStruct
     u8 beatUpSlot:3;
     u8 effectsBeforeUsingMoveDone:1; // Mega Evo and Focus Punch/Shell Trap effects.
     enum PledgeCombo pledgeState:2;
-    u8 unused3:2;
+    u8 shinyProtectAcked:1; // Player pressed START to dismiss the wild shiny protection prompt
+    u8 unused3:1;
     u16 flingItem:14;
     enum FlungItem flungItem:2;
     u8 itemPartyIndex[MAX_BATTLERS_COUNT];

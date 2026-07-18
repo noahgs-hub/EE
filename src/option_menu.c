@@ -39,6 +39,12 @@
 #if OPT_AUTORUN == TRUE
 #define tAutorun data[10]
 #endif
+#if OPT_SHINY_ANIM == TRUE
+#define tShinyAnim data[11]
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+#define tShinyProtect data[12]
+#endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 
 // Page 1 menu items (standard options)
@@ -69,6 +75,12 @@ enum
 #endif
 #if OPT_AUTORUN == TRUE
     MENUITEM_AUTORUN,
+#endif
+#if OPT_SHINY_ANIM == TRUE
+    MENUITEM_SHINYANIM,
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+    MENUITEM_SHINYPROTECT,
 #endif
     MENUITEM_CANCEL_PG2,
     MENUITEM_COUNT_PG2,
@@ -102,6 +114,12 @@ enum
 #endif
 #if OPT_AUTORUN == TRUE
 #define YPOS_AUTORUN         (MENUITEM_AUTORUN * 16)
+#endif
+#if OPT_SHINY_ANIM == TRUE
+#define YPOS_SHINYANIM       (MENUITEM_SHINYANIM * 16)
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+#define YPOS_SHINYPROTECT    (MENUITEM_SHINYPROTECT * 16)
 #endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 
@@ -150,6 +168,14 @@ static void BattleSpeed_DrawChoices(u8 selection);
 static u8 Autorun_ProcessInput(u8 selection);
 static void Autorun_DrawChoices(u8 selection);
 #endif
+#if OPT_EXTENDED_OPTIONS_MENU == TRUE && OPT_SHINY_ANIM == TRUE
+static u8 ShinyAnim_ProcessInput(u8 selection);
+static void ShinyAnim_DrawChoices(u8 selection);
+#endif
+#if OPT_EXTENDED_OPTIONS_MENU == TRUE && OPT_SHINY_PROTECT == TRUE
+static u8 ShinyProtect_ProcessInput(u8 selection);
+static void ShinyProtect_DrawChoices(u8 selection);
+#endif
 static void DrawTextOption(void);
 static void DrawOptionMenuTexts(void);
 static void DrawBgWindowFrames(void);
@@ -187,6 +213,12 @@ static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
 #endif
 #if OPT_AUTORUN == TRUE
     [MENUITEM_AUTORUN]         = gText_Autorun,
+#endif
+#if OPT_SHINY_ANIM == TRUE
+    [MENUITEM_SHINYANIM]       = gText_ShinyAnim,
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+    [MENUITEM_SHINYPROTECT]    = gText_ShinyProtect,
 #endif
     [MENUITEM_CANCEL_PG2]      = gText_OptionMenuCancel,
 };
@@ -276,6 +308,12 @@ static void ReadAllCurrentSettings(u8 taskId)
 #if OPT_AUTORUN == TRUE
     gTasks[taskId].tAutorun = !(gSaveBlock2Ptr->optionsAutoRun);  // Inverted for UI display
 #endif
+#if OPT_SHINY_ANIM == TRUE
+    gTasks[taskId].tShinyAnim = gSaveBlock2Ptr->optionsShinyAnimOff;
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+    gTasks[taskId].tShinyProtect = !(gSaveBlock2Ptr->optionsWildShinyProtect);  // Inverted so ON shows first
+#endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 }
 
@@ -307,6 +345,12 @@ static void DrawOptionsPg2(u8 taskId)
 #endif
 #if OPT_AUTORUN == TRUE
     Autorun_DrawChoices(gTasks[taskId].tAutorun);
+#endif
+#if OPT_SHINY_ANIM == TRUE
+    ShinyAnim_DrawChoices(gTasks[taskId].tShinyAnim);
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+    ShinyProtect_DrawChoices(gTasks[taskId].tShinyProtect);
 #endif
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
@@ -641,6 +685,24 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
                 Autorun_DrawChoices(gTasks[taskId].tAutorun);
             break;
 #endif
+#if OPT_SHINY_ANIM == TRUE
+        case MENUITEM_SHINYANIM:
+            previousOption = gTasks[taskId].tShinyAnim;
+            gTasks[taskId].tShinyAnim = ShinyAnim_ProcessInput(gTasks[taskId].tShinyAnim);
+
+            if (previousOption != gTasks[taskId].tShinyAnim)
+                ShinyAnim_DrawChoices(gTasks[taskId].tShinyAnim);
+            break;
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+        case MENUITEM_SHINYPROTECT:
+            previousOption = gTasks[taskId].tShinyProtect;
+            gTasks[taskId].tShinyProtect = ShinyProtect_ProcessInput(gTasks[taskId].tShinyProtect);
+
+            if (previousOption != gTasks[taskId].tShinyProtect)
+                ShinyProtect_DrawChoices(gTasks[taskId].tShinyProtect);
+            break;
+#endif
 
         default:
             return;
@@ -672,6 +734,12 @@ static void SaveCurrentSettings(u8 taskId)
 #endif
 #if OPT_AUTORUN == TRUE
     gSaveBlock2Ptr->optionsAutoRun = !(gTasks[taskId].tAutorun);  // Inverted for storage
+#endif
+#if OPT_SHINY_ANIM == TRUE
+    gSaveBlock2Ptr->optionsShinyAnimOff = gTasks[taskId].tShinyAnim;
+#endif
+#if OPT_SHINY_PROTECT == TRUE
+    gSaveBlock2Ptr->optionsWildShinyProtect = !(gTasks[taskId].tShinyProtect);  // Inverted for storage
 #endif
 #if OPT_FOLLOWERS == TRUE
     // Update follower visibility flag
@@ -1076,6 +1144,52 @@ static void Autorun_DrawChoices(u8 selection)
         YPOS_AUTORUN, styles[1]);
 }
 #endif // OPT_AUTORUN
+
+#if OPT_EXTENDED_OPTIONS_MENU == TRUE && OPT_SHINY_ANIM == TRUE
+static u8 ShinyAnim_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void ShinyAnim_DrawChoices(u8 selection)
+{
+    u8 styles[2] = {0, 0};
+    styles[selection] = 1;
+
+    DrawOptionMenuChoice(gText_BattleSceneOn, 104, YPOS_SHINYANIM, styles[0]);
+    DrawOptionMenuChoice(gText_BattleSceneOff,
+        GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198),
+        YPOS_SHINYANIM, styles[1]);
+}
+#endif // OPT_SHINY_ANIM
+
+#if OPT_EXTENDED_OPTIONS_MENU == TRUE && OPT_SHINY_PROTECT == TRUE
+static u8 ShinyProtect_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void ShinyProtect_DrawChoices(u8 selection)
+{
+    u8 styles[2] = {0, 0};
+    styles[selection] = 1;
+
+    DrawOptionMenuChoice(gText_BattleSceneOn, 104, YPOS_SHINYPROTECT, styles[0]);
+    DrawOptionMenuChoice(gText_BattleSceneOff,
+        GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198),
+        YPOS_SHINYPROTECT, styles[1]);
+}
+#endif // OPT_SHINY_PROTECT
 
 static void DrawTextOption(void)
 {
