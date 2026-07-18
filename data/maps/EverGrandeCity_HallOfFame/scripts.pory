@@ -1,0 +1,161 @@
+// Hall of Fame - the escorting champion now matches whoever was fought in the
+// Champions Room. The object (LOCALID_HALL_OF_FAME_WALLACE) uses
+// OBJ_EVENT_GFX_VAR_1; VAR_OBJ_GFX_ID_1 is set by the Champions Room
+// ON_TRANSITION roll (Wallace/Steven/Gary) and survives the warp, so both the
+// sprite and the two message boxes branch on it here. Default is Wallace
+// (first clear always sets OBJ_EVENT_GFX_WALLACE).
+// Otherwise this is the original scripts.inc unchanged.
+
+raw `
+EverGrandeCity_HallOfFame_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, EverGrandeCity_HallOfFame_OnFrame
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, EverGrandeCity_HallOfFame_OnWarp
+	.byte 0
+
+EverGrandeCity_HallOfFame_OnWarp:
+	map_script_2 VAR_TEMP_1, 0, EverGrandeCity_HallOfFame_EventScript_TurnPlayerNorth
+	.2byte 0
+
+EverGrandeCity_HallOfFame_EventScript_TurnPlayerNorth::
+	turnobject LOCALID_PLAYER, DIR_NORTH
+	end
+
+EverGrandeCity_HallOfFame_OnFrame:
+	map_script_2 VAR_TEMP_1, 0, EverGrandeCity_HallOfFame_EventScript_EnterHallOfFame
+	.2byte 0
+
+EverGrandeCity_HallOfFame_EventScript_EnterHallOfFame::
+	lockall
+	applymovement LOCALID_HALL_OF_FAME_WALLACE, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1
+	applymovement LOCALID_PLAYER, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1
+	waitmovement 0
+	applymovement LOCALID_HALL_OF_FAME_WALLACE, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	call EverGrandeCity_HallOfFame_EventScript_HonorMsg
+	closemessage
+	applymovement LOCALID_HALL_OF_FAME_WALLACE, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
+	applymovement LOCALID_PLAYER, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
+	waitmovement 0
+	delay 20
+	applymovement LOCALID_HALL_OF_FAME_WALLACE, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	call EverGrandeCity_HallOfFame_EventScript_RecordMsg
+	closemessage
+	applymovement LOCALID_HALL_OF_FAME_WALLACE, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 20
+	dofieldeffect FLDEFF_HALL_OF_FAME_RECORD
+	waitfieldeffect FLDEFF_HALL_OF_FAME_RECORD
+	delay 40
+	setvar VAR_TEMP_1, 1
+	call EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, EverGrandeCity_HallOfFame_EventScript_GameClearMale
+	goto_if_eq VAR_RESULT, FEMALE, EverGrandeCity_HallOfFame_EventScript_GameClearFemale
+	end
+
+EverGrandeCity_HallOfFame_EventScript_HonorMsg::
+	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_STEVEN, EverGrandeCity_HallOfFame_EventScript_HonorMsgSteven
+	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_BLUE, EverGrandeCity_HallOfFame_EventScript_HonorMsgGary
+	msgbox EverGrandeCity_HallOfFame_Text_HereWeHonorLeagueChampions, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_HonorMsgSteven::
+	msgbox EverGrandeCity_HallOfFame_Text_StevenHereWeHonorLeagueChampions, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_HonorMsgGary::
+	msgbox EverGrandeCity_HallOfFame_Text_GaryHereWeHonorLeagueChampions, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_RecordMsg::
+	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_STEVEN, EverGrandeCity_HallOfFame_EventScript_RecordMsgSteven
+	goto_if_eq VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_BLUE, EverGrandeCity_HallOfFame_EventScript_RecordMsgGary
+	msgbox EverGrandeCity_HallOfFame_Text_LetsRecordYouAndYourPartnersNames, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_RecordMsgSteven::
+	msgbox EverGrandeCity_HallOfFame_Text_StevenLetsRecordYourNames, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_RecordMsgGary::
+	msgbox EverGrandeCity_HallOfFame_Text_GaryLetsRecordYourNames, MSGBOX_DEFAULT
+	return
+
+EverGrandeCity_HallOfFame_EventScript_GameClearMale::
+	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
+	fadescreenspeed FADE_TO_BLACK, 24
+	special GameClear
+	releaseall
+	end
+
+EverGrandeCity_HallOfFame_EventScript_GameClearFemale::
+	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE_2F
+	fadescreenspeed FADE_TO_BLACK, 24
+	special GameClear
+	releaseall
+	end
+
+EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+EverGrandeCity_HallOfFame_Text_HereWeHonorLeagueChampions:
+	.string "WALLACE: This room…\p"
+	.string "This is where we keep records of\n"
+	.string "POKéMON that prevailed through\l"
+	.string "harsh battles.\p"
+	.string "It is here that the LEAGUE CHAMPIONS\n"
+	.string "are honored.$"
+
+EverGrandeCity_HallOfFame_Text_LetsRecordYouAndYourPartnersNames:
+	.string "WALLACE: Come on, let's record your\n"
+	.string "name as a TRAINER who triumphed over\l"
+	.string "the POKéMON LEAGUE, and the names of\l"
+	.string "the partners who battled with you.$"
+
+EverGrandeCity_HallOfFame_Text_StevenHereWeHonorLeagueChampions:
+	.string "STEVEN: This room…\p"
+	.string "Records of the POKéMON that prevailed\n"
+	.string "through the harshest of battles are\l"
+	.string "kept here.\p"
+	.string "It is here that the LEAGUE CHAMPIONS\n"
+	.string "are honored.\p"
+	.string "I never tire of standing in it.$"
+
+EverGrandeCity_HallOfFame_Text_StevenLetsRecordYourNames:
+	.string "STEVEN: Come. Let's record your name\n"
+	.string "as a TRAINER who triumphed over the\l"
+	.string "POKéMON LEAGUE, and the names of the\l"
+	.string "partners who battled at your side.$"
+
+EverGrandeCity_HallOfFame_Text_GaryHereWeHonorLeagueChampions:
+	.string "GARY: Check it out! The HALL OF FAME.\p"
+	.string "Every POKéMON that's ever won it all\n"
+	.string "gets its name kept in this room.\p"
+	.string "Mine are all over the one in KANTO,\n"
+	.string "obviously.$"
+
+EverGrandeCity_HallOfFame_Text_GaryLetsRecordYourNames:
+	.string "GARY: Well? Get over here and punch\n"
+	.string "your name in already!\p"
+	.string "You and your whole team.\p"
+	.string "It's not every day I let somebody\n"
+	.string "else hog the spotlight!$"
+`

@@ -1347,7 +1347,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_MEGA_LAUNCHER] =
     {
         .name = _("Mega Launcher"),
-        .description = COMPOUND_STRING("Boosts pulse moves."),
+        .description = COMPOUND_STRING("Boosts pulse, cannon, blast moves."),
         .aiRating = 7,
     },
 

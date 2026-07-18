@@ -17042,3 +17042,62 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Zen Headbutt
 - Earthquake
 - Bullet Punch
+
+=== TRAINER_GARY ===
+Name: GARY
+Class: Champion
+Pic: Champion Rival Frlg
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore / Full Restore
+Double Battle: No
+AI: Basic Trainer
+
+Pidgeot
+Level: 72
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Brave Bird
+- Double-Edge
+- U-turn
+- Roost
+
+Rhyperior
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Earthquake
+- Stone Edge
+- Megahorn
+- Hammer Arm
+
+Alakazam
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psychic
+- Shadow Ball
+- Dazzling Gleam
+- Calm Mind
+
+Venusaur
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Sludge Bomb
+- Giga Drain
+- Sleep Powder
+- Synthesis
+
+Blastoise
+Level: 74
+Ability: Mega Launcher
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Surf
+- Ice Beam
+- Earthquake
+- Flash Cannon
+
+Charizard @ Sitrus Berry
+Level: 76
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fire Blast
+- Air Slash
+- Dragon Pulse
+- Focus Blast
