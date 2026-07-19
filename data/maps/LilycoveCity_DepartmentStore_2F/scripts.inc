@@ -49,6 +49,16 @@ LilycoveCity_DepartmentStore_2F_Pokemart1:
 	.2byte ITEM_OVAL_STONE
 	.2byte ITEM_BLACK_AUGURITE
 	.2byte ITEM_LINKING_CORD
+	.2byte ITEM_PROTECTOR
+	.2byte ITEM_UPGRADE
+	.2byte ITEM_DUBIOUS_DISC
+	.2byte ITEM_RAZOR_FANG
+	.2byte ITEM_RAZOR_CLAW
+	.2byte ITEM_REAPER_CLOTH
+	.2byte ITEM_ELECTIRIZER
+	.2byte ITEM_MAGMARIZER
+	.2byte ITEM_DRAGON_SCALE
+	.2byte ITEM_PRISM_SCALE
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_2F_EventScript_ClerkRight::
