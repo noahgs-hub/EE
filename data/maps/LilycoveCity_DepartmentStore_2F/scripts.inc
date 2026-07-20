@@ -48,6 +48,20 @@ LilycoveCity_DepartmentStore_2F_Pokemart1:
 	.2byte ITEM_ICE_STONE
 	.2byte ITEM_OVAL_STONE
 	.2byte ITEM_BLACK_AUGURITE
+	pokemartlistend
+
+LilycoveCity_DepartmentStore_2F_EventScript_ClerkMiddle::
+	lock
+	faceplayer
+	message gText_HowMayIServeYou
+	waitmessage
+	pokemart LilycoveCity_DepartmentStore_2F_Pokemart3
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+LilycoveCity_DepartmentStore_2F_Pokemart3:
 	.2byte ITEM_LINKING_CORD
 	.2byte ITEM_PROTECTOR
 	.2byte ITEM_UPGRADE

@@ -2665,6 +2665,7 @@ void ResetDexNavSearch(void)
 {
     gSaveBlock3Ptr->dexNavChain = 0;    //reset dex nav chaining on new map
     VarSet(DN_VAR_STEP_COUNTER, 0); //reset hidden Pokémon step counter
+    VarSet(DN_VAR_SPECIES, SPECIES_NONE); //unregister species on map change, freeing the R button
     if (FlagGet(DN_FLAG_SEARCHING))
         EndDexNavSearch();   //moving to new map ends dexnav search
 }
