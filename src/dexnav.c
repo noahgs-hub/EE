@@ -581,7 +581,6 @@ static bool8 DexNavPickTile(enum EncounterType environment, u8 areaX, u8 areaY, 
     s16 botY = topY + areaY;
     u8 i;
     bool8 nextIter;
-    u8 scale = 0;
     u8 weight = 0;
     enum MapType currMapType = GetCurrentMapType();
     u8 tileBehaviour;
@@ -636,28 +635,25 @@ static bool8 DexNavPickTile(enum EncounterType environment, u8 areaX, u8 areaY, 
                     if (currMapType == MAP_TYPE_UNDERGROUND)
                     {
                         // inside (cave)
-                        if (IsElevationMismatchAt(gObjectEvents[gPlayerAvatar.spriteId].currentElevation, topX, topY))
+                        if (IsElevationMismatchAt(gObjectEvents[gPlayerAvatar.objectEventId].currentElevation, topX, topY))
                             break; //occurs at same z coord
 
-                        scale = 440 - (smallScan * 200) - (GetPlayerDistance(topX, topY) / 2)  - (2 * (topX + topY));
-                        weight = ((Random() % scale) < 1) && !MapGridGetCollisionAt(topX, topY);
+                        weight = !MapGridGetCollisionAt(topX, topY);
                     }
                     else
                     {
                         // outdoors: grass
-                        scale = 100 - (GetPlayerDistance(topX, topY) * 2);
-                        weight = (Random() % scale <= 5) && !MapGridGetCollisionAt(topX, topY);
+                        weight = !MapGridGetCollisionAt(topX, topY);
                     }
                 }
                 break;
             case ENCOUNTER_TYPE_WATER:
                 if (MetatileBehavior_IsSurfableWaterOrUnderwater(tileBehaviour))
                 {
-                    u8 scale = 320 - (smallScan * 200) - (GetPlayerDistance(topX, topY) / 2);
-                    if (IsElevationMismatchAt(gObjectEvents[gPlayerAvatar.spriteId].currentElevation, topX, topY))
+                    if (IsElevationMismatchAt(gObjectEvents[gPlayerAvatar.objectEventId].currentElevation, topX, topY))
                         break;
 
-                    weight = (Random() % scale <= 1) && !MapGridGetCollisionAt(topX, topY);
+                    weight = !MapGridGetCollisionAt(topX, topY);
                 }
                 break;
             default:
@@ -693,12 +689,11 @@ static bool8 DexNavPickTile(enum EncounterType environment, u8 areaX, u8 areaY, 
 }
 
 
-static bool8 TryStartHiddenMonFieldEffect(enum EncounterType environment, u8 xSize, u8 ySize, bool8 smallScan)
+static bool8 StartHiddenMonFieldEffect(enum EncounterType environment)
 {
     enum MapType currMapType = GetCurrentMapType();
     u8 fldEffId = 0;
 
-    if (DexNavPickTile(environment, xSize, ySize, smallScan))
     {
         u8 metatileBehaviour = MapGridGetMetatileBehaviorAt(sDexNavSearchDataPtr->tileX, sDexNavSearchDataPtr->tileY);
 
@@ -756,6 +751,13 @@ static bool8 TryStartHiddenMonFieldEffect(enum EncounterType environment, u8 xSi
         }
     }
 
+    return FALSE;
+}
+
+static bool8 TryStartHiddenMonFieldEffect(enum EncounterType environment, u8 xSize, u8 ySize, bool8 smallScan)
+{
+    if (DexNavPickTile(environment, xSize, ySize, smallScan))
+        return StartHiddenMonFieldEffect(environment);
     return FALSE;
 }
 
@@ -1118,7 +1120,8 @@ bool32 OnStep_DexNavSearch(void)
     {
         FieldEffectStop(&gSprites[sDexNavSearchDataPtr->fldEffSpriteId], sDexNavSearchDataPtr->fldEffId);
 
-        if (!TryStartHiddenMonFieldEffect(sDexNavSearchDataPtr->environment, 10, 10, TRUE))
+        if (!TryStartHiddenMonFieldEffect(sDexNavSearchDataPtr->environment, 10, 10, TRUE)
+         && !StartHiddenMonFieldEffect(sDexNavSearchDataPtr->environment)) // no tile to move to; stay put
         {
             EndDexNavSearchSetupScript(EventScript_PokemonGotAway);
             return TRUE;

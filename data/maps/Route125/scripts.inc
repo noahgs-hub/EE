@@ -81,3 +81,87 @@ Route125_EventScript_Auron::
 	msgbox Route125_Text_AuronPostBattle, MSGBOX_AUTOCLOSE
 	end
 
+
+Route125_EventScript_Misty::
+	lock
+	faceplayer
+	goto_if_set FLAG_SYS_SHOAL_TIDE, Route125_EventScript_MistyTideIsHigh
+	msgbox Route125_Text_MistyOfferRaiseTide, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route125_EventScript_MistyDecline
+	call Route125_EventScript_MistyChangeTide
+	setflag FLAG_SYS_SHOAL_TIDE
+	msgbox Route125_Text_MistyRaisedTide, MSGBOX_DEFAULT
+	release
+	end
+
+Route125_EventScript_MistyTideIsHigh::
+	msgbox Route125_Text_MistyOfferLowerTide, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route125_EventScript_MistyDecline
+	call Route125_EventScript_MistyChangeTide
+	clearflag FLAG_SYS_SHOAL_TIDE
+	msgbox Route125_Text_MistyLoweredTide, MSGBOX_DEFAULT
+	release
+	end
+
+Route125_EventScript_MistyChangeTide::
+	msgbox Route125_Text_MistyCallsPokemon, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceUp
+	waitmovement 0
+	fadescreen FADE_TO_BLACK
+	playse SE_M_SURF
+	waitse
+	fadescreen FADE_FROM_BLACK
+	applymovement VAR_LAST_TALKED, Common_Movement_FacePlayer
+	waitmovement 0
+	return
+
+Route125_EventScript_MistyDecline::
+	msgbox Route125_Text_MistyDecline, MSGBOX_DEFAULT
+	release
+	end
+
+Route125_Text_MistyOfferRaiseTide:
+	.string "MISTY: Hi! I'm MISTY, a WATER-type\n"
+	.string "specialist from far-off KANTO.\p"
+	.string "The WATER POKéMON of SHOAL CAVE and\n"
+	.string "I have become close friends.\p"
+	.string "If I ask, they'll all push the sea\n"
+	.string "into the cave together!\p"
+	.string "The tide is LOW right now.\n"
+	.string "Should I have them raise it?$"
+
+Route125_Text_MistyOfferLowerTide:
+	.string "MISTY: Hi! I'm MISTY, a WATER-type\n"
+	.string "specialist from far-off KANTO.\p"
+	.string "The WATER POKéMON of SHOAL CAVE and\n"
+	.string "I have become close friends.\p"
+	.string "If I ask, they'll all draw the sea\n"
+	.string "out of the cave together!\p"
+	.string "The tide is HIGH right now.\n"
+	.string "Should I have them lower it?$"
+
+Route125_Text_MistyCallsPokemon:
+	.string "MISTY: Okay!\p"
+	.string "Everyone! Lend me your strength!$"
+
+Route125_Text_MistyRaisedTide:
+	.string "…The sea rushed into SHOAL CAVE!\p"
+	.string "MISTY: The tide is HIGH now.\n"
+	.string "You can SURF through the upper\l"
+	.string "caverns while the water is in.\p"
+	.string "Come see me if you'd like the tide\n"
+	.string "lowered again!$"
+
+Route125_Text_MistyLoweredTide:
+	.string "…The sea drained out of SHOAL CAVE!\p"
+	.string "MISTY: The tide is LOW now.\n"
+	.string "With the water out, you can climb\l"
+	.string "down to the deepest icy floors.\p"
+	.string "Come see me if you'd like the tide\n"
+	.string "raised again!$"
+
+Route125_Text_MistyDecline:
+	.string "MISTY: Okay!\p"
+	.string "The POKéMON and I will keep the tide\n"
+	.string "just as it is.$"

@@ -61,6 +61,8 @@ LilycoveCity_DepartmentStore_2F_Pokemart1:
 	.2byte ITEM_PRISM_SCALE
 	.2byte ITEM_DEEP_SEA_SCALE
 	.2byte ITEM_DEEP_SEA_TOOTH
+	.2byte ITEM_KINGS_ROCK
+	.2byte ITEM_METAL_COAT
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_2F_EventScript_ClerkRight::

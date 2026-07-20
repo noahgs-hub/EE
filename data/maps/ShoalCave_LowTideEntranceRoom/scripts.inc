@@ -3,7 +3,7 @@ ShoalCave_LowTideEntranceRoom_MapScripts::
 	.byte 0
 
 ShoalCave_LowTideEntranceRoom_OnTransition:
-	special UpdateShoalTideFlag
+	@ Tide is controlled by Misty on Route 125, not the clock
 	goto_if_set FLAG_SYS_SHOAL_TIDE, ShoalCave_LowTideEntranceRoom_EventScript_SetHighTide
 	goto ShoalCave_LowTideEntranceRoom_EventScript_SetLowTide
 
