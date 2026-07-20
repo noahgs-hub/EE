@@ -1468,8 +1468,8 @@
               },
               {
                 "min_level": 13,
-                "max_level": 13,
-                "species": "SPECIES_ILLUMISE"
+                "max_level": 14,
+                "species": "SPECIES_EEVEE"
               },
               {
                 "min_level": 14,
@@ -7008,7 +7008,7 @@
               {
                 "min_level": 30,
                 "max_level": 35,
-                "species": "SPECIES_PSYDUCK"
+                "species": "SPECIES_DRATINI"
               },
               {
                 "min_level": 30,
@@ -7018,7 +7018,7 @@
               {
                 "min_level": 30,
                 "max_level": 35,
-                "species": "SPECIES_PSYDUCK"
+                "species": "SPECIES_DRAGONAIR"
               }
             ]
           },
@@ -7117,12 +7117,12 @@
               {
                 "min_level": 31,
                 "max_level": 31,
-                "species": "SPECIES_GLOOM"
+                "species": "SPECIES_KANGASKHAN"
               },
               {
                 "min_level": 29,
                 "max_level": 29,
-                "species": "SPECIES_NATU"
+                "species": "SPECIES_TAUROS"
               },
               {
                 "min_level": 29,
@@ -7216,12 +7216,12 @@
               {
                 "min_level": 31,
                 "max_level": 31,
-                "species": "SPECIES_GLOOM"
+                "species": "SPECIES_KANGASKHAN"
               },
               {
                 "min_level": 29,
                 "max_level": 29,
-                "species": "SPECIES_DODUO"
+                "species": "SPECIES_TAUROS"
               },
               {
                 "min_level": 29,
