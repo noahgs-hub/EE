@@ -273,11 +273,28 @@ static const struct MenuAction MultichoiceList_GameCornerDolls[] =
 
 static const struct MenuAction MultichoiceList_GameCornerTMs[] =
 {
-    {COMPOUND_STRING("TM32{CLEAR_TO 72}1,500 COINS")},
-    {COMPOUND_STRING("TM29{CLEAR_TO 72}3,500 COINS")},
-    {COMPOUND_STRING("TM35{CLEAR_TO 72}4,000 COINS")},
-    {COMPOUND_STRING("TM24{CLEAR_TO 72}4,000 COINS")},
-    {COMPOUND_STRING("TM13{CLEAR_TO 72}4,000 COINS")},
+    {COMPOUND_STRING("FARFETCH'D{CLEAR_TO 72}1,500 COINS")},
+    {COMPOUND_STRING("DELIBIRD{CLEAR_TO 72}3,500 COINS")},
+    {COMPOUND_STRING("MR. MIME{CLEAR_TO 72}4,000 COINS")},
+    {COMPOUND_STRING("PORYGON{CLEAR_TO 72}4,000 COINS")},
+    {COMPOUND_STRING("LAPRAS{CLEAR_TO 72}4,000 COINS")},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_GameCornerPrizeCategory[] =
+{
+    {COMPOUND_STRING("POKéMON")},
+    {COMPOUND_STRING("FOSSILS")},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_GameCornerFossils[] =
+{
+    {COMPOUND_STRING("OLD AMBER{CLEAR_TO 72}5,000 COINS")},
+    {COMPOUND_STRING("HELIX FOSSIL{CLEAR_TO 72}4,000 COINS")},
+    {COMPOUND_STRING("DOME FOSSIL{CLEAR_TO 72}4,000 COINS")},
+    {COMPOUND_STRING("ROOT FOSSIL{CLEAR_TO 72}4,000 COINS")},
+    {COMPOUND_STRING("CLAW FOSSIL{CLEAR_TO 72}4,000 COINS")},
     {gText_Exit},
 };
 
@@ -1294,6 +1311,8 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_HOF_VICTORIES_QUIT]                         = MULTICHOICE(sMultichoiceList_HOF_Victories_Quit),
     [MULTI_EGGS_VICTORIES_QUIT]                        = MULTICHOICE(sMultichoiceList_Eggs_Victories_Quit),
     [MULTI_HOF_EGGS_VICTORIES_QUIT]                    = MULTICHOICE(sMultichoiceList_HOF_Eggs_Victories_Quit),
+    [MULTI_GAME_CORNER_PRIZE_CATEGORY]                 = MULTICHOICE(MultichoiceList_GameCornerPrizeCategory),
+    [MULTI_GAME_CORNER_FOSSILS]                        = MULTICHOICE(MultichoiceList_GameCornerFossils),
 };
 
 const u8 *const gStdStrings[] =

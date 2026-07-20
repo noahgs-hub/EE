@@ -59,6 +59,8 @@ LilycoveCity_DepartmentStore_2F_Pokemart1:
 	.2byte ITEM_MAGMARIZER
 	.2byte ITEM_DRAGON_SCALE
 	.2byte ITEM_PRISM_SCALE
+	.2byte ITEM_DEEP_SEA_SCALE
+	.2byte ITEM_DEEP_SEA_TOOTH
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_2F_EventScript_ClerkRight::
