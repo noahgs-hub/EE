@@ -417,58 +417,63 @@ MauvilleCity_GameCorner_EventScript_ConfirmMonPrize::
 MauvilleCity_GameCorner_EventScript_BuyFarfetchd::
 	checkcoins VAR_TEMP_2
 	goto_if_lt VAR_TEMP_2, FARFETCHD_COINS, MauvilleCity_GameCorner_EventScript_NotEnoughCoinsForTM
+	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_FARFETCHD
 	givemon SPECIES_FARFETCHD, MON_PRIZE_LEVEL
 	goto_if_eq VAR_RESULT, MON_CANT_GIVE, MauvilleCity_GameCorner_EventScript_NoRoomForMon
+	copyvar VAR_TEMP_3, VAR_RESULT
 	removecoins FARFETCHD_COINS
-	bufferspeciesname STR_VAR_1, SPECIES_FARFETCHD
 	goto MauvilleCity_GameCorner_EventScript_ReceiveMonPrize
 	end
 
 MauvilleCity_GameCorner_EventScript_BuyDelibird::
 	checkcoins VAR_TEMP_2
 	goto_if_lt VAR_TEMP_2, DELIBIRD_COINS, MauvilleCity_GameCorner_EventScript_NotEnoughCoinsForTM
+	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_DELIBIRD
 	givemon SPECIES_DELIBIRD, MON_PRIZE_LEVEL
 	goto_if_eq VAR_RESULT, MON_CANT_GIVE, MauvilleCity_GameCorner_EventScript_NoRoomForMon
+	copyvar VAR_TEMP_3, VAR_RESULT
 	removecoins DELIBIRD_COINS
-	bufferspeciesname STR_VAR_1, SPECIES_DELIBIRD
 	goto MauvilleCity_GameCorner_EventScript_ReceiveMonPrize
 	end
 
 MauvilleCity_GameCorner_EventScript_BuyMrMime::
 	checkcoins VAR_TEMP_2
 	goto_if_lt VAR_TEMP_2, MR_MIME_COINS, MauvilleCity_GameCorner_EventScript_NotEnoughCoinsForTM
+	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_MR_MIME
 	givemon SPECIES_MR_MIME, MON_PRIZE_LEVEL
 	goto_if_eq VAR_RESULT, MON_CANT_GIVE, MauvilleCity_GameCorner_EventScript_NoRoomForMon
+	copyvar VAR_TEMP_3, VAR_RESULT
 	removecoins MR_MIME_COINS
-	bufferspeciesname STR_VAR_1, SPECIES_MR_MIME
 	goto MauvilleCity_GameCorner_EventScript_ReceiveMonPrize
 	end
 
 MauvilleCity_GameCorner_EventScript_BuyPorygon::
 	checkcoins VAR_TEMP_2
 	goto_if_lt VAR_TEMP_2, PORYGON_COINS, MauvilleCity_GameCorner_EventScript_NotEnoughCoinsForTM
+	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_PORYGON
 	givemon SPECIES_PORYGON, MON_PRIZE_LEVEL
 	goto_if_eq VAR_RESULT, MON_CANT_GIVE, MauvilleCity_GameCorner_EventScript_NoRoomForMon
+	copyvar VAR_TEMP_3, VAR_RESULT
 	removecoins PORYGON_COINS
-	bufferspeciesname STR_VAR_1, SPECIES_PORYGON
 	goto MauvilleCity_GameCorner_EventScript_ReceiveMonPrize
 	end
 
 MauvilleCity_GameCorner_EventScript_BuyLapras::
 	checkcoins VAR_TEMP_2
 	goto_if_lt VAR_TEMP_2, LAPRAS_COINS, MauvilleCity_GameCorner_EventScript_NotEnoughCoinsForTM
+	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_LAPRAS
 	givemon SPECIES_LAPRAS, MON_PRIZE_LEVEL
 	goto_if_eq VAR_RESULT, MON_CANT_GIVE, MauvilleCity_GameCorner_EventScript_NoRoomForMon
+	copyvar VAR_TEMP_3, VAR_RESULT
 	removecoins LAPRAS_COINS
-	bufferspeciesname STR_VAR_1, SPECIES_LAPRAS
 	goto MauvilleCity_GameCorner_EventScript_ReceiveMonPrize
 	end
 
 MauvilleCity_GameCorner_EventScript_ReceiveMonPrize::
-	copyvar VAR_TEMP_3, VAR_RESULT
 	updatecoinsbox 1, 1
 	playse SE_SHOP
 	hidecoinsbox 0, 0
+	bufferspeciesname STR_VAR_1, VAR_TEMP_TRANSFERRED_SPECIES
 	playfanfare MUS_OBTAIN_ITEM
 	message MauvilleCity_GameCorner_Text_ReceivedMonPrize
 	waitmessage
