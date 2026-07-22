@@ -3600,6 +3600,9 @@ static const struct {
     { SPECIES_LUGIA,    FLAG_DEFEATED_LUGIA },
     { SPECIES_HO_OH,    FLAG_DEFEATED_HO_OH },
     { SPECIES_DEOXYS,   FLAG_DEFEATED_DEOXYS },
+    { SPECIES_ARTICUNO, FLAG_DEFEATED_ARTICUNO },
+    { SPECIES_ZAPDOS,   FLAG_DEFEATED_ZAPDOS },
+    { SPECIES_MOLTRES,  FLAG_DEFEATED_MOLTRES },
 };
 
 // Champion-win hook (EverGrandeCity_ChampionsRoom EventScript_Defeated):

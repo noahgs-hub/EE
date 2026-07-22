@@ -71,9 +71,11 @@
 #define FLAG_REPEL_CHARM_ON    0x31 // Custom July 2026: Repel Charm key item toggle (permanent repel while set)
 #define FLAG_RECEIVED_REPEL_CHARM    0x32 // Custom July 2026: Lilycove Dept. Store greeter gave the Repel Charm
 #define FLAG_HIDE_GUILDHOUSE_STOOMIE    0x33 // Custom July 2026: Slateport Guildhouse Stoomie ran out mid-Mox event (cleared hourly on map transition; verified clean in dev save)
-#define FLAG_UNUSED_0x034    0x34 // Unused Flag
-#define FLAG_UNUSED_0x035    0x35 // Unused Flag
-#define FLAG_UNUSED_0x036    0x36 // Unused Flag
+// Hoenn post-game bird trio. Names are location-qualified because the unused FRLG
+// maps already claim FLAG_HIDE_ARTICUNO/ZAPDOS/MOLTRES (stubbed to 0 further down).
+#define FLAG_HIDE_SHOAL_CAVE_ARTICUNO    0x34 // Custom July 2026: Shoal Cave Ice Room Articuno (set on transition until game clear; verified clean in dev saves)
+#define FLAG_HIDE_NEW_MAUVILLE_ZAPDOS    0x35 // Custom July 2026: New Mauville Zapdos (set on transition until game clear; verified clean in dev saves)
+#define FLAG_HIDE_MT_CHIMNEY_MOLTRES    0x36 // Custom July 2026: Mt. Chimney Moltres (set on transition until game clear; verified clean in dev saves)
 #define FLAG_UNUSED_0x037    0x37 // Unused Flag
 #define FLAG_UNUSED_0x038    0x38 // Unused Flag
 #define FLAG_UNUSED_0x039    0x39 // Unused Flag
@@ -524,9 +526,9 @@
 #define FLAG_DEFEATED_HO_OH                  0x1DC
 #define FLAG_DEFEATED_LUGIA                  0x1DD
 
-#define FLAG_UNUSED_0x1DE                    0x1DE // Unused Flag
-#define FLAG_UNUSED_0x1DF                    0x1DF // Unused Flag
-#define FLAG_UNUSED_0x1E0                    0x1E0 // Unused Flag
+#define FLAG_DEFEATED_ARTICUNO               0x1DE // Custom July 2026: cleared on champion win if uncaught (verified clean in dev saves)
+#define FLAG_DEFEATED_ZAPDOS                 0x1DF // Custom July 2026: cleared on champion win if uncaught (verified clean in dev saves)
+#define FLAG_DEFEATED_MOLTRES                0x1E0 // Custom July 2026: cleared on champion win if uncaught (verified clean in dev saves)
 #define FLAG_UNUSED_0x1E1                    0x1E1 // Unused Flag
 #define FLAG_UNUSED_0x1E2                    0x1E2 // Unused Flag
 #define FLAG_UNUSED_0x1E3                    0x1E3 // Unused Flag
