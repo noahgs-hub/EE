@@ -106,19 +106,6 @@
       "flag": "FLAG_HIDE_RUSTURF_TUNNEL_DEPTHS_MEWTWO"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_BRENDAN_NORMAL",
-      "x": 27,
-      "y": 10,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_NONE",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "0"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 19,
       "y": 17,
@@ -145,12 +132,19 @@
       "y": 11,
       "elevation": 3,
       "dest_map": "MAP_RUSTURF_TUNNEL_DEPTHS",
-      "dest_warp_id": "2"
+      "dest_warp_id": "3"
     },
     {
-      "x": 6,
-      "y": 17,
-      "elevation": 3,
+      "x": 12,
+      "y": 15,
+      "elevation": 0,
+      "dest_map": "MAP_RUSTURF_TUNNEL_DEPTHS",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 12,
+      "y": 14,
+      "elevation": 4,
       "dest_map": "MAP_RUSTURF_TUNNEL_DEPTHS",
       "dest_warp_id": "1"
     }
@@ -175,7 +169,7 @@
     },
     {
       "type": "hidden_item",
-      "x": 22,
+      "x": 18,
       "y": 2,
       "elevation": 0,
       "item": "ITEM_CHOICE_SPECS",

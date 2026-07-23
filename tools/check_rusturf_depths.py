@@ -26,6 +26,8 @@ DP_BIN = "data/layouts/RusturfTunnel_Depths/map.bin"
 RT_ATTR = "data/tilesets/secondary/rusturf_tunnel/metatile_attributes.bin"
 
 ENTRANCE = (17, 3)          # cave mouth in RusturfTunnel, revealed after E4
+LADDER = (8, 11)            # ladder on the lower level
+CAVE_MOUTH = (12, 15)       # cave-exit tile below Mewtwo, upstairs side
 EXIT_TILE = (4, 17)         # south-arrow warp tile inside the Depths
 EXIT_METATILE = 0x207       # MB_SOUTH_ARROW_WARP
 HIDDEN_FLAG = "FLAG_HIDDEN_ITEM_RUSTURF_TUNNEL_DEPTHS_MASTER_BALL"
@@ -172,17 +174,30 @@ def main():
                   and o.get("flag") == "FLAG_HIDE_RUSTURF_TUNNEL_DEPTHS_MEWTWO",
                   "%s / %s" % (o.get("script"), o.get("flag")))
 
-    # Two-way ladder: a matched pair of intra-map warps
-    pair = [w for w in dp.get("warp_events", [])
-            if w.get("dest_map") == "MAP_RUSTURF_TUNNEL_DEPTHS"]
-    okpair = len(pair) == 2
-    if okpair:
-        i0 = dp["warp_events"].index(pair[0])
-        i1 = dp["warp_events"].index(pair[1])
-        okpair = (pair[0].get("dest_warp_id") == str(i1)
-                  and pair[1].get("dest_warp_id") == str(i0))
-    check("ladder pair links both ways", okpair,
-          " <-> ".join("(%d,%d)" % (w["x"], w["y"]) for w in pair) if pair else "MISSING")
+    # Ladder <-> cave-mouth shortcut. Three intra-map warps:
+    #   ladder(8,11) -> landing pad, mouth(12,15) -> ladder, and the landing pad.
+    # The ladder must NOT land you on the mouth itself: a door tile makes you
+    # step out southward, which drops you inside it facing the wrong way.
+    warps = dp.get("warp_events", [])
+    at = lambda xy: next((i for i, w in enumerate(warps)
+                          if (w["x"], w["y"]) == xy), None)
+    i_lad, i_mouth = at(LADDER), at(CAVE_MOUTH)
+    if check("ladder and cave mouth both have warps",
+             i_lad is not None and i_mouth is not None,
+             "ladder=%s mouth=%s" % (i_lad, i_mouth)):
+        dest = warps[i_lad].get("dest_warp_id")
+        pad = warps[int(dest)] if dest.isdigit() and int(dest) < len(warps) else None
+        landed = (pad["x"], pad["y"]) if pad else None
+        check("ladder lands you OFF the mouth (not inside it)",
+              landed is not None and landed != CAVE_MOUTH,
+              "lands at %s" % (landed,))
+        check("  landing pad is adjacent to the mouth",
+              landed is not None
+              and abs(landed[0] - CAVE_MOUTH[0]) + abs(landed[1] - CAVE_MOUTH[1]) == 1,
+              "%s vs mouth %s" % (landed, CAVE_MOUTH))
+        check("cave mouth returns to the ladder",
+              warps[i_mouth].get("dest_warp_id") == str(i_lad),
+              "-> warp %s" % warps[i_mouth].get("dest_warp_id"))
 
     for h in [x for x in dp.get("bg_events", []) if x.get("type") == "hidden_item"]:
         good = str(h.get("flag", "")).startswith("FLAG_HIDDEN_ITEM_")
