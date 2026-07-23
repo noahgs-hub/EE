@@ -184,6 +184,22 @@ void SetScriptedRayquazaMoves(void)
         SetMonMoveSlot(&gParties[B_TRAINER_OPPONENT_A][0], sRayquazaMoves[i], i);
 }
 
+// Overrides the scripted wild mon's moves for the Rusturf Tunnel Depths Mewtwo.
+// Called after setwildbattle, before the battle starts.
+void SetScriptedMewtwoMoves(void)
+{
+    static const u16 sMewtwoMoves[MAX_MON_MOVES] = {
+        MOVE_PSYCHIC,
+        MOVE_SHADOW_BALL,
+        MOVE_RECOVER,
+        MOVE_CALM_MIND,
+    };
+    u32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        SetMonMoveSlot(&gParties[B_TRAINER_OPPONENT_A][0], sMewtwoMoves[i], i);
+}
+
 void ScriptSetMonMoveSlot(u8 monIndex, enum Move move, u8 slot)
 {
 // Allows monIndex to go out of bounds of gParties[B_TRAINER_PLAYER]. Doesn't occur in vanilla

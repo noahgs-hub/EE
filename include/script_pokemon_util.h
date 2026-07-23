@@ -7,6 +7,7 @@ void CreateScriptedWildMon(enum Species species, u8 level, enum Item item);
 void CreateScriptedDoubleWildMon(enum Species species, u8 level, enum Item item, enum Species species2, u8 level2, enum Item item2);
 void ScriptSetMonMoveSlot(u8 monIndex, enum Move move, u8 slot);
 void SetScriptedRayquazaMoves(void);
+void SetScriptedMewtwoMoves(void);
 void ReducePlayerPartyToSelectedMons(void);
 void HealPlayerParty(void);
 void Script_GetChosenMonOffensiveEVs(void);

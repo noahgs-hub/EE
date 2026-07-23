@@ -13,7 +13,125 @@
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": null,
-  "object_events": [],
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 10,
+      "y": 9,
+      "elevation": 4,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 9,
+      "y": 8,
+      "elevation": 4,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 7,
+      "y": 8,
+      "elevation": 4,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 8,
+      "y": 9,
+      "elevation": 4,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 14,
+      "y": 9,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "ITEM_MOON_BALL",
+      "script": "Common_EventScript_FindItem",
+      "flag": "FLAG_ITEM_RUSTURF_TUNNEL_DEPTHS_MOON_BALL"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 19,
+      "y": 14,
+      "elevation": 4,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_MEWTWO",
+      "x": 12,
+      "y": 12,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "RusturfTunnel_Depths_EventScript_Mewtwo",
+      "flag": "FLAG_HIDE_RUSTURF_TUNNEL_DEPTHS_MEWTWO"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_BRENDAN_NORMAL",
+      "x": 27,
+      "y": 10,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 19,
+      "y": 17,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "ITEM_LUCKY_EGG",
+      "script": "Common_EventScript_FindItem",
+      "flag": "FLAG_ITEM_RUSTURF_TUNNEL_DEPTHS_LUCKY_EGG"
+    }
+  ],
   "warp_events": [
     {
       "x": 4,
@@ -21,9 +139,64 @@
       "elevation": 3,
       "dest_map": "MAP_RUSTURF_TUNNEL",
       "dest_warp_id": "3"
+    },
+    {
+      "x": 8,
+      "y": 11,
+      "elevation": 3,
+      "dest_map": "MAP_RUSTURF_TUNNEL_DEPTHS",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 6,
+      "y": 17,
+      "elevation": 3,
+      "dest_map": "MAP_RUSTURF_TUNNEL_DEPTHS",
+      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],
-  "bg_events": [],
+  "bg_events": [
+    {
+      "type": "hidden_item",
+      "x": 6,
+      "y": 6,
+      "elevation": 0,
+      "item": "ITEM_MASTER_BALL",
+      "flag": "FLAG_HIDDEN_ITEM_RUSTURF_TUNNEL_DEPTHS_MASTER_BALL"
+    },
+    {
+      "type": "hidden_item",
+      "x": 27,
+      "y": 6,
+      "elevation": 0,
+      "item": "ITEM_BIG_NUGGET",
+      "flag": "FLAG_HIDDEN_ITEM_RUSTURF_TUNNEL_DEPTHS_BIG_NUGGET"
+    },
+    {
+      "type": "hidden_item",
+      "x": 22,
+      "y": 2,
+      "elevation": 0,
+      "item": "ITEM_CHOICE_SPECS",
+      "flag": "FLAG_HIDDEN_ITEM_RUSTURF_TUNNEL_DEPTHS_CHOICE_SPECS"
+    },
+    {
+      "type": "hidden_item",
+      "x": 24,
+      "y": 16,
+      "elevation": 0,
+      "item": "ITEM_BEAST_BALL",
+      "flag": "FLAG_HIDDEN_ITEM_RUSTURF_TUNNEL_DEPTHS_BEAST_BALL"
+    },
+    {
+      "type": "hidden_item",
+      "x": 14,
+      "y": 17,
+      "elevation": 0,
+      "item": "ITEM_LURE_BALL",
+      "flag": "FLAG_HIDDEN_ITEM_RUSTURF_TUNNEL_DEPTHS_LURE_BALL"
+    }
+  ],
   "region": "REGION_HOENN"
 }
