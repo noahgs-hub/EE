@@ -155,7 +155,6 @@ static u8 FrameType_ProcessInput(u8 selection);
 static void FrameType_DrawChoices(u8 selection);
 static u8 ButtonMode_ProcessInput(u8 selection);
 static void ButtonMode_DrawChoices(u8 selection);
-static void DrawHeaderText(void);
 #if OPT_EXTENDED_OPTIONS_MENU == TRUE && OPT_BATTLE_MODE == TRUE
 static u8 BattleMode_ProcessInput(u8 selection);
 static void BattleMode_DrawChoices(u8 selection);

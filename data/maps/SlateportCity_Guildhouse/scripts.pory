@@ -67,7 +67,6 @@ script SlateportCity_Guildhouse_EventScript_Caleb {
         addvar(VAR_0x8000, 1)
         copyvar(VAR_GUILDHOUSE_CALEB_COOLDOWN, VAR_0x8000)
         special(SetCB2WhiteOut)
-        waitstate
         end
     } elif (var(VAR_0x8008) <= 7) {
         msgbox(SlateportCity_Guildhouse_Text_Roll2To7, MSGBOX_DEFAULT)

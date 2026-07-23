@@ -256,11 +256,11 @@ bool8 CanUseFly(void)
         return FALSE;
 
     // If they have the badge, check for a Pokémon that can learn Fly.
-    for (i = 0; i < gPlayerPartyCount; i++)
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
     {
-        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
         {
-            u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
+            u16 species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
             if (CanLearnTeachableMove(species, MOVE_FLY))
             {
                 sFieldMoveSource = FIELD_MOVE_SOURCE_POKEMON;
@@ -294,11 +294,11 @@ bool8 CanUseFlash(void)
         return FALSE;
 
     // 2. Check for a Pokémon that can learn Flash
-    for (i = 0; i < gPlayerPartyCount; i++)
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
     {
-        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
         {
-            u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
+            u16 species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
             if (CanLearnTeachableMove(species, MOVE_FLASH))
             {
                 sFieldMoveSource = FIELD_MOVE_SOURCE_POKEMON;
