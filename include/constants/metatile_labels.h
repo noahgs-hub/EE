@@ -1079,4 +1079,16 @@
 #define METATILE_RSMossdeepGym_Switch_Down           0x239
 #define METATILE_RSMossdeepGym_Switch_Up             0x238
 
+// RusturfTunnel: 3-wide hidden cave entrance revealed after the first Elite Four
+// win. The center opening (0x214) is given MB_NON_ANIMATED_DOOR in this tileset's
+// metatile_attributes.bin so walking up into it warps. Tiles form a 3x2 mouth:
+//   arch row:   ArchLeft  ArchMid   ArchRight
+//   floor row:  WallLeft  Entrance  WallRight
+#define METATILE_RusturfTunnel_HiddenCaveArchLeft    0x20B
+#define METATILE_RusturfTunnel_HiddenCaveArchMid     0x20C
+#define METATILE_RusturfTunnel_HiddenCaveArchRight   0x20D
+#define METATILE_RusturfTunnel_HiddenCaveWallLeft    0x213
+#define METATILE_RusturfTunnel_HiddenCaveEntrance    0x214
+#define METATILE_RusturfTunnel_HiddenCaveWallRight   0x215
+
 #endif // GUARD_METATILE_LABELS_H

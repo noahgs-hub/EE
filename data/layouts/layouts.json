@@ -1421,6 +1421,17 @@
       "layout_version": "emerald"
     },
     {
+      "id": "LAYOUT_RUSTURF_TUNNEL_DEPTHS",
+      "name": "RusturfTunnel_Depths_Layout",
+      "width": 30,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_RusturfTunnel",
+      "border_filepath": "data/layouts/RusturfTunnel_Depths/border.bin",
+      "blockdata_filepath": "data/layouts/RusturfTunnel_Depths/map.bin",
+      "layout_version": "emerald"
+    },
+    {
       "id": "LAYOUT_UNDERWATER_SOOTOPOLIS_CITY",
       "name": "Underwater_SootopolisCity_Layout",
       "width": 20,

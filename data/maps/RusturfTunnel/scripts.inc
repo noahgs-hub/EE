@@ -1,7 +1,23 @@
 RusturfTunnel_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, RusturfTunnel_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, RusturfTunnel_OnFrame
+	map_script MAP_SCRIPT_ON_LOAD, RusturfTunnel_OnLoad
 	.byte 0
+
+@ Reveal the hidden cave once the player has cleared the Elite Four for the
+@ first time (FLAG_SYS_GAME_CLEAR). Runs on every load so the opening persists.
+RusturfTunnel_OnLoad:
+	call_if_set FLAG_SYS_GAME_CLEAR, RusturfTunnel_EventScript_OpenHiddenCave
+	end
+
+RusturfTunnel_EventScript_OpenHiddenCave::
+	setmetatile 16, 2, METATILE_RusturfTunnel_HiddenCaveArchLeft, TRUE
+	setmetatile 17, 2, METATILE_RusturfTunnel_HiddenCaveArchMid, TRUE
+	setmetatile 18, 2, METATILE_RusturfTunnel_HiddenCaveArchRight, TRUE
+	setmetatile 16, 3, METATILE_RusturfTunnel_HiddenCaveWallLeft, TRUE
+	setmetatile 17, 3, METATILE_RusturfTunnel_HiddenCaveEntrance, FALSE
+	setmetatile 18, 3, METATILE_RusturfTunnel_HiddenCaveWallRight, TRUE
+	return
 
 RusturfTunnel_OnFrame:
 	map_script_2 VAR_RUSTURF_TUNNEL_STATE, 4, RusturfTunnel_EventScript_ClearTunnelScene

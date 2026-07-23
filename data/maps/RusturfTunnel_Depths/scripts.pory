@@ -1,0 +1,4 @@
+raw `
+RusturfTunnel_Depths_MapScripts::
+	.byte 0
+`
