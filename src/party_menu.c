@@ -2971,13 +2971,20 @@ static void SetPartyMonSelectionActions(struct Pokemon *mons, u8 slotId, u8 acti
     }
 }
 
-// Field moves that can be used via items and should be excluded from the party menu
+// Field moves that can be used via items and should be excluded from the party menu.
+//
+// MOVE_ROCK_SMASH deliberately is NOT in this list. Every other move here has an
+// overworld trigger (walk up to the tree/water/boulder and press A), but opening
+// Regirock's tomb in the Desert Ruins is reachable ONLY through the party menu --
+// see SetUpFieldMove_RockSmash(), which checks ShouldDoBrailleRegirockEffect()
+// before it checks for a breakable rock in front of the player. Hiding Rock Smash
+// here made that puzzle impossible, because the ITEM_ROCK_SMASH_TOOL alternative
+// is never actually given to the player anywhere in the game.
 static const u16 sItemBasedFieldMoves[] =
 {
     MOVE_CUT,
     MOVE_SURF,
     MOVE_STRENGTH,
-    MOVE_ROCK_SMASH,
     MOVE_DIVE,
     MOVE_WATERFALL,
 };
