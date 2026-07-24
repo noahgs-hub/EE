@@ -153,7 +153,7 @@ static const struct WindowTemplate sWindowTemplate_SafariBalls = {
     .tilemapLeft = 1,
     .tilemapTop = 1,
     .width = 9,
-    .height = 4,
+    .height = 6, // 3 lines: SAFARI BALLS / Stock / Steps
     .paletteNum = 15,
     .baseBlock = 0x8
 };
@@ -447,8 +447,8 @@ static void ShowSafariBallsWindow(void)
     DrawStdWindowFrame(sSafariBallsWindowId, FALSE);
     if (IS_FRLG)
     {
-        ConvertIntToDecimalStringN(gStringVar1, gSafariZoneStepCounter, STR_CONV_MODE_RIGHT_ALIGN, 3);
-        ConvertIntToDecimalStringN(gStringVar2, 600, STR_CONV_MODE_RIGHT_ALIGN, 3);
+        ConvertIntToDecimalStringN(gStringVar1, gSafariZoneStepCounter, STR_CONV_MODE_RIGHT_ALIGN, 4);
+        ConvertIntToDecimalStringN(gStringVar2, 1200, STR_CONV_MODE_RIGHT_ALIGN, 4);
         ConvertIntToDecimalStringN(gStringVar3, gNumSafariBalls, STR_CONV_MODE_RIGHT_ALIGN, 2);
         StringExpandPlaceholders(gStringVar4, gText_MenuSafariStats);
         AddTextPrinterParameterized(sSafariBallsWindowId, FONT_NORMAL, gStringVar4, 4, 3, 0xFF, NULL);
@@ -456,6 +456,7 @@ static void ShowSafariBallsWindow(void)
     else
     {
         ConvertIntToDecimalStringN(gStringVar1, gNumSafariBalls, STR_CONV_MODE_RIGHT_ALIGN, 2);
+        ConvertIntToDecimalStringN(gStringVar2, gSafariZoneStepCounter, STR_CONV_MODE_RIGHT_ALIGN, 4);
         StringExpandPlaceholders(gStringVar4, gText_SafariBallStock);
         AddTextPrinterParameterized(sSafariBallsWindowId, FONT_NORMAL, gStringVar4, 0, 1, TEXT_SKIP_DRAW, NULL);
     }
