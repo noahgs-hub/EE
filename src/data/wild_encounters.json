@@ -36577,6 +36577,160 @@
               }
             ]
           }
+        },
+        {
+          "map": "MAP_RUSTURF_TUNNEL_DEPTHS",
+          "base_label": "gRusturfTunnel_Depths",
+          "land_mons": {
+            "encounter_rate": 7,
+            "mons": [
+              {
+                "min_level": 63,
+                "max_level": 69,
+                "species": "SPECIES_XATU"
+              },
+              {
+                "min_level": 62,
+                "max_level": 68,
+                "species": "SPECIES_GOLBAT"
+              },
+              {
+                "min_level": 63,
+                "max_level": 69,
+                "species": "SPECIES_KADABRA"
+              },
+              {
+                "min_level": 64,
+                "max_level": 72,
+                "species": "SPECIES_RHYDON"
+              },
+              {
+                "min_level": 64,
+                "max_level": 72,
+                "species": "SPECIES_DITTO"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_ALAKAZAM"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_WOBBUFFET"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_PARASECT"
+              },
+              {
+                "min_level": 64,
+                "max_level": 72,
+                "species": "SPECIES_SABLEYE"
+              },
+              {
+                "min_level": 64,
+                "max_level": 72,
+                "species": "SPECIES_CHANSEY"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_MAGNETON"
+              },
+              {
+                "min_level": 66,
+                "max_level": 74,
+                "species": "SPECIES_BLISSEY"
+              }
+            ]
+          },
+          "fishing_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 60,
+                "max_level": 68,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 60,
+                "max_level": 68,
+                "species": "SPECIES_GOLDEEN"
+              },
+              {
+                "min_level": 60,
+                "max_level": 68,
+                "species": "SPECIES_BARBOACH"
+              },
+              {
+                "min_level": 63,
+                "max_level": 71,
+                "species": "SPECIES_SEAKING"
+              },
+              {
+                "min_level": 63,
+                "max_level": 71,
+                "species": "SPECIES_LANTURN"
+              },
+              {
+                "min_level": 60,
+                "max_level": 68,
+                "species": "SPECIES_CLAMPERL"
+              },
+              {
+                "min_level": 63,
+                "max_level": 71,
+                "species": "SPECIES_WHISCASH"
+              },
+              {
+                "min_level": 60,
+                "max_level": 68,
+                "species": "SPECIES_DRATINI"
+              },
+              {
+                "min_level": 62,
+                "max_level": 71,
+                "species": "SPECIES_DRAGONAIR"
+              },
+              {
+                "min_level": 63,
+                "max_level": 72,
+                "species": "SPECIES_DRAGONAIR"
+              }
+            ]
+          },
+          "water_mons": {
+            "encounter_rate": 2,
+            "mons": [
+              {
+                "min_level": 61,
+                "max_level": 68,
+                "species": "SPECIES_SLOWPOKE"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_GYARADOS"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_SLOWKING"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_STARMIE"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_SLOWKING"
+              }
+            ]
+          }
         }
       ]
     },
