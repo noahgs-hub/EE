@@ -1148,8 +1148,12 @@ enum __attribute__((packed)) Item
 
     // Custom key items
     ITEM_REPEL_CHARM,
+    ITEM_POKEMON_BOX_RS = 967, // Jirachi distribution disc. Explicit slot: the next
+                               // auto value (883) would collide with ITEM_TM101, so
+                               // this takes the old FIELD_ARROW slot instead. Save-safe:
+                               // no existing item ID (0-966) shifts.
 
-    ITEMS_COUNT = 967, // was auto-derived; pinned above TM101-184 (883-966)
+    ITEMS_COUNT = 968, // bumped +1 for ITEM_POKEMON_BOX_RS; still above TM101-184 (883-966)
     ITEM_FIELD_ARROW = ITEMS_COUNT,
 };
 

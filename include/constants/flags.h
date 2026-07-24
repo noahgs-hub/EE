@@ -674,8 +674,8 @@
 #define FLAG_HIDDEN_ITEM_RUSTURF_TUNNEL_DEPTHS_LURE_BALL     0x269 // was FLAG_UNUSED_0x269
 #define FLAG_HIDE_RUSTURF_TUNNEL_DEPTHS_MEWTWO               0x26A // was FLAG_UNUSED_0x26A
 #define FLAG_DEFEATED_RUSTURF_TUNNEL_DEPTHS_MEWTWO           0x26B // was FLAG_UNUSED_0x26B
-#define FLAG_UNUSED_0x26C  0x26C // Unused Flag
-#define FLAG_UNUSED_0x26D  0x26D // Unused Flag
+#define FLAG_RECEIVED_POKEMON_BOX_RS  0x26C // took the disc from the Mossdeep white rock
+#define FLAG_RECEIVED_JIRACHI         0x26D // claimed Jirachi from the GameCube
 #define FLAG_UNUSED_0x26E  0x26E // Unused Flag
 #define FLAG_UNUSED_0x26F  0x26F // Unused Flag
 #define FLAG_UNUSED_0x270  0x270 // Unused Flag

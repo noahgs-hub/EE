@@ -52,7 +52,25 @@ MossdeepCity_EventScript_Woman::
 	msgbox MossdeepCity_Text_SpecialSpaceCenterRock, MSGBOX_NPC
 	end
 
+@ Jirachi event: the first time the player checks the white rock it offers the
+@ Pokémon Box R&S disc. Once taken (FLAG_RECEIVED_POKEMON_BOX_RS) it is a plain
+@ white rock again.
 MossdeepCity_EventScript_WhiteRock::
+	goto_if_set FLAG_RECEIVED_POKEMON_BOX_RS, MossdeepCity_EventScript_WhiteRockNormal
+	lockall
+	msgbox MossdeepCity_Text_WhiteRockDisc, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MossdeepCity_EventScript_WhiteRockLeave
+	giveitem ITEM_POKEMON_BOX_RS
+	goto_if_eq VAR_RESULT, FALSE, MossdeepCity_EventScript_WhiteRockLeave
+	setflag FLAG_RECEIVED_POKEMON_BOX_RS
+	releaseall
+	end
+
+MossdeepCity_EventScript_WhiteRockLeave::
+	releaseall
+	end
+
+MossdeepCity_EventScript_WhiteRockNormal::
 	msgbox MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN
 	end
 
@@ -389,6 +407,11 @@ MossdeepCity_Text_SpecialSpaceCenterRock:
 
 MossdeepCity_Text_ItsAWhiteRock:
 	.string "It's a white rock.$"
+
+MossdeepCity_Text_WhiteRockDisc:
+	.string "Oh! A disc!\p"
+	.string "It is a POKéMON BOX R&S.\n"
+	.string "Take it?$"
 
 MossdeepCity_Text_GymSign:
 	.string "MOSSDEEP CITY POKéMON GYM\n"

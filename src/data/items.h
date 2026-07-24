@@ -14552,6 +14552,23 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_Repel,
     },
 
+    [ITEM_POKEMON_BOX_RS] =
+    {
+        .name = ITEM_NAME("Pokémon Box R&S"),
+        .price = 0,
+        .importance = 1,
+        .description = COMPOUND_STRING(
+            "A GameCube game\n"
+            "disc. Insert it in\n"
+            "a GameCube to use."),
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        // Reuse the red Fire-type TM disc art (disc pic + Fire TMHM palette).
+        .iconPic = gItemIcon_TM,
+        .iconPalette = gItemIconPalette_FireTMHM,
+    },
+
 // Form-changing Key Items
 
     [ITEM_ROTOM_CATALOG] =

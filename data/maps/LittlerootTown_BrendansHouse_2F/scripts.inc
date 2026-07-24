@@ -265,7 +265,38 @@ PlayersHouse_2F_EventScript_Notebook::
 	msgbox PlayersHouse_2F_Text_Notebook, MSGBOX_SIGN
 	end
 
+@ Jirachi event: once the player is holding the Pokémon Box R&S disc (and has not
+@ yet claimed Jirachi), the GameCube offers to accept the disc. Otherwise -- both
+@ before getting the disc and after receiving Jirachi -- it is a normal GameCube.
 PlayersHouse_2F_EventScript_GameCube::
+	goto_if_set FLAG_RECEIVED_JIRACHI, PlayersHouse_2F_EventScript_GameCubeNormal
+	checkitem ITEM_POKEMON_BOX_RS
+	goto_if_eq VAR_RESULT, FALSE, PlayersHouse_2F_EventScript_GameCubeNormal
+	lockall
+	msgbox PlayersHouse_2F_Text_InsertDisc, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PlayersHouse_2F_EventScript_GameCubeDeclined
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, PlayersHouse_2F_EventScript_GameCubePartyFull
+	givemon SPECIES_JIRACHI, 5, ITEM_SALAC_BERRY, BALL_CHERISH, move1=MOVE_WISH, move2=MOVE_CONFUSION, move3=MOVE_REST, move4=MOVE_NONE, shinyMode=SHINY_MODE_RANDOM
+	removeitem ITEM_POKEMON_BOX_RS
+	setflag FLAG_RECEIVED_JIRACHI
+	playfanfare MUS_OBTAIN_ITEM
+	message PlayersHouse_2F_Text_ObtainedJirachi
+	waitmessage
+	waitfanfare
+	releaseall
+	end
+
+PlayersHouse_2F_EventScript_GameCubeDeclined::
+	releaseall
+	end
+
+PlayersHouse_2F_EventScript_GameCubePartyFull::
+	msgbox PlayersHouse_2F_Text_GameCubePartyFull, MSGBOX_DEFAULT
+	releaseall
+	end
+
+PlayersHouse_2F_EventScript_GameCubeNormal::
 	msgbox PlayersHouse_2F_Text_ItsAGameCube, MSGBOX_SIGN
 	end
 
@@ -294,6 +325,16 @@ PlayersHouse_2F_Text_Notebook:
 Common_Text_LookCloserAtMap:
 	.string "{PLAYER} took a closer look at the\n"
 	.string "{REGION} region map.$"
+
+PlayersHouse_2F_Text_InsertDisc:
+	.string "Insert the POKéMON BOX R&S?$"
+
+PlayersHouse_2F_Text_ObtainedJirachi:
+	.string "{PLAYER} obtained JIRACHI!$"
+
+PlayersHouse_2F_Text_GameCubePartyFull:
+	.string "There's no room for JIRACHI in\n"
+	.string "your party right now.$"
 
 PlayersHouse_2F_Text_ItsAGameCube:
 	.string "It's a Nintendo GameCube.\p"
