@@ -9907,6 +9907,14 @@ static u32 ComputeCaptureOdds(u32 wildMonBattler, u32 playerBattler)
 
     if (ball.guaranteedCapture)
         return CAPTURE_GUARANTEED;
+
+    // Shiny Pokemon in the Safari Zone are always caught. Safari battles ignore the
+    // species catch rate in favour of safariCatchFactor (and the mon can flee on its
+    // own), so a shiny would otherwise be very easy to lose for good.
+    if ((gBattleTypeFlags & BATTLE_TYPE_SAFARI)
+     && GetMonData(GetBattlerMon(wildMonBattler), MON_DATA_IS_SHINY))
+        return CAPTURE_GUARANTEED;
+
     struct BattlePokemon *battleMon = &gBattleMons[wildMonBattler];
     u32 odds = (battleMon->maxHP * 3 -  battleMon->hp * 2);
     s32 catchRate;

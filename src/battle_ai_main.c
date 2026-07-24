@@ -6633,6 +6633,14 @@ static s32 AI_Safari(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum 
 {
     u32 safariFleeRate = gBattleStruct->safariEscapeFactor * 5; // Safari flee rate, from 0-20.
 
+    // Shiny Pokemon never flee in the Safari Zone, so throwing Bait or a Rock at one
+    // can't lose it. Pairs with the guaranteed capture in ComputeCaptureOdds().
+    if (GetMonData(GetBattlerMon(battlerAtk), MON_DATA_IS_SHINY))
+    {
+        AI_Watch();
+        return score;
+    }
+
     if ((Random() % 100) < safariFleeRate)
         AI_Flee();
     else
