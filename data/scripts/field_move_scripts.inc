@@ -443,7 +443,11 @@ EventScript_DigCommon:
 	setfieldeffectargument 3, VAR_0x8004 @ Pass follower result to field effect to skip pose
 	dofieldeffect FLDEFF_USE_DIG
 	waitstate
-	end
+	@ NO "end" here. On the Sealed Chamber dig spot StartDigFieldEffect() calls
+	@ ScriptContext_Enable(), which resumes execution right after the waitstate
+	@ and must fall through into EventScript_DigSealedChamber below. A normal Dig
+	@ never resumes here (the escape-rope task warps the player instead), so the
+	@ fallthrough only ever fires for the braille wall.
 
 @ This is for the special Dig spot in the Sealed Chamber.
 EventScript_DigSealedChamber:: @ fallthrough
