@@ -358,6 +358,13 @@ bool32 AddBagItem(enum Item itemId, u16 count)
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
         return AddPyramidBagItem(itemId, count);
 
+    // Non-consumable (importance) items -- reusable TMs, key items -- are meant to be
+    // held one at a time. If the player already has one in the bag, picking up another
+    // succeeds without stacking a useless, un-tossable duplicate. Only the normal bag
+    // is checked (not the PC), so a copy stored in the PC can still be re-added.
+    if (GetItemImportance(itemId) && CheckBagHasItem(itemId, 1))
+        return TRUE;
+
     return BagPocket_AddItem(&gBagPockets[GetItemPocket(itemId)], itemId, count);
 }
 
