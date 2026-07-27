@@ -1945,7 +1945,7 @@
               {
                 "min_level": 8,
                 "max_level": 8,
-                "species": "SPECIES_WHISMUR"
+                "species": "SPECIES_LICKITUNG"
               },
               {
                 "min_level": 5,
@@ -36646,6 +36646,36 @@
               }
             ]
           },
+          "water_mons": {
+            "encounter_rate": 2,
+            "mons": [
+              {
+                "min_level": 61,
+                "max_level": 68,
+                "species": "SPECIES_SLOWPOKE"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_GYARADOS"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_SLOWBRO"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_STARMIE"
+              },
+              {
+                "min_level": 65,
+                "max_level": 73,
+                "species": "SPECIES_SLOWKING"
+              }
+            ]
+          },
           "fishing_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -36698,36 +36728,6 @@
                 "min_level": 63,
                 "max_level": 72,
                 "species": "SPECIES_DRAGONAIR"
-              }
-            ]
-          },
-          "water_mons": {
-            "encounter_rate": 2,
-            "mons": [
-              {
-                "min_level": 61,
-                "max_level": 68,
-                "species": "SPECIES_SLOWPOKE"
-              },
-              {
-                "min_level": 65,
-                "max_level": 73,
-                "species": "SPECIES_GYARADOS"
-              },
-              {
-                "min_level": 65,
-                "max_level": 73,
-                "species": "SPECIES_SLOWBRO"
-              },
-              {
-                "min_level": 65,
-                "max_level": 73,
-                "species": "SPECIES_STARMIE"
-              },
-              {
-                "min_level": 65,
-                "max_level": 73,
-                "species": "SPECIES_SLOWKING"
               }
             ]
           }
