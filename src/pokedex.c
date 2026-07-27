@@ -1326,8 +1326,9 @@ static const u8 sSearchMovementMap_ShiftHoennDex[SEARCH_COUNT][4] =
 
 static const struct SearchOptionText sDexModeOptions[] =
 {
-    [DEX_MODE_HOENN]    = {gText_DexHoennDescription, gText_DexHoennTitle},
-    [DEX_MODE_NATIONAL] = {gText_DexNatDescription,   gText_DexNatTitle},
+    [DEX_MODE_HOENN]         = {gText_DexHoennDescription, gText_DexHoennTitle},
+    [DEX_MODE_NATIONAL]      = {gText_DexNatDescription,   gText_DexNatTitle},
+    [DEX_MODE_INTERNATIONAL] = {gText_DexIntlDescription,  gText_DexIntlTitle},
     {},
 };
 
@@ -1397,7 +1398,7 @@ static const struct SearchOptionText sDexSearchTypeOptions[] =
     {},
 };
 
-static const u8 sPokedexModes[] = {DEX_MODE_HOENN, DEX_MODE_NATIONAL};
+static const u8 sPokedexModes[] = {DEX_MODE_HOENN, DEX_MODE_NATIONAL, DEX_MODE_INTERNATIONAL};
 static const u8 sOrderOptions[] =
 {
     ORDER_NUMERICAL,
@@ -2177,6 +2178,28 @@ static void FreeWindowAndBgBuffers(void)
         Free(tilemapBuffer);
 }
 
+// Hoenn (214) and National (415) are both "regional" modes: they list a curated
+// subset in regional order/numbering, differing only in which mapping table they use.
+// International lists every species in national order/numbering.
+static bool8 IsRegionalDexMode(u8 dexMode)
+{
+    return dexMode != DEX_MODE_INTERNATIONAL;
+}
+static u32 DexModeRegionalCount(u8 dexMode)
+{
+    return (dexMode == DEX_MODE_HOENN) ? TRUE_HOENN_DEX_COUNT : REGIONAL_DEX_COUNT;
+}
+static u32 DexModeRegionalToNational(u8 dexMode, u32 regionalNum)
+{
+    return (dexMode == DEX_MODE_HOENN) ? TrueHoennToNationalOrder(regionalNum)
+                                       : RegionalToNationalOrder(regionalNum);
+}
+static u32 DexModeNationalToRegional(u8 dexMode, u32 nationalNum)
+{
+    return (dexMode == DEX_MODE_HOENN) ? NationalToTrueHoennOrder(nationalNum)
+                                       : NationalToRegionalOrder(nationalNum);
+}
+
 static void CreatePokedexList(u8 dexMode, u8 order)
 {
     u32 vars[3]; //I have no idea why three regular variables are stored in an array, but whatever.
@@ -2187,24 +2210,21 @@ static void CreatePokedexList(u8 dexMode, u8 order)
 
     sPokedexView->pokemonListCount = 0;
 
+    // Only the base Hoenn (214) dex is available before the National Dex is unlocked.
+    if (!IsNationalPokedexEnabled() && dexMode != DEX_MODE_HOENN)
+        dexMode = DEX_MODE_HOENN;
+
     switch (dexMode)
     {
     default:
     case DEX_MODE_HOENN:
-        temp_dexCount = REGIONAL_DEX_COUNT;
+    case DEX_MODE_NATIONAL:
+        temp_dexCount = DexModeRegionalCount(dexMode);
         temp_isHoennDex = TRUE;
         break;
-    case DEX_MODE_NATIONAL:
-        if (IsNationalPokedexEnabled())
-        {
-            temp_dexCount = NATIONAL_DEX_COUNT;
-            temp_isHoennDex = FALSE;
-        }
-        else
-        {
-            temp_dexCount = REGIONAL_DEX_COUNT;
-            temp_isHoennDex = TRUE;
-        }
+    case DEX_MODE_INTERNATIONAL:
+        temp_dexCount = NATIONAL_DEX_COUNT;
+        temp_isHoennDex = FALSE;
         break;
     }
 
@@ -2215,7 +2235,7 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         {
             for (i = 0; i < temp_dexCount; i++)
             {
-                temp_dexNum = RegionalToNationalOrder(i + 1);
+                temp_dexNum = DexModeRegionalToNational(dexMode, i + 1);
                 sPokedexView->pokedexList[i].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[i].seen = GetSetPokedexFlag(temp_dexNum, FLAG_GET_SEEN);
                 sPokedexView->pokedexList[i].owned = GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT);
@@ -2248,7 +2268,7 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         {
             temp_dexNum = gPokedexOrder_Alphabetical[i];
 
-            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || NationalToRegionalOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_SEEN))
+            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || DexModeNationalToRegional(dexMode, temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_SEEN))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2262,7 +2282,7 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         {
             temp_dexNum = gPokedexOrder_Weight[i];
 
-            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || NationalToRegionalOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
+            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || DexModeNationalToRegional(dexMode, temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2276,7 +2296,7 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         {
             temp_dexNum = gPokedexOrder_Weight[i];
 
-            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || NationalToRegionalOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
+            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || DexModeNationalToRegional(dexMode, temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2290,7 +2310,7 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         {
             temp_dexNum = gPokedexOrder_Height[i];
 
-            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || NationalToRegionalOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
+            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || DexModeNationalToRegional(dexMode, temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2304,7 +2324,7 @@ static void CreatePokedexList(u8 dexMode, u8 order)
         {
             temp_dexNum = gPokedexOrder_Height[i];
 
-            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || NationalToRegionalOrder(temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
+            if (temp_dexNum <= NATIONAL_DEX_COUNT && (!temp_isHoennDex || DexModeNationalToRegional(dexMode, temp_dexNum) != 0) && GetSetPokedexFlag(temp_dexNum, FLAG_GET_CAUGHT))
             {
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = temp_dexNum;
                 sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
@@ -2432,10 +2452,10 @@ static void CreateMonDexNum(u16 entryNum, u8 left, u8 top, u16 unused)
     u16 dexNum, offset = 2;
 
     dexNum = sPokedexView->pokedexList[entryNum].dexNum;
-    if (sPokedexView->dexMode == DEX_MODE_HOENN)
-        dexNum = NationalToRegionalOrder(dexNum);
+    if (IsRegionalDexMode(sPokedexView->dexMode))
+        dexNum = DexModeNationalToRegional(sPokedexView->dexMode, dexNum);
     memcpy(text, sText_No0000, ARRAY_COUNT(sText_No0000));
-    if (NATIONAL_DEX_COUNT > 999 && sPokedexView->dexMode != DEX_MODE_HOENN)
+    if (NATIONAL_DEX_COUNT > 999 && sPokedexView->dexMode == DEX_MODE_INTERNATIONAL)
     {
         text[2] = CHAR_0 + dexNum / 1000;
         offset++;
@@ -2885,9 +2905,11 @@ static void CreateInterfaceSprites(u8 page)
         else
         {
             u16 seenOwnedCount;
+            u16 nationalSeenCount = GetRegionalPokedexCount(FLAG_GET_SEEN); // National dex = 415 roster
+            u16 nationalOwnCount = GetRegionalPokedexCount(FLAG_GET_CAUGHT);
             // Changes sprite distance based on the seen count (owned count can't ever be bigger than it)
             u8 counterXDist  = 7;
-            u8 counterX1s    = sPokedexView->seenCount > 999 ? 57 : 56;
+            u8 counterX1s    = nationalSeenCount > 999 ? 57 : 56;
             u8 counterX10s   = counterX1s - counterXDist;
             u8 counterX100s  = counterX10s - counterXDist;
             u8 counterX1000s = counterX100s - counterXDist;
@@ -2913,7 +2935,7 @@ static void CreateInterfaceSprites(u8 page)
             StartSpriteAnim(&gSprites[spriteId], 1);
 
             // Hoenn seen value - 100s
-            seenOwnedCount = GetRegionalPokedexCount(FLAG_GET_SEEN);
+            seenOwnedCount = GetTrueHoennPokedexCount(FLAG_GET_SEEN);
             drawNextDigit = FALSE;
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX100s, 45, 1);
             digitNum = seenOwnedCount / 100;
@@ -2939,7 +2961,7 @@ static void CreateInterfaceSprites(u8 page)
             // National seen value - 1000s
             drawNextDigit = FALSE;
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX1000s, 55, 1);
-            digitNum = sPokedexView->seenCount / 1000;
+            digitNum = nationalSeenCount / 1000;
             StartSpriteAnim(&gSprites[spriteId], digitNum);
             if (digitNum != 0)
                 drawNextDigit = TRUE;
@@ -2948,7 +2970,7 @@ static void CreateInterfaceSprites(u8 page)
 
             // National seen value - 100s
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX100s, 55, 1);
-            digitNum = (sPokedexView->seenCount % 1000) / 100;
+            digitNum = (nationalSeenCount % 1000) / 100;
             if (digitNum != 0 || drawNextDigit)
             {
                 drawNextDigit = TRUE;
@@ -2959,7 +2981,7 @@ static void CreateInterfaceSprites(u8 page)
 
             // National seen value - 10s
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX10s, 55, 1);
-            digitNum = ((sPokedexView->seenCount % 1000) % 100) / 10;
+            digitNum = ((nationalSeenCount % 1000) % 100) / 10;
             if (digitNum != 0 || drawNextDigit)
                 StartSpriteAnim(&gSprites[spriteId], digitNum);
             else
@@ -2967,10 +2989,10 @@ static void CreateInterfaceSprites(u8 page)
 
             // National seen value - 1s
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX1s, 55, 1);
-            digitNum = ((sPokedexView->seenCount % 1000) % 100) % 10;
+            digitNum = ((nationalSeenCount % 1000) % 100) % 10;
             StartSpriteAnim(&gSprites[spriteId], digitNum);
 
-            seenOwnedCount = GetRegionalPokedexCount(FLAG_GET_CAUGHT);
+            seenOwnedCount = GetTrueHoennPokedexCount(FLAG_GET_CAUGHT);
 
             // Hoenn owned value - 100s
             drawNextDigit = FALSE;
@@ -2998,7 +3020,7 @@ static void CreateInterfaceSprites(u8 page)
             // National owned value - 1000s
             drawNextDigit = FALSE;
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX1000s, 91, 1);
-            digitNum = sPokedexView->ownCount / 1000;
+            digitNum = nationalOwnCount / 1000;
             StartSpriteAnim(&gSprites[spriteId], digitNum);
             if (digitNum != 0)
                 drawNextDigit = TRUE;
@@ -3007,7 +3029,7 @@ static void CreateInterfaceSprites(u8 page)
 
             // National owned value - 100s
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX100s, 91, 1);
-            digitNum = (sPokedexView->ownCount % 1000) / 100;
+            digitNum = (nationalOwnCount % 1000) / 100;
             if (digitNum != 0 || drawNextDigit)
             {
                 drawNextDigit = TRUE;
@@ -3018,7 +3040,7 @@ static void CreateInterfaceSprites(u8 page)
 
             // National owned value  - 10s
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX10s, 91, 1);
-            digitNum = ((sPokedexView->ownCount % 1000) % 100) / 10;
+            digitNum = ((nationalOwnCount % 1000) % 100) / 10;
             if (digitNum != 0 || drawNextDigit)
                 StartSpriteAnim(&gSprites[spriteId], digitNum);
             else
@@ -3026,7 +3048,7 @@ static void CreateInterfaceSprites(u8 page)
 
             // National owned value - 1s
             spriteId = CreateSprite(&sNationalDexSeenOwnNumberSpriteTemplate, counterX1s, 91, 1);
-            digitNum = ((sPokedexView->ownCount % 1000) % 100) % 10;
+            digitNum = ((nationalOwnCount % 1000) % 100) % 10;
             StartSpriteAnim(&gSprites[spriteId], digitNum);
         }
         spriteId = CreateSprite(&sDexListStartMenuCursorSpriteTemplate, 136, 96, 1);
@@ -3311,7 +3333,7 @@ static void Task_LoadInfoScreen(u8 taskId)
         gMain.state++;
         break;
     case 4:
-        PrintMonInfo(sPokedexListItem->dexNum, sPokedexView->dexMode == DEX_MODE_HOENN ? FALSE : TRUE, sPokedexListItem->owned, 0);
+        PrintMonInfo(sPokedexListItem->dexNum, IsRegionalDexMode(sPokedexView->dexMode) ? FALSE : TRUE, sPokedexListItem->owned, 0);
         if (!sPokedexListItem->owned)
             LoadPalette(&gPlttBufferUnfaded[BG_PLTT_ID(0) + 1], BG_PLTT_ID(3) + 1, PLTT_SIZEOF(16 - 1));
         CopyWindowToVram(WIN_INFO, COPYWIN_FULL);
@@ -4194,7 +4216,8 @@ static void PrintMonInfo(u32 num, u32 value, u32 owned, u32 newEntry)
     if (newEntry)
         PrintInfoScreenText(gText_PokedexRegistration, GetStringCenterAlignXOffset(FONT_NORMAL, gText_PokedexRegistration, DISPLAY_WIDTH), 0);
     if (value == 0)
-        value = NationalToRegionalOrder(num);
+        value = (sPokedexView != NULL && sPokedexView->dexMode == DEX_MODE_HOENN)
+                    ? NationalToTrueHoennOrder(num) : NationalToRegionalOrder(num);
     else
         value = num;
 
@@ -4590,6 +4613,29 @@ u16 GetHoennPokedexCount(u8 caseID)
     return count;
 }
 
+// Seen/caught count within the original 214-species Hoenn dex
+u16 GetTrueHoennPokedexCount(u8 caseID)
+{
+    u16 count = 0;
+    u16 i;
+
+    for (i = 0; i < TRUE_HOENN_DEX_COUNT - 1; i++)
+    {
+        switch (caseID)
+        {
+        case FLAG_GET_SEEN:
+            if (GetSetPokedexFlag(TrueHoennToNationalOrder(i + 1), FLAG_GET_SEEN))
+                count++;
+            break;
+        case FLAG_GET_CAUGHT:
+            if (GetSetPokedexFlag(TrueHoennToNationalOrder(i + 1), FLAG_GET_CAUGHT))
+                count++;
+            break;
+        }
+    }
+    return count;
+}
+
 u16 GetKantoPokedexCount(u8 caseID)
 {
     u16 count = 0;
@@ -4626,6 +4672,20 @@ bool16 HasAllHoennMons(void)
     for (i = 0; i < HOENN_DEX_COUNT - 1; i++)
     {
         j = HoennToNationalOrder(i + 1);
+        if (!(gSpeciesInfo[j].isMythical && !gSpeciesInfo[j].dexForceRequired) && !GetSetPokedexFlag(j, FLAG_GET_CAUGHT))
+            return FALSE;
+    }
+    return TRUE;
+}
+
+// Completion of the original 214-species Hoenn dex (drives the Hoenn diploma + Birch reward)
+bool16 HasAllTrueHoennMons(void)
+{
+    u32 i, j;
+
+    for (i = 0; i < TRUE_HOENN_DEX_COUNT - 1; i++)
+    {
+        j = TrueHoennToNationalOrder(i + 1);
         if (!(gSpeciesInfo[j].isMythical && !gSpeciesInfo[j].dexForceRequired) && !GetSetPokedexFlag(j, FLAG_GET_CAUGHT))
             return FALSE;
     }
@@ -5793,6 +5853,9 @@ static void SetDefaultSearchModeAndOrder(u8 taskId)
         break;
     case DEX_MODE_NATIONAL:
         selected = DEX_MODE_NATIONAL;
+        break;
+    case DEX_MODE_INTERNATIONAL:
+        selected = DEX_MODE_INTERNATIONAL;
         break;
     }
     gTasks[taskId].tCursorPos_Mode = selected;

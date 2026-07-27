@@ -126,8 +126,9 @@ static const struct CombinedMove sCombinedMoves[2] =
 // NOTE: The order of the elements in the array below is irrelevant.
 // To reorder the pokedex, see the values in include/constants/pokedex.h.
 
-#define KANTO_TO_NATIONAL(name)     [KANTO_DEX_##name - 1] = NATIONAL_DEX_##name,
-#define HOENN_TO_NATIONAL(name)     [HOENN_DEX_##name - 1] = NATIONAL_DEX_##name,
+#define KANTO_TO_NATIONAL(name)      [KANTO_DEX_##name - 1] = NATIONAL_DEX_##name,
+#define HOENN_TO_NATIONAL(name)      [HOENN_DEX_##name - 1] = NATIONAL_DEX_##name,
+#define TRUE_HOENN_TO_NATIONAL(name) [TRUE_HOENN_DEX_##name - 1] = NATIONAL_DEX_##name,
 
 static const enum NationalDexOrder sKantoToNationalOrder[KANTO_DEX_COUNT] =
 {
@@ -139,6 +140,12 @@ static const enum NationalDexOrder sKantoToNationalOrder[KANTO_DEX_COUNT] =
 static const enum NationalDexOrder sHoennToNationalOrder[HOENN_DEX_COUNT - 1] =
 {
     FOREACH_SPECIES_IN_HOENN_DEX_ORDER(HOENN_TO_NATIONAL)
+};
+
+// Assigns all original-Hoenn (214) Dex Indexes to a National Dex Index
+static const enum NationalDexOrder sTrueHoennToNationalOrder[TRUE_HOENN_DEX_COUNT - 1] =
+{
+    FOREACH_SPECIES_IN_TRUE_HOENN_DEX_ORDER(TRUE_HOENN_TO_NATIONAL)
 };
 
 // In Battle Palace, moves are chosen based on the Pokémon's nature rather than by the player
@@ -4908,6 +4915,30 @@ enum NationalDexOrder HoennToNationalOrder(enum HoennDexOrder hoennNum)
         return 0;
 
     return sHoennToNationalOrder[hoennNum - 1];
+}
+
+// Original (214) Hoenn dex <-> National mappings, used by the separate "Hoenn" dex mode
+enum NationalDexOrder TrueHoennToNationalOrder(u32 trueHoennNum)
+{
+    if (!trueHoennNum || trueHoennNum >= TRUE_HOENN_DEX_COUNT)
+        return 0;
+
+    return sTrueHoennToNationalOrder[trueHoennNum - 1];
+}
+
+u32 NationalToTrueHoennOrder(enum NationalDexOrder nationalNum)
+{
+    u16 i;
+
+    if (!nationalNum)
+        return 0;
+
+    for (i = 0; i < (TRUE_HOENN_DEX_COUNT - 1); i++)
+    {
+        if (sTrueHoennToNationalOrder[i] == nationalNum)
+            return i + 1;
+    }
+    return 0;
 }
 
 void EvolutionRenameMon(struct Pokemon *mon, enum Species oldSpecies, enum Species newSpecies)

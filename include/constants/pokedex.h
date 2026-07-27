@@ -1730,6 +1730,235 @@ enum KantoDexOrder
 
 #define REGIONAL_DEX_COUNT (IS_FRLG ? KANTO_DEX_COUNT : HOENN_DEX_COUNT)
 
+
+// Original (vanilla) 214-species Hoenn Dex order, kept as a separate "Hoenn" mode
+#define FOREACH_SPECIES_IN_TRUE_HOENN_DEX_ORDER(F) \
+    F(TREECKO) \
+    F(GROVYLE) \
+    F(SCEPTILE) \
+    F(TORCHIC) \
+    F(COMBUSKEN) \
+    F(BLAZIKEN) \
+    F(MUDKIP) \
+    F(MARSHTOMP) \
+    F(SWAMPERT) \
+    F(POOCHYENA) \
+    F(MIGHTYENA) \
+    F(ZIGZAGOON) \
+    F(LINOONE) \
+    HOENN_DEX_IF(P_GALARIAN_FORMS, F(OBSTAGOON)) \
+    F(WURMPLE) \
+    F(SILCOON) \
+    F(BEAUTIFLY) \
+    F(CASCOON) \
+    F(DUSTOX) \
+    F(LOTAD) \
+    F(LOMBRE) \
+    F(LUDICOLO) \
+    F(SEEDOT) \
+    F(NUZLEAF) \
+    F(SHIFTRY) \
+    F(TAILLOW) \
+    F(SWELLOW) \
+    F(WINGULL) \
+    F(PELIPPER) \
+    F(RALTS) \
+    F(KIRLIA) \
+    F(GARDEVOIR) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(GALLADE)) \
+    F(SURSKIT) \
+    F(MASQUERAIN) \
+    F(SHROOMISH) \
+    F(BRELOOM) \
+    F(SLAKOTH) \
+    F(VIGOROTH) \
+    F(SLAKING) \
+    F(ABRA) \
+    F(KADABRA) \
+    F(ALAKAZAM) \
+    F(NINCADA) \
+    F(NINJASK) \
+    F(SHEDINJA) \
+    F(WHISMUR) \
+    F(LOUDRED) \
+    F(EXPLOUD) \
+    F(MAKUHITA) \
+    F(HARIYAMA) \
+    F(GOLDEEN) \
+    F(SEAKING) \
+    F(MAGIKARP) \
+    F(GYARADOS) \
+    F(AZURILL) \
+    F(MARILL) \
+    F(AZUMARILL) \
+    F(GEODUDE) \
+    F(GRAVELER) \
+    F(GOLEM) \
+    F(NOSEPASS) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(PROBOPASS)) \
+    F(SKITTY) \
+    F(DELCATTY) \
+    F(ZUBAT) \
+    F(GOLBAT) \
+    F(CROBAT) \
+    F(TENTACOOL) \
+    F(TENTACRUEL) \
+    F(SABLEYE) \
+    F(MAWILE) \
+    F(ARON) \
+    F(LAIRON) \
+    F(AGGRON) \
+    F(MACHOP) \
+    F(MACHOKE) \
+    F(MACHAMP) \
+    F(MEDITITE) \
+    F(MEDICHAM) \
+    F(ELECTRIKE) \
+    F(MANECTRIC) \
+    F(PLUSLE) \
+    F(MINUN) \
+    F(MAGNEMITE) \
+    F(MAGNETON) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(MAGNEZONE)) \
+    F(VOLTORB) \
+    F(ELECTRODE) \
+    F(VOLBEAT) \
+    F(ILLUMISE) \
+    F(ODDISH) \
+    F(GLOOM) \
+    F(VILEPLUME) \
+    F(BELLOSSOM) \
+    F(DODUO) \
+    F(DODRIO) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(BUDEW)) \
+    F(ROSELIA) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(ROSERADE)) \
+    F(GULPIN) \
+    F(SWALOT) \
+    F(CARVANHA) \
+    F(SHARPEDO) \
+    F(WAILMER) \
+    F(WAILORD) \
+    F(NUMEL) \
+    F(CAMERUPT) \
+    F(SLUGMA) \
+    F(MAGCARGO) \
+    F(TORKOAL) \
+    F(GRIMER) \
+    F(MUK) \
+    F(KOFFING) \
+    F(WEEZING) \
+    F(SPOINK) \
+    F(GRUMPIG) \
+    F(SANDSHREW) \
+    F(SANDSLASH) \
+    F(SPINDA) \
+    F(SKARMORY) \
+    F(TRAPINCH) \
+    F(VIBRAVA) \
+    F(FLYGON) \
+    F(CACNEA) \
+    F(CACTURNE) \
+    F(SWABLU) \
+    F(ALTARIA) \
+    F(ZANGOOSE) \
+    F(SEVIPER) \
+    F(LUNATONE) \
+    F(SOLROCK) \
+    F(BARBOACH) \
+    F(WHISCASH) \
+    F(CORPHISH) \
+    F(CRAWDAUNT) \
+    F(BALTOY) \
+    F(CLAYDOL) \
+    F(LILEEP) \
+    F(CRADILY) \
+    F(ANORITH) \
+    F(ARMALDO) \
+    F(IGGLYBUFF) \
+    F(JIGGLYPUFF) \
+    F(WIGGLYTUFF) \
+    F(FEEBAS) \
+    F(MILOTIC) \
+    F(CASTFORM) \
+    F(STARYU) \
+    F(STARMIE) \
+    F(KECLEON) \
+    F(SHUPPET) \
+    F(BANETTE) \
+    F(DUSKULL) \
+    F(DUSCLOPS) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(DUSKNOIR)) \
+    F(TROPIUS) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(CHINGLING)) \
+    F(CHIMECHO) \
+    F(ABSOL) \
+    F(VULPIX) \
+    F(NINETALES) \
+    F(PICHU) \
+    F(PIKACHU) \
+    F(RAICHU) \
+    F(PSYDUCK) \
+    F(GOLDUCK) \
+    F(WYNAUT) \
+    F(WOBBUFFET) \
+    F(NATU) \
+    F(XATU) \
+    F(GIRAFARIG) \
+    HOENN_DEX_IF(P_GEN_9_CROSS_EVOS, F(FARIGIRAF)) \
+    F(PHANPY) \
+    F(DONPHAN) \
+    F(PINSIR) \
+    F(HERACROSS) \
+    F(RHYHORN) \
+    F(RHYDON) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(RHYPERIOR)) \
+    F(SNORUNT) \
+    F(GLALIE) \
+    HOENN_DEX_IF(P_GEN_4_CROSS_EVOS, F(FROSLASS)) \
+    F(SPHEAL) \
+    F(SEALEO) \
+    F(WALREIN) \
+    F(CLAMPERL) \
+    F(HUNTAIL) \
+    F(GOREBYSS) \
+    F(RELICANTH) \
+    F(CORSOLA) \
+    HOENN_DEX_IF(P_GALARIAN_FORMS, F(CURSOLA)) \
+    F(CHINCHOU) \
+    F(LANTURN) \
+    F(LUVDISC) \
+    F(HORSEA) \
+    F(SEADRA) \
+    F(KINGDRA) \
+    F(BAGON) \
+    F(SHELGON) \
+    F(SALAMENCE) \
+    F(BELDUM) \
+    F(METANG) \
+    F(METAGROSS) \
+    F(REGIROCK) \
+    F(REGICE) \
+    F(REGISTEEL) \
+    F(LATIAS) \
+    F(LATIOS) \
+    F(KYOGRE) \
+    F(GROUDON) \
+    F(RAYQUAZA) \
+    F(JIRACHI) \
+    F(DEOXYS)
+
+// True Hoenn Pokedex order (original 214)
+enum TrueHoennDexOrder
+{
+    TRUE_HOENN_DEX_NONE,
+    #define TRUE_HOENN_DEX_ENUM(name) TRUE_HOENN_DEX_ ##name,
+    FOREACH_SPECIES_IN_TRUE_HOENN_DEX_ORDER(TRUE_HOENN_DEX_ENUM)
+    #undef TRUE_HOENN_DEX_ENUM
+};
+
+#define TRUE_HOENN_DEX_COUNT (TRUE_HOENN_DEX_DEOXYS + 1)
+
 #define DECAGRAMS_IN_POUND             453592
 #define CM_PER_INCH                    2.54
 #define CM_PER_INCH_FACTOR             (CM_PER_INCH * 100)
@@ -1752,8 +1981,9 @@ enum KantoDexOrder
 
 enum
 {
-    DEX_MODE_HOENN,
-    DEX_MODE_NATIONAL
+    DEX_MODE_HOENN,         // original 214-species Hoenn dex
+    DEX_MODE_NATIONAL,      // curated 415-species roster (this game's full obtainable set)
+    DEX_MODE_INTERNATIONAL, // every species in the game
 };
 
 enum
