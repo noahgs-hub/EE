@@ -108,10 +108,10 @@ Route125_EventScript_MistyChangeTide::
 	closemessage
 	applymovement VAR_LAST_TALKED, Common_Movement_FaceUp
 	waitmovement 0
-	fadescreen FADE_TO_BLACK
+	fadescreenswapbuffers FADE_TO_BLACK
 	playse SE_M_SURF
 	waitse
-	fadescreen FADE_FROM_BLACK
+	fadescreenswapbuffers FADE_FROM_BLACK
 	applymovement VAR_LAST_TALKED, Common_Movement_FacePlayer
 	waitmovement 0
 	return
