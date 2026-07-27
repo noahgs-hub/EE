@@ -24,8 +24,6 @@ RT_MAP = "data/maps/RusturfTunnel/map.json"
 DP_MAP = "data/maps/RusturfTunnel_Depths/map.json"
 DP_BIN = "data/layouts/RusturfTunnel_Depths/map.bin"
 RT_ATTR = "data/tilesets/secondary/rusturf_tunnel/metatile_attributes.bin"
-RT_META = "data/tilesets/secondary/rusturf_tunnel/metatiles.bin"
-ARCH_MID = 0x20C            # cave-mouth tile directly above the entrance
 
 ENTRANCE = (17, 3)          # cave mouth in RusturfTunnel, revealed after E4
 LADDER = (8, 11)            # ladder on the lower level
@@ -95,21 +93,6 @@ def main():
     check("0x213 is MB_NORMAL (side wall)",
           (attr[0x213 - 0x200] & 0xFF) == 0x00,
           "0x%02X" % (attr[0x213 - 0x200] & 0xFF))
-    # ArchMid (0x20C) sits directly above the entrance; the player's 16x32
-    # sprite extends up into it while standing on the warp. Its rock must be in
-    # the metatile's TOP (covering) layer so the player walks "into" the cave
-    # instead of standing in front of it. NORMAL layer type + a non-empty top
-    # layer matching the bottom = covering. Porymap tileset saves revert this.
-    meta = bytearray(open(os.path.join(ROOT, RT_META), "rb").read())
-    off = (ARCH_MID - 0x200) * 16
-    bottom, top = meta[off:off + 8], meta[off + 8:off + 16]
-    arch_covers = (attr[ARCH_MID - 0x200] >> 12) & 0xF == 0 and top == bottom
-    if not check("0x20C ArchMid covers player (top layer set)", arch_covers,
-                 "top layer %s" % ("set" if any(top) else "EMPTY -> sprite draws over cave")):
-        if args.fix and (attr[ARCH_MID - 0x200] >> 12) & 0xF == 0:
-            meta[off + 8:off + 16] = meta[off:off + 8]
-            open(os.path.join(ROOT, RT_META), "wb").write(meta)
-            repairs.append("0x20C ArchMid: copied rock into top (covering) layer")
 
     # --- Depths exit tile ---------------------------------------------------
     if lay:

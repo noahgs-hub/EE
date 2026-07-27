@@ -9,8 +9,9 @@ EventScript_TryUseFlash::
     goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantUseFlash
 
     @ --- Checks passed, execute the effect immediately ---
-    animateflash 1
-    setflashlevel 1
+    @ Level 0 fully reveals the cave (no light circle) instead of a radius.
+    animateflash 0
+    setflashlevel 0
     releaseall
     end
 
@@ -21,8 +22,8 @@ EventScript_CantUseFlash::
 
 @ no longer used:
 EventScript_UseFlash::
-    animateflash 1
-    setflashlevel 1
+    animateflash 0
+    setflashlevel 0
     releaseall
     end
 

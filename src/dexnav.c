@@ -853,12 +853,6 @@ static bool8 InitDexNavSearch(enum Species species, u32 environment)
     sDexNavSearchDataPtr->isHiddenMon = (environment == ENCOUNTER_TYPE_HIDDEN) ? TRUE : FALSE;
     sDexNavSearchDataPtr->monLevel = DexNavTryGenerateMonLevel(species, environment);
 
-    if (GetFlashLevel() > 0)
-    {
-        DexNavSearchBail(EventScript_TooDark);
-        return TRUE;
-    }
-
     if (sDexNavSearchDataPtr->monLevel == MON_LEVEL_NONEXISTENT || !TryStartHiddenMonFieldEffect(sDexNavSearchDataPtr->environment, 12, 12, FALSE))
     {
         DexNavSearchBail(EventScript_NotFoundNearby);
