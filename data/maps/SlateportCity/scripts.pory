@@ -308,6 +308,15 @@ SlateportCity_Pokemart_EnergyGuru:
 	.2byte ITEM_ZINC
 	.2byte ITEM_CALCIUM
 	.2byte ITEM_HP_UP
+	.2byte ITEM_FULL_INCENSE
+	.2byte ITEM_LAX_INCENSE
+	.2byte ITEM_LUCK_INCENSE
+	.2byte ITEM_ODD_INCENSE
+	.2byte ITEM_PURE_INCENSE
+	.2byte ITEM_ROCK_INCENSE
+	.2byte ITEM_ROSE_INCENSE
+	.2byte ITEM_SEA_INCENSE
+	.2byte ITEM_WAVE_INCENSE
 	pokemartlistend
 
 SlateportCity_EventScript_EffortRibbonWoman::
