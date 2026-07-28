@@ -136,9 +136,10 @@ EWRAM_DATA static struct DexNavSearch *sDexNavSearchDataPtr = NULL;
 EWRAM_DATA static struct DexNavGUI *sDexNavUiDataPtr = NULL;
 EWRAM_DATA static u8 *sBg1TilemapBuffer = NULL;
 EWRAM_DATA enum Species gDexNavSpecies = SPECIES_NONE;
-// Session-only "search level": climbs as you win/catch DexNav encounters, survives
-// chain breaks, and is NOT saved (RAM only, so it resets to 0 when the game is powered
-// off). Drives the IV/ability/egg-move/held-item bonuses; shiny odds stay on the chain.
+// Session-only counter: climbs as you win/catch DexNav encounters, survives chain
+// breaks, and is NOT saved (RAM only, so it resets to 0 on power-off). Drives the SHINY
+// odds (see CalculateDexNavShinyRolls); the IV/ability/egg-move/item quality is on the
+// chain instead.
 EWRAM_DATA static u8 sDexNavSessionLevel = 0;
 
 //// Function Declarations
@@ -789,12 +790,11 @@ static u8 GetSearchLevel(enum Species species)
 #if USE_DEXNAV_SEARCH_LEVELS == TRUE
     searchLevel = gSaveBlock3Ptr->dexNavSearchLevels[species];
 #else
-    // The per-species search-level system is off (it costs 1 byte/species in the
-    // save). Instead the search-level bonuses (IV potential, hidden ability, egg
-    // moves, held items, and the search window's info display) use a session-only
-    // counter that survives chain breaks and isn't saved. It caps at DEXNAV_CHAIN_MAX
-    // (100), lining up with the top SEARCHLEVEL100 tier.
-    searchLevel = sDexNavSessionLevel;
+    // Quality bonuses (IV potential, hidden ability, egg moves, held items, and the
+    // "SEARCH LV" display) are driven by the DexNav CHAIN, so they reset when the chain
+    // breaks. Caps at DEXNAV_CHAIN_MAX (100) = the top SEARCHLEVEL100 tier. (Shiny odds
+    // instead ride the session-only counter — see CalculateDexNavShinyRolls.)
+    searchLevel = gSaveBlock3Ptr->dexNavChain;
 #endif
     return searchLevel;
 }
@@ -2648,12 +2648,14 @@ static void DexNavDrawHiddenIcons(void)
 /////////////////////////
 u32 CalculateDexNavShinyRolls(void)
 {
-    u32 chainBonus, rndBonus;
-    u8 chain = gSaveBlock3Ptr->dexNavChain;
+    u32 levelBonus, rndBonus;
+    // Shiny odds ride the session-only search level (survives chain breaks, RAM-only)
+    // rather than the chain, so a fumbled chain doesn't cost you shiny progress.
+    u8 level = sDexNavSessionLevel;
 
-    chainBonus = (chain >= 100) ? 10 : (chain >= 50) ? 5 : 0;
+    levelBonus = (level >= 100) ? 10 : (level >= 50) ? 5 : 0;
     rndBonus = (Random() % 100 < 4) ? 4 : 0;
-    return chainBonus + rndBonus;
+    return levelBonus + rndBonus;
 }
 
 void TryIncrementSpeciesSearchLevel()
@@ -2662,8 +2664,9 @@ void TryIncrementSpeciesSearchLevel()
     if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER && gSaveBlock3Ptr->dexNavSearchLevels[gDexNavSpecies] < 255)
         gSaveBlock3Ptr->dexNavSearchLevels[gDexNavSpecies]++;
 #else
-    // Bump the session-only search level (called on a DexNav win/catch). It never
-    // decreases within a session, so it stays high even when the chain breaks.
+    // Bump the session-only counter that drives shiny odds (called on a DexNav
+    // win/catch). It never decreases within a session, so shiny odds stay boosted
+    // even when the chain breaks.
     if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER && sDexNavSessionLevel < DEXNAV_CHAIN_MAX)
         sDexNavSessionLevel++;
 #endif
