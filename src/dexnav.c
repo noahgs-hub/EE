@@ -785,7 +785,12 @@ static u8 GetSearchLevel(enum Species species)
 #if USE_DEXNAV_SEARCH_LEVELS == TRUE
     searchLevel = gSaveBlock3Ptr->dexNavSearchLevels[species];
 #else
-    searchLevel = 0;
+    // The per-species search-level system is off (it costs 1 byte/species in the
+    // save). Instead, tie all the search-level bonuses (IV potential, hidden
+    // ability, egg moves, held items, and the search window's info display) to the
+    // DexNav chain. The chain caps at 100 (DEXNAV_CHAIN_MAX), which lines up exactly
+    // with the top SEARCHLEVEL100 tier, so the whole progression maps onto it.
+    searchLevel = gSaveBlock3Ptr->dexNavChain;
 #endif
     return searchLevel;
 }
