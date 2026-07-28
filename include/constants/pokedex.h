@@ -1746,7 +1746,6 @@ enum KantoDexOrder
     F(MIGHTYENA) \
     F(ZIGZAGOON) \
     F(LINOONE) \
-    HOENN_DEX_IF(P_GALARIAN_FORMS, F(OBSTAGOON)) \
     F(WURMPLE) \
     F(SILCOON) \
     F(BEAUTIFLY) \
@@ -1924,7 +1923,6 @@ enum KantoDexOrder
     F(GOREBYSS) \
     F(RELICANTH) \
     F(CORSOLA) \
-    HOENN_DEX_IF(P_GALARIAN_FORMS, F(CURSOLA)) \
     F(CHINCHOU) \
     F(LANTURN) \
     F(LUVDISC) \
