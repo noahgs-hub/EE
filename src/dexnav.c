@@ -136,6 +136,10 @@ EWRAM_DATA static struct DexNavSearch *sDexNavSearchDataPtr = NULL;
 EWRAM_DATA static struct DexNavGUI *sDexNavUiDataPtr = NULL;
 EWRAM_DATA static u8 *sBg1TilemapBuffer = NULL;
 EWRAM_DATA enum Species gDexNavSpecies = SPECIES_NONE;
+// Session-only "search level": climbs as you win/catch DexNav encounters, survives
+// chain breaks, and is NOT saved (RAM only, so it resets to 0 when the game is powered
+// off). Drives the IV/ability/egg-move/held-item bonuses; shiny odds stay on the chain.
+EWRAM_DATA static u8 sDexNavSessionLevel = 0;
 
 //// Function Declarations
 //GUI
@@ -786,11 +790,11 @@ static u8 GetSearchLevel(enum Species species)
     searchLevel = gSaveBlock3Ptr->dexNavSearchLevels[species];
 #else
     // The per-species search-level system is off (it costs 1 byte/species in the
-    // save). Instead, tie all the search-level bonuses (IV potential, hidden
-    // ability, egg moves, held items, and the search window's info display) to the
-    // DexNav chain. The chain caps at 100 (DEXNAV_CHAIN_MAX), which lines up exactly
-    // with the top SEARCHLEVEL100 tier, so the whole progression maps onto it.
-    searchLevel = gSaveBlock3Ptr->dexNavChain;
+    // save). Instead the search-level bonuses (IV potential, hidden ability, egg
+    // moves, held items, and the search window's info display) use a session-only
+    // counter that survives chain breaks and isn't saved. It caps at DEXNAV_CHAIN_MAX
+    // (100), lining up with the top SEARCHLEVEL100 tier.
+    searchLevel = sDexNavSessionLevel;
 #endif
     return searchLevel;
 }
@@ -2657,6 +2661,11 @@ void TryIncrementSpeciesSearchLevel()
 #if USE_DEXNAV_SEARCH_LEVELS == TRUE
     if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER && gSaveBlock3Ptr->dexNavSearchLevels[gDexNavSpecies] < 255)
         gSaveBlock3Ptr->dexNavSearchLevels[gDexNavSpecies]++;
+#else
+    // Bump the session-only search level (called on a DexNav win/catch). It never
+    // decreases within a session, so it stays high even when the chain breaks.
+    if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER && sDexNavSessionLevel < DEXNAV_CHAIN_MAX)
+        sDexNavSessionLevel++;
 #endif
 }
 
