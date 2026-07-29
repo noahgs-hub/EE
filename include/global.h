@@ -268,6 +268,7 @@ struct SaveBlock3
     u8 dexNavSearchLevels[NUM_SPECIES];
 #endif
     u8 dexNavChain;
+    u8 dexNavPermanentLevel; // permanent DexNav capture-level floor (only goes up; survives resets)
 #if APRICORN_TREE_COUNT > 0
     u8 apricornTrees[NUM_APRICORN_TREE_BYTES];
 #endif

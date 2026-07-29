@@ -5642,7 +5642,10 @@ static void FreeResetData_ReturnToOvOrDoEvolutions(void)
             TryIncrementSpeciesSearchLevel();
         }
         else
+        {
             gSaveBlock3Ptr->dexNavChain = 0;
+            ResetDexNavSearchProgress(); // consecutive streak broken -> lose progress toward next floor
+        }
 
         ClearCurrentTrainerWantRematchVsSeeker();
         gDexNavSpecies = SPECIES_NONE;

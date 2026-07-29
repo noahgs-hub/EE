@@ -136,11 +136,11 @@ EWRAM_DATA static struct DexNavSearch *sDexNavSearchDataPtr = NULL;
 EWRAM_DATA static struct DexNavGUI *sDexNavUiDataPtr = NULL;
 EWRAM_DATA static u8 *sBg1TilemapBuffer = NULL;
 EWRAM_DATA enum Species gDexNavSpecies = SPECIES_NONE;
-// Session-only "search level": climbs as you win/catch DexNav encounters, survives
-// chain breaks, and is NOT saved (RAM only, so it resets to 0 on power-off). Drives ALL
-// the DexNav bonuses — shiny odds, IV potential, hidden ability, egg moves, held items.
-// The separate dexNavChain resets on a break and only boosts the encounter's level.
-EWRAM_DATA static u8 sDexNavSessionLevel = 0;
+// RAM-only progress (consecutive DexNav catches) toward the NEXT permanent capture-level
+// floor. Resets on a chain break / power-off. The floor itself (dexNavPermanentLevel) is
+// saved and only ever climbs. The effective capture level used for all bonuses is
+// max(floor, dexNavChain): the saved floor with the temporary chain boost on top.
+EWRAM_DATA static u8 sDexNavPermProgress = 0;
 
 //// Function Declarations
 //GUI
@@ -192,6 +192,8 @@ static const u8 sText_DexNav_SearchForRegisteredSpecies[] = _("Search {STR_VAR_1
 static const u8 sText_DexNav_NotFoundHere[] = _("This Pokémon cannot be found here!");
 static const u8 sText_ThreeQmarks[] = _("???");
 static const u8 sText_SearchLevel[] = _("SEARCH {LV}. {STR_VAR_1}");
+// Base (permanent floor) in normal color + the temporary chain amount as a red "+N"
+static const u8 sText_CaptureLevelChain[] = _("{STR_VAR_1}{COLOR RED}{SHADOW LIGHT_RED} +{STR_VAR_2}");
 static const u8 sText_MonLevel[] = _("{LV}. {STR_VAR_1}");
 static const u8 sText_EggMove[] = _("MOVE: {STR_VAR_1}");
 static const u8 sText_HeldItem[] = _("{STR_VAR_1}");
@@ -784,20 +786,24 @@ static void LoadSearchIconData(void)
     LoadCompressedSpriteSheetUsingHeap(&sHiddenMonIconSpriteSheet);
 }
 
+// Effective DexNav "capture level" = the saved permanent floor with the temporary chain
+// boost on top. Drives everything (shiny odds, IV potential, hidden ability, egg moves,
+// held items, the "SEARCH LV" display). Breaking the chain drops it back to the floor;
+// power-off keeps the floor. Both floor and chain cap at DEXNAV_CHAIN_MAX (100).
+static u8 GetDexNavEffectiveLevel(void)
+{
+    // Start at the permanent floor and count the chain up ON TOP of it (capped at 100).
+    u32 level = gSaveBlock3Ptr->dexNavPermanentLevel + gSaveBlock3Ptr->dexNavChain;
+    return (level > DEXNAV_CHAIN_MAX) ? DEXNAV_CHAIN_MAX : level;
+}
+
 static u8 GetSearchLevel(enum Species species)
 {
-    u8 searchLevel;
 #if USE_DEXNAV_SEARCH_LEVELS == TRUE
-    searchLevel = gSaveBlock3Ptr->dexNavSearchLevels[species];
+    return gSaveBlock3Ptr->dexNavSearchLevels[species];
 #else
-    // The search level (IV potential, hidden ability, egg moves, held items, the
-    // "SEARCH LV" display, AND shiny odds) is the session-only counter: it climbs as
-    // you hunt, survives chain breaks, and isn't saved (resets on power-off). Caps at
-    // DEXNAV_CHAIN_MAX (100) = the top SEARCHLEVEL100 tier. The chain, by contrast,
-    // resets on a break and only boosts the encounter's level.
-    searchLevel = sDexNavSessionLevel;
+    return GetDexNavEffectiveLevel();
 #endif
-    return searchLevel;
 }
 
 static void SetUpDexNavSearch(void)
@@ -983,6 +989,7 @@ void EndDexNavSearch(void)
 static void EndDexNavSearchSetupScript(const u8 *script)
 {
     gSaveBlock3Ptr->dexNavChain = 0;   //reset chain
+    ResetDexNavSearchProgress();
     EndDexNavSearch();
     ScriptContext_SetupScript(script);
 }
@@ -2115,7 +2122,17 @@ static void PrintCurrentSpeciesInfo(void)
     }
     else
     {
-        ConvertIntToDecimalStringN(gStringVar4, GetSearchLevel(species), 0, 4);
+        // Base = permanent floor; temporary chain shown as a red "+N" to the right.
+        ConvertIntToDecimalStringN(gStringVar1, gSaveBlock3Ptr->dexNavPermanentLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
+        if (gSaveBlock3Ptr->dexNavChain > 0)
+        {
+            ConvertIntToDecimalStringN(gStringVar2, gSaveBlock3Ptr->dexNavChain, STR_CONV_MODE_LEFT_ALIGN, 3);
+            StringExpandPlaceholders(gStringVar4, sText_CaptureLevelChain);
+        }
+        else
+        {
+            StringCopy(gStringVar4, gStringVar1);
+        }
         AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, SEARCH_LEVEL_Y, sFontColor_Black, 0, gStringVar4);
     }
 
@@ -2650,32 +2667,48 @@ static void DexNavDrawHiddenIcons(void)
 u32 CalculateDexNavShinyRolls(void)
 {
     u32 levelBonus, rndBonus;
-    // Shiny odds ride the session-only search level (survives chain breaks, RAM-only),
-    // like the other DexNav bonuses, so a fumbled chain doesn't cost you shiny progress.
-    u8 level = sDexNavSessionLevel;
+    // Shiny odds ride the effective capture level (permanent floor + chain boost).
+    u8 level = GetDexNavEffectiveLevel();
 
     levelBonus = (level >= 100) ? 10 : (level >= 50) ? 5 : 0;
     rndBonus = (Random() % 100 < 4) ? 4 : 0;
     return levelBonus + rndBonus;
 }
 
+// Called on a DexNav win/catch. Builds consecutive-catch progress toward the next
+// permanent capture-level floor. The cost per level escalates by tier of 10: floors 1-10
+// cost 10 catches each, 11-20 cost 20 each, ... 91-100 cost 100 each. You can keep one
+// chain going to bump repeatedly, but each level always costs the full tier amount (no
+// shortcut). The floor is saved and never decreases; the progress resets on a chain break.
 void TryIncrementSpeciesSearchLevel()
 {
 #if USE_DEXNAV_SEARCH_LEVELS == TRUE
     if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER && gSaveBlock3Ptr->dexNavSearchLevels[gDexNavSpecies] < 255)
         gSaveBlock3Ptr->dexNavSearchLevels[gDexNavSpecies]++;
 #else
-    // Bump the session-only search level (called on a DexNav win/catch). It never
-    // decreases within a session, so all DexNav bonuses stay high even when the chain
-    // breaks; only power-off resets it.
-    if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER && sDexNavSessionLevel < DEXNAV_CHAIN_MAX)
-        sDexNavSessionLevel++;
+    if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER
+     && gSaveBlock3Ptr->dexNavPermanentLevel < DEXNAV_CHAIN_MAX)
+    {
+        u8 cost = ((gSaveBlock3Ptr->dexNavPermanentLevel / 10) + 1) * 10; // 10,20,...,100 per tier
+        if (++sDexNavPermProgress >= cost)
+        {
+            sDexNavPermProgress -= cost;
+            gSaveBlock3Ptr->dexNavPermanentLevel++;
+        }
+    }
 #endif
+}
+
+// Consecutive-catch streak broken -> lose progress toward the next floor (floor itself stays).
+void ResetDexNavSearchProgress(void)
+{
+    sDexNavPermProgress = 0;
 }
 
 void ResetDexNavSearch(void)
 {
     gSaveBlock3Ptr->dexNavChain = 0;    //reset dex nav chaining on new map
+    ResetDexNavSearchProgress();
     VarSet(DN_VAR_STEP_COUNTER, 0); //reset hidden Pokémon step counter
     VarSet(DN_VAR_SPECIES, SPECIES_NONE); //unregister species on map change, freeing the R button
     if (FlagGet(DN_FLAG_SEARCHING))
