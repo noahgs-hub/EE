@@ -570,6 +570,7 @@ extern const u8 BattleFrontier_ExchangeServiceCorner_Text_IronDesc[];
 extern const u8 BattleFrontier_ExchangeServiceCorner_Text_ZincDesc[];
 extern const u8 BattleFrontier_ExchangeServiceCorner_Text_CarbosDesc[];
 extern const u8 BattleFrontier_ExchangeServiceCorner_Text_HPUpDesc[];
+extern const u8 BattleFrontier_ExchangeServiceCorner_Text_PPUpDesc[];
 extern const u8 BattleFrontier_ExchangeServiceCorner_Text_LeftoversDesc[];
 extern const u8 BattleFrontier_ExchangeServiceCorner_Text_WhiteHerbDesc[];
 extern const u8 BattleFrontier_ExchangeServiceCorner_Text_QuickClawDesc[];

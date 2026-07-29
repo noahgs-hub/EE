@@ -218,7 +218,8 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseVitamin::
 	case 3, BattleFrontier_ExchangeServiceCorner_EventScript_Zinc
 	case 4, BattleFrontier_ExchangeServiceCorner_EventScript_Carbos
 	case 5, BattleFrontier_ExchangeServiceCorner_EventScript_HPUp
-	case 6, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
+	case 6, BattleFrontier_ExchangeServiceCorner_EventScript_PPUp
+	case 7, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
 	case MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
 	end
 
@@ -251,6 +252,10 @@ BattleFrontier_ExchangeServiceCorner_EventScript_Carbos::
 
 BattleFrontier_ExchangeServiceCorner_EventScript_HPUp::
 	setitemandprice ITEM_HP_UP, 1
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseVitamin
+
+BattleFrontier_ExchangeServiceCorner_EventScript_PPUp::
+	setitemandprice ITEM_PP_UP, 1
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_PurchaseVitamin
 
 
@@ -663,6 +668,9 @@ BattleFrontier_ExchangeServiceCorner_Text_CarbosDesc::
 
 BattleFrontier_ExchangeServiceCorner_Text_HPUpDesc::
 	.string "Raises the HP of one POKéMON.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_PPUpDesc::
+	.string "Raises the max PP of a move.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_LeftoversDesc::
 	.string "A hold item that gradually restores\n"
