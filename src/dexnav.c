@@ -2670,7 +2670,7 @@ u32 CalculateDexNavShinyRolls(void)
     // Shiny odds ride the effective capture level (permanent floor + chain boost).
     u8 level = GetDexNavEffectiveLevel();
 
-    levelBonus = (level >= 100) ? 10 : (level >= 50) ? 5 : 0;
+    levelBonus = (level >= 100) ? 30 : (level >= 50) ? 5 : 0;
     rndBonus = (Random() % 100 < 4) ? 4 : 0;
     return levelBonus + rndBonus;
 }

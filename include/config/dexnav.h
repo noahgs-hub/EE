@@ -59,14 +59,14 @@
 #define SEARCHLEVEL5_TWOSTAR            1
 #define SEARCHLEVEL10_TWOSTAR           9
 #define SEARCHLEVEL25_TWOSTAR           16
-#define SEARCHLEVEL50_TWOSTAR           17
+#define SEARCHLEVEL50_TWOSTAR           18
 #define SEARCHLEVEL100_TWOSTAR          24
 // Chance of encountering three star potential
 #define SEARCHLEVEL0_THREESTAR          0
 #define SEARCHLEVEL5_THREESTAR          0
 #define SEARCHLEVEL10_THREESTAR         1
 #define SEARCHLEVEL25_THREESTAR         7
-#define SEARCHLEVEL50_THREESTAR         6
+#define SEARCHLEVEL50_THREESTAR         10
 #define SEARCHLEVEL100_THREESTAR        12
 
 #endif // GUARD_CONFIG_DEXNAV_H
