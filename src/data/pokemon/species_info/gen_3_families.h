@@ -7170,10 +7170,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_GRUMPIG] =
     {
-        .baseHP        = 80,
+        .baseHP        = 90,
         .baseAttack    = 45,
         .baseDefense   = 65,
-        .baseSpeed     = 80,
+        .baseSpeed     = 85,
         .baseSpAttack  = 90,
         .baseSpDefense = 110,
         .types = MON_TYPES(TYPE_PSYCHIC),
