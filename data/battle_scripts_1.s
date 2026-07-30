@@ -3445,7 +3445,7 @@ BattleScript_EncoredMove::
 	endselectionscript
 
 BattleScript_EncoredMoveInPalace::
-	printselectionstring STRINGID_PKMNGOTENCOREDMOVE
+	printstring STRINGID_PKMNGOTENCOREDMOVE
 BattleScript_SelectingUnusableMoveInPalace::
 	moveendto MOVEEND_NEXT_TARGET
 	end
