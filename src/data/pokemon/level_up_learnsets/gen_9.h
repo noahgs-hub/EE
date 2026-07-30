@@ -8554,6 +8554,7 @@ static const struct LevelUpMove sGrumpigLevelUpLearnset[] = {
     LEVEL_UP_MOVE(46, MOVE_PAYBACK),
     LEVEL_UP_MOVE(52, MOVE_PSYCHIC),
     LEVEL_UP_MOVE(60, MOVE_BOUNCE),
+    LEVEL_UP_MOVE(64, MOVE_EXPANDING_FORCE),
     LEVEL_UP_END
 };
 #endif //P_FAMILY_SPOINK
