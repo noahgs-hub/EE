@@ -3574,6 +3574,16 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                     effect++;
                 }
                 break;
+            case ABILITY_FERMENT:
+                if (gBattleMons[battler].hp <= GetNonDynamaxMaxHP(battler) / 2
+                 && !IsBattlerAtMaxHp(battler)
+                 && !gBattleMons[battler].volatiles.healBlock)
+                {
+                    BattleScriptCall(BattleScript_FermentActivates);
+                    SetHealAmount(battler, 20);
+                    effect++;
+                }
+                break;
             case ABILITY_DRY_SKIN:
                 if (IsBattlerWeatherAffected(GetBattlerHoldEffect(battler), GetWeather(), B_WEATHER_SUN))
                     goto SOLAR_POWER_HP_DROP;

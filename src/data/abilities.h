@@ -2495,4 +2495,11 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_STRING("Powers up kicking moves."),
         .aiRating = 6,
     },
+
+    [ABILITY_FERMENT] =
+    {
+        .name = _("Ferment"),
+        .description = COMPOUND_STRING("Sips Berry Juice when hurt."),
+        .aiRating = 5,
+    },
 };
