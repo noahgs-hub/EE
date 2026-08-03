@@ -1124,8 +1124,8 @@ bool32 OnStep_DexNavSearch(void)
         return FALSE;
     }
 
-    //Caves and water the Pokémon moves around
-    if ((sDexNavSearchDataPtr->environment == ENCOUNTER_TYPE_WATER || GetCurrentMapType() == MAP_TYPE_UNDERGROUND)
+    //In water the Pokémon moves around
+    if (sDexNavSearchDataPtr->environment == ENCOUNTER_TYPE_WATER
         && sDexNavSearchDataPtr->proximity < GetMovementProximityBySearchLevel() && sDexNavSearchDataPtr->movementCount < 2
         && !sDexNavSearchDataPtr->hiddenSearch)
     {
