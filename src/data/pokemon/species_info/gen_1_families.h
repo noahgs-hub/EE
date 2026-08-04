@@ -6703,7 +6703,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .baseHP        = 70,
         .baseAttack    = 65,
         .baseDefense   = 60,
-        .baseSpeed     = 100,
+        .baseSpeed     = 95,
         .baseSpAttack  = 95,
         .baseSpDefense = P_UPDATED_STATS >= GEN_2 ? 75 : 90,
         .types = MON_TYPES(TYPE_BUG, TYPE_POISON),
