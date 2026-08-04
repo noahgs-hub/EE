@@ -5744,11 +5744,11 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
     [SPECIES_WIGGLYTUFF] =
     {
         .baseHP        = 140,
-        .baseAttack    = 60,
+        .baseAttack    = 50,
         .baseDefense   = 50,
-        .baseSpeed     = 45,
+        .baseSpeed     = 50,
         .baseSpAttack  = WIGGLYTUFF_SP_ATK,
-        .baseSpDefense = 55,
+        .baseSpDefense = 60,
         .types = JIGGLYPUFF_FAMILY_TYPES,
         .catchRate = 50,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
