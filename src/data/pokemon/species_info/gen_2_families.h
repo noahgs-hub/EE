@@ -8075,6 +8075,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .isSubLegendary = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sRaikouLevelUpLearnset,
+        .eggMoveLearnset = sRaikouEggMoveLearnset,
         .teachableLearnset = sRaikouTeachableLearnset,
     },
 #endif //P_FAMILY_RAIKOU
@@ -8156,6 +8157,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .isSubLegendary = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sEnteiLevelUpLearnset,
+        .eggMoveLearnset = sEnteiEggMoveLearnset,
         .teachableLearnset = sEnteiTeachableLearnset,
     },
 #endif //P_FAMILY_ENTEI
@@ -8237,6 +8239,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .isSubLegendary = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sSuicuneLevelUpLearnset,
+        .eggMoveLearnset = sSuicuneEggMoveLearnset,
         .teachableLearnset = sSuicuneTeachableLearnset,
     },
 #endif //P_FAMILY_SUICUNE
@@ -8615,6 +8618,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .isFrontierBanned = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sLugiaLevelUpLearnset,
+        .eggMoveLearnset = sLugiaEggMoveLearnset,
         .teachableLearnset = sLugiaTeachableLearnset,
     },
 #endif //P_FAMILY_LUGIA
@@ -8695,6 +8699,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .isFrontierBanned = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sHoOhLevelUpLearnset,
+        .eggMoveLearnset = sHoOhEggMoveLearnset,
         .teachableLearnset = sHoOhTeachableLearnset,
     },
 #endif //P_FAMILY_HO_OH
@@ -8777,6 +8782,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .isFrontierBanned = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sCelebiLevelUpLearnset,
+        .eggMoveLearnset = sCelebiEggMoveLearnset,
         .teachableLearnset = sCelebiTeachableLearnset,
     },
 #endif //P_FAMILY_CELEBI

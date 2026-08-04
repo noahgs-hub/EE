@@ -1230,6 +1230,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         )
         .teachingType = TM_ILLITERATE,
         .levelUpLearnset = sCaterpieLevelUpLearnset,
+        .eggMoveLearnset = sCaterpieEggMoveLearnset,
         .teachableLearnset = sCaterpieTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 7, SPECIES_METAPOD}),
     },
@@ -1541,6 +1542,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         )
         .teachingType = TM_ILLITERATE,
         .levelUpLearnset = sWeedleLevelUpLearnset,
+        .eggMoveLearnset = sWeedleEggMoveLearnset,
         .teachableLearnset = sWeedleTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 7, SPECIES_KAKUNA}),
     },
@@ -10956,6 +10958,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
             gShinyOverworldPalette_Magnemite
         )
         .levelUpLearnset = sMagnemiteLevelUpLearnset,
+        .eggMoveLearnset = sMagnemiteEggMoveLearnset,
         .teachableLearnset = sMagnemiteTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_MAGNETON}),
     },
@@ -13164,6 +13167,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
             gShinyOverworldPalette_Voltorb
         )
         .levelUpLearnset = sVoltorbLevelUpLearnset,
+        .eggMoveLearnset = sVoltorbEggMoveLearnset,
         .teachableLearnset = sVoltorbTeachableLearnset,
         .formSpeciesIdTable = sVoltorbFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_ELECTRODE}),
@@ -15859,6 +15863,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
             gShinyOverworldPalette_Staryu
         )
         .levelUpLearnset = sStaryuLevelUpLearnset,
+        .eggMoveLearnset = sStaryuEggMoveLearnset,
         .teachableLearnset = sStaryuTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_WATER_STONE, SPECIES_STARMIE}),
     },
@@ -17457,6 +17462,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
             gShinyOverworldPalette_Tauros
         )
         .levelUpLearnset = sTaurosLevelUpLearnset,
+        .eggMoveLearnset = sTaurosEggMoveLearnset,
         .teachableLearnset = sTaurosTeachableLearnset,
         .formSpeciesIdTable = sTaurosFormSpeciesIdTable,
     },
@@ -18971,6 +18977,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
             gShinyOverworldPalette_Porygon
         )
         .levelUpLearnset = sPorygonLevelUpLearnset,
+        .eggMoveLearnset = sPorygonEggMoveLearnset,
         .teachableLearnset = sPorygonTeachableLearnset,
     #if P_GEN_2_CROSS_EVOS
         .evolutions = EVOLUTION({EVO_TRADE, 0, SPECIES_PORYGON2, CONDITIONS({IF_HOLD_ITEM, ITEM_UPGRADE})},
@@ -19878,6 +19885,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .isSubLegendary = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sArticunoLevelUpLearnset,
+        .eggMoveLearnset = sArticunoEggMoveLearnset,
         .teachableLearnset = sArticunoTeachableLearnset,
         .formSpeciesIdTable = sArticunoFormSpeciesIdTable,
     },
@@ -20031,6 +20039,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .isSubLegendary = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sZapdosLevelUpLearnset,
+        .eggMoveLearnset = sZapdosEggMoveLearnset,
         .teachableLearnset = sZapdosTeachableLearnset,
         .formSpeciesIdTable = sZapdosFormSpeciesIdTable,
     },
@@ -20208,6 +20217,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .isSubLegendary = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sMoltresLevelUpLearnset,
+        .eggMoveLearnset = sMoltresEggMoveLearnset,
         .teachableLearnset = sMoltresTeachableLearnset,
         .formSpeciesIdTable = sMoltresFormSpeciesIdTable,
     },
@@ -20635,6 +20645,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .isFrontierBanned = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sMewtwoLevelUpLearnset,
+        .eggMoveLearnset = sMewtwoEggMoveLearnset,
         .teachableLearnset = sMewtwoTeachableLearnset,
         .formSpeciesIdTable = sMewtwoFormSpeciesIdTable,
         .formChangeTable = sMewtwoFormChangeTable,
@@ -20880,6 +20891,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .teachingType = ALL_TEACHABLES,
         .levelUpLearnset = sMewLevelUpLearnset,
+        .eggMoveLearnset = sMewEggMoveLearnset,
         .teachableLearnset = sMewTeachableLearnset,
     },
 #endif //P_FAMILY_MEW
