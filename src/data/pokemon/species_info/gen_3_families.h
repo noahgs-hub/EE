@@ -8643,10 +8643,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_CLAYDOL] =
     {
         .baseHP        = 75,
-        .baseAttack    = 65,
+        .baseAttack    = 60,
         .baseDefense   = 105,
         .baseSpeed     = 75,
-        .baseSpAttack  = 70,
+        .baseSpAttack  = 75,
         .baseSpDefense = 120,
         .types = MON_TYPES(TYPE_GROUND, TYPE_PSYCHIC),
         .catchRate = 90,
