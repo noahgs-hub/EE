@@ -147,10 +147,6 @@ const u8 gQuestionMarksItemName[] = _("????????");
 
 static const u8 sQuestionMarksDesc[]  = _("?????");
 
-static const u8 sTMHMDescription[]    = _("A TM. Teaches a\n"
-                                          "POKéMON a new\n"
-                                          "battle move.");
-
 static const u8 sKeyToRoomDesc[]      = _("A key that opens a\n"
                                           "door inside the\n"
                                           "Abandoned Ship.");
@@ -12886,7 +12882,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM51"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A reckless charge\n"
+            "attack that also\n"
+            "hurts the user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12897,7 +12896,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM52"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Charms the foe and\n"
+            "sharply reduces its\n"
+            "Attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12908,7 +12910,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM53"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Feigns crying to\n"
+            "sharply lower the\n"
+            "foe's Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12919,7 +12924,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM54"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Relaxes the body to\n"
+            "sharply boost Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12930,7 +12937,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM55"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hurls mud in the\n"
+            "foe's face to reduce\n"
+            "its accuracy."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12941,7 +12951,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM56"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A scary face that\n"
+            "sharply reduces\n"
+            "the foe's Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12952,7 +12965,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM57"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "May cause flinching\n"
+            "or leave the foe\n"
+            "with a burn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12963,7 +12979,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM58"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "May cause flinching\n"
+            "or leave the foe\n"
+            "paralyzed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12974,7 +12993,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM59"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "May cause flinching\n"
+            "or leave the foe\n"
+            "with frostbite."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12985,7 +13007,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM60"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A kick that inflicts\n"
+            "more damage on\n"
+            "heavier foes."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -12996,7 +13021,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM61"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Sprays hide-melting\n"
+            "acid. Sharply cuts\n"
+            "the foe's Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13007,7 +13035,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM62"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does double damage\n"
+            "if the user has no\n"
+            "item."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13018,7 +13049,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM63"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Resisting, the user\n"
+            "attacks the foes.\n"
+            "Lowers Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13029,7 +13063,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM64"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Fires a peculiar ray\n"
+            "that may confuse the\n"
+            "foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13040,7 +13077,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM65"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A sinister ray that\n"
+            "confuses the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13051,7 +13090,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM66"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Lets out a charming\n"
+            "cry that cannot be\n"
+            "evaded."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13062,7 +13104,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM67"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The user attacks\n"
+            "suddenly, raising\n"
+            "its Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13073,7 +13118,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM68"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The user pounces on\n"
+            "the foe, lowering\n"
+            "its Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13084,7 +13132,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM69"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A shower with ice-\n"
+            "cold water lowers\n"
+            "the target's Attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13095,7 +13146,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM70"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Fires a beam of\n"
+            "electricity. May\n"
+            "raise Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13106,7 +13160,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM71"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Traps the foe in a\n"
+            "ring of fire for\n"
+            "turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13117,7 +13174,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM72"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Has a high critical-\n"
+            "hit ratio. May also\n"
+            "poison."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13128,7 +13188,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM73"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Stomps down on the\n"
+            "ground. Hits all and\n"
+            "lowers Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13139,7 +13202,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM74"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does double damage\n"
+            "if the foe has a\n"
+            "status problem."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13150,7 +13216,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM75"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Yells and rants at\n"
+            "the foe lowering its\n"
+            "Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13161,7 +13230,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM76"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A claw attack that\n"
+            "may raise the user's\n"
+            "Attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13172,7 +13244,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM77"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Sprays star-shaped\n"
+            "rays that never\n"
+            "miss."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13183,7 +13258,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM78"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with a\n"
+            "strange leaf that\n"
+            "cannot be evaded."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13194,7 +13272,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM79"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A chilling attack\n"
+            "that lowers the\n"
+            "foe's Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13205,7 +13286,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM80"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hurls mud at the foe\n"
+            "and reduces Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13216,7 +13299,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM81"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that\n"
+            "absorbs over half\n"
+            "the damage dealt."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13227,7 +13313,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM82"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks in a cloak\n"
+            "of flames. Raises\n"
+            "Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13238,7 +13327,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM83"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks the foe's\n"
+            "legs lowering its\n"
+            "Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13249,7 +13341,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM84"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hacks with razorlike\n"
+            "wind. High critical-\n"
+            "hit ratio."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13260,7 +13355,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM85"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The higher the\n"
+            "user's stats the\n"
+            "more damage caused."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13271,7 +13369,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM86"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Inflicts damage\n"
+            "identical to the\n"
+            "user's level."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13282,7 +13383,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM87"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The effectiveness\n"
+            "varies with the held\n"
+            "item."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13293,7 +13397,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM88"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Knocks foe away to\n"
+            "switch it out or end\n"
+            "wild battle."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13304,7 +13411,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM89"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does double damage\n"
+            "if the foe is\n"
+            "poisoned."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13315,7 +13425,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM90"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that moves\n"
+            "last and gains power\n"
+            "if hit."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13326,7 +13439,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM91"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Endures any attack\n"
+            "for 1 turn, leaving\n"
+            "at least 1HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13337,7 +13453,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM92"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does damage then\n"
+            "switches out the\n"
+            "user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13348,7 +13467,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM93"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Summons a hailstorm\n"
+            "that strikes every\n"
+            "turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13359,7 +13481,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM94"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hits with an\n"
+            "accurate horn that\n"
+            "never misses."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13370,7 +13495,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM95"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A psychic wave that\n"
+            "deals physical\n"
+            "damage to the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13381,7 +13509,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM96"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that\n"
+            "leaves the foe with\n"
+            "at least 1 HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13392,7 +13523,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM97"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hits with a strong\n"
+            "head- butt. May\n"
+            "cause flinching."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13403,7 +13537,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM98"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does damage then\n"
+            "switches out the\n"
+            "user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13414,7 +13551,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM99"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Strikes with a\n"
+            "shadow claw. High\n"
+            "critical-hit ratio."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13425,7 +13565,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM100"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The higher the foe's\n"
+            "Attack the more\n"
+            "damage caused."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13436,7 +13579,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM101"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Chomps with psychic\n"
+            "fangs. Destroys any\n"
+            "barriers."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13447,7 +13593,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM102"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with a blade\n"
+            "of air. May cause\n"
+            "flinching."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13458,7 +13607,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM103"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A full-body slam\n"
+            "that may cause\n"
+            "paralysis."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13469,7 +13621,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM104"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A fiery punch that\n"
+            "may burn the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13480,7 +13634,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM105"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An electrified punch\n"
+            "that may paralyze\n"
+            "the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13491,7 +13648,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM106"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An icy punch that\n"
+            "may leave the foe\n"
+            "with frostbite."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13502,7 +13662,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM107"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Uses an available\n"
+            "move randomly while\n"
+            "asleep."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13513,7 +13676,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM108"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A barrage of hard\n"
+            "seeds is fired at\n"
+            "the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13524,7 +13690,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM109"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hurls an orb that\n"
+            "does more damage to\n"
+            "slower foes."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13535,7 +13704,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM110"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that\n"
+            "absorbs half the\n"
+            "damage inflicted."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13546,7 +13718,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM111"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hurls boulders at\n"
+            "the foe 2 to 5 times\n"
+            "in a row."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13557,7 +13732,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM112"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Damages foes by\n"
+            "emitting a bright\n"
+            "flash."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13568,7 +13746,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM113"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Waggles a finger to\n"
+            "use any Pokémon move\n"
+            "at random."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13579,7 +13760,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM114"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A snare attack that\n"
+            "does more damage to\n"
+            "heavier foes."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13590,7 +13774,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM115"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A weak jolt of\n"
+            "electricity that\n"
+            "paralyzes the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13601,7 +13788,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM116"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A stabbing attack\n"
+            "that may poison the\n"
+            "foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13612,7 +13802,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM117"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Stomps around\n"
+            "angrily. Stronger\n"
+            "after a failure."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13623,7 +13816,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM118"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Large boulders are\n"
+            "hurled. May cause\n"
+            "flinching."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13634,7 +13830,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM119"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A fighting dance\n"
+            "that sharply raises\n"
+            "Attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13645,7 +13844,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM120"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does more damage the\n"
+            "higher the user's\n"
+            "Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13656,7 +13858,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM121"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Sets spikes that\n"
+            "hurt a foe switching\n"
+            "in."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13667,7 +13872,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM122"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Sets spikes that\n"
+            "poison a foe\n"
+            "switching in."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13678,7 +13886,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM123"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Prevents foes from\n"
+            "using moves known by\n"
+            "the user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13689,7 +13900,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM124"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Releases a blast of\n"
+            "light that may lower\n"
+            "Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13700,7 +13914,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM125"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with a\n"
+            "horrible aura. May\n"
+            "cause flinching."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13711,7 +13928,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM126"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that\n"
+            "steals half the\n"
+            "damage inflicted."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13722,7 +13942,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM127"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Exposes the foe to a\n"
+            "pulse that sharply\n"
+            "cuts Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13733,7 +13956,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM128"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Slams the foe with a\n"
+            "hard head. May cause\n"
+            "flinching."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13744,7 +13970,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM129"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A mystical dance\n"
+            "that ups Attack and\n"
+            "Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13755,7 +13984,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM130"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with rays of\n"
+            "light that sparkle\n"
+            "like diamonds."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13766,7 +13998,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM131"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Shoots filthy\n"
+            "garbage at the foe.\n"
+            "May also poison."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13777,7 +14012,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM132"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Creates a decoy\n"
+            "using 1/4 of the\n"
+            "user's maximum HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13788,7 +14026,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM133"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hardens the body's\n"
+            "surface to sharply\n"
+            "raise Defense."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13799,7 +14040,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM134"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Slashes the foe with\n"
+            "crossed scythes,\n"
+            "claws, etc."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13810,7 +14054,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM135"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Spins its body like\n"
+            "a drill. High\n"
+            "critical-hit ratio."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13821,7 +14068,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM136"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Inflicts a burn on\n"
+            "the foe with intense\n"
+            "fire."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13832,7 +14082,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM137"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Crunches with sharp\n"
+            "fangs. May lower\n"
+            "Defense."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13843,7 +14096,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM138"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Tricks the foe into\n"
+            "trading held items."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13854,7 +14109,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM139"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Slams the foe with\n"
+            "water. Can lower\n"
+            "Defense."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13865,7 +14123,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM140"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with an aura\n"
+            "blast that cannot be\n"
+            "evaded."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13876,7 +14137,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM141"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Whips up a breeze,\n"
+            "doubling ally Speed\n"
+            "for 4 turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13887,7 +14151,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM142"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Generates a shock\n"
+            "wave to damage the\n"
+            "foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13898,7 +14165,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM143"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Sets floating stones\n"
+            "that hurt a foe\n"
+            "switching in."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13909,7 +14179,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM144"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A loud attack that\n"
+            "uses sound waves to\n"
+            "injure."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13920,7 +14193,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM145"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Exhales a hot breath\n"
+            "on the foes. May\n"
+            "inflict a burn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13931,7 +14207,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM146"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Draws power from\n"
+            "nature to attack.\n"
+            "May lower Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13942,7 +14221,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM147"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does more damage if\n"
+            "the user outweighs\n"
+            "the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13953,7 +14235,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM148"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Makes the foe repeat\n"
+            "its last move over 3\n"
+            "turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13964,7 +14249,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM149"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Ice-covered feet hit\n"
+            "a foe and destroy\n"
+            "the terrain."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13975,7 +14263,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM150"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Plays rough with the\n"
+            "foe. May lower\n"
+            "Attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13986,7 +14277,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM151"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Forgets something\n"
+            "to sharply raise\n"
+            "the user's Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -13997,7 +14291,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM152"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Boosts the power of\n"
+            "ally recipient's\n"
+            "moves."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14008,7 +14305,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM153"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Explodes on foes,\n"
+            "but restores ally's\n"
+            "HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14019,7 +14319,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM154"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Switches out the\n"
+            "user while keeping\n"
+            "effects in play."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14030,7 +14333,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM155"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Makes the ground\n"
+            "erupt with power.\n"
+            "May lower Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14041,7 +14347,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM156"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Inflicts more damage\n"
+            "when the user's HP\n"
+            "is down."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14052,7 +14361,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM157"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Electrifies the\n"
+            "ground for 5 turns.\n"
+            "Prevents sleep."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14063,7 +14375,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM158"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The ground turns to\n"
+            "grass for 5 turns.\n"
+            "Restores HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14074,7 +14389,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM159"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The ground turns\n"
+            "weird for 5 turns.\n"
+            "Blocks priority."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14085,7 +14403,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM160"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Mists the ground\n"
+            "for 5 turns and\n"
+            "blocks status woes."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14096,7 +14417,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM161"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Thinks bad thoughts\n"
+            "to sharply boost\n"
+            "Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14107,7 +14431,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM162"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Blasts water at high\n"
+            "power to strike the\n"
+            "foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14118,7 +14445,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM163"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with a\n"
+            "column of fire. May\n"
+            "burn the grass."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14129,7 +14459,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM164"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with a\n"
+            "column of water. May\n"
+            "make a rainbow."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14140,7 +14473,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM165"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with a\n"
+            "column of grass. May\n"
+            "create a swamp."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14151,7 +14487,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM166"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A reckless charge\n"
+            "that also hurts\n"
+            "the user a little."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14162,7 +14501,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM167"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Stabs the foe with\n"
+            "stones. High\n"
+            "critical-hit ratio."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14173,7 +14515,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM168"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Vanishes turn one,\n"
+            "then strikes on\n"
+            "the second turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14184,7 +14529,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM169"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Powerful, but leaves\n"
+            "the user immobile\n"
+            "the next turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14195,7 +14543,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM170"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Powerful, but leaves\n"
+            "the user immobile\n"
+            "the next turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14206,7 +14557,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM171"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Powerful, but leaves\n"
+            "the user immobile\n"
+            "the next turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14217,7 +14571,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM172"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Powerful, but leaves\n"
+            "the user immobile\n"
+            "the next turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14228,7 +14585,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM173"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A rampage of 2 to 3\n"
+            "turns that confuses\n"
+            "the user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14239,7 +14599,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM174"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks at full\n"
+            "power. May lower\n"
+            "Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14250,7 +14613,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM175"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Whips up a storm of\n"
+            "leaves. Harshly\n"
+            "lowers the Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14261,7 +14627,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM176"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Traps the foe in a\n"
+            "fierce wind. May\n"
+            "cause confusion."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14272,7 +14641,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM177"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Slower Pokémon get\n"
+            "to move first for 5\n"
+            "turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14283,7 +14655,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM178"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A damaging sound\n"
+            "wave that may lower\n"
+            "Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14294,7 +14669,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM179"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A low altitude\n"
+            "charge that also\n"
+            "hurts the user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14305,7 +14683,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM180"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A charge that may\n"
+            "burn the foe. Also\n"
+            "hurts the user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14316,7 +14697,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM181"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A strong attack but\n"
+            "lowers the defensive\n"
+            "stats."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14327,7 +14711,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM182"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Casts comets onto\n"
+            "the foe. Harshly\n"
+            "lowers the Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14338,7 +14725,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM183"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Fires a beam of\n"
+            "steel from its body.\n"
+            "It hurts the user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14349,7 +14739,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM184"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "If Terastallized,\n"
+            "it strikes using\n"
+            "its Tera type."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14360,7 +14753,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM185"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Restores the user's\n"
+            "HP by half of its\n"
+            "max HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14371,7 +14767,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM186"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Confuses foe if its\n"
+            "stats were boosted\n"
+            "this turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14382,7 +14781,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM187"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The user switches\n"
+            "places with its\n"
+            "partner."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14393,7 +14795,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM188"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that gains\n"
+            "power if the foe has\n"
+            "been hurt."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14404,7 +14809,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM189"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Weakens all attacks,\n"
+            "but only usable with\n"
+            "snow."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14415,7 +14823,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM190"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Summons party\n"
+            "Pokémon to join in\n"
+            "the attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14426,7 +14837,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM191"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Endures attack for 2\n"
+            "turns to retaliate\n"
+            "double."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14437,7 +14851,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM192"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A kick with a high\n"
+            "critical- hit ratio.\n"
+            "May cause a burn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14448,7 +14865,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM193"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Bounces up, then\n"
+            "down the next turn.\n"
+            "May paralyze."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14459,7 +14879,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM194"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Swings its tail to\n"
+            "attack. Lowers the\n"
+            "Atk of those hit."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14470,7 +14893,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM195"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does double damage\n"
+            "to foes with half HP\n"
+            "or less."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14481,7 +14907,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM196"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Violently swings\n"
+            "around to hurt\n"
+            "everyone nearby."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14492,7 +14921,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM197"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Forcefully sprays\n"
+            "bubbles that may\n"
+            "lower Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14503,7 +14935,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM198"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Eats the foe's held\n"
+            "Berry gaining its\n"
+            "effect."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14514,7 +14949,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM199"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Foes that have stats\n"
+            "upped during the\n"
+            "turn get burned."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14525,7 +14963,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM200"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Makes the opposite\n"
+            "gender sharply\n"
+            "reduce its Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14536,7 +14977,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM201"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Charges power to\n"
+            "boost the Electric\n"
+            "move used next."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14547,7 +14991,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM202"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Properly coaches\n"
+            "allies to up their\n"
+            "Attack and Defense."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14558,7 +15005,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM203"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Shares a secret with\n"
+            "the foe, lowering\n"
+            "Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14569,7 +15019,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM204"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Raises Defense and\n"
+            "Sp. Def with a\n"
+            "mystic power."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14580,7 +15033,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM205"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Retaliates any\n"
+            "physical hit with\n"
+            "double the power."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14591,7 +15047,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM206"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A slash that may\n"
+            "poison a foe and do\n"
+            "critical damage."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14602,7 +15061,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM207"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A move that works\n"
+            "differently for\n"
+            "Ghost types."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14613,7 +15075,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM208"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Swings the arms to\n"
+            "strike It ignores\n"
+            "stat changes."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14624,7 +15089,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM209"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Curls up to conceal\n"
+            "weak spots and raise\n"
+            "Defense."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14635,7 +15103,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM210"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Removes obstacles\n"
+            "and lowers evasion."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14646,7 +15116,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM211"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Evades attack, but\n"
+            "may fail if used in\n"
+            "succession."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14657,7 +15130,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM212"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A life-risking\n"
+            "tackle that also\n"
+            "hurts the user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14668,7 +15144,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM213"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Strikes the foe with\n"
+            "a blast of breath.\n"
+            "May paralyze."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14679,7 +15158,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM214"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Raises allies' crit\n"
+            "rate. Works best\n"
+            "on Dragon types."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14690,7 +15172,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM215"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Launches shock waves\n"
+            "that always inflict\n"
+            "40 HP damage."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14701,7 +15186,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM216"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Takes one half the\n"
+            "damage inflicted on\n"
+            "a sleeping foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14712,7 +15200,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM217"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Slams the foe with\n"
+            "wings, striking\n"
+            "twice in a row."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14723,7 +15214,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM218"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Powerful and sure to\n"
+            "cause confusion, but\n"
+            "inaccurate."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14734,7 +15228,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM219"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does more damage\n"
+            "every turn it is\n"
+            "used."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14745,7 +15242,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM220"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An egg is forcibly\n"
+            "hurled at the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14756,7 +15255,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM221"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Snares the foes with\n"
+            "an electric net.\n"
+            "Lowers Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14767,7 +15269,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM222"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Prevents the foe\n"
+            "from using any\n"
+            "items."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14778,7 +15283,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM223"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Cuts foe's HP to\n"
+            "equal user's HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14789,7 +15296,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM224"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Power goes up and\n"
+            "damages all foes on\n"
+            "Psychic Terrain."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14800,7 +15310,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM225"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Inflicts severe\n"
+            "damage but makes the\n"
+            "user faint."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14811,7 +15324,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM226"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Envelops the foe\n"
+            "with down to sharply\n"
+            "reduce Attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14822,7 +15338,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM227"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A one-hit KO move\n"
+            "that drops the foe\n"
+            "in a fissure."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14833,7 +15352,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM228"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks and rushes\n"
+            "back to switch with\n"
+            "a party Pokémon."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14844,7 +15366,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM229"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Focuses power to\n"
+            "raise the critical-\n"
+            "hit ratio."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14855,7 +15380,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM230"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "This attack always\n"
+            "results in a\n"
+            "critical hit."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14866,7 +15394,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM231"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that\n"
+            "intensifies on each\n"
+            "successive hit."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14877,7 +15408,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM232"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Heightens inner\n"
+            "power to strike 2\n"
+            "turns later."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14888,7 +15422,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM233"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Gliding on ground,\n"
+            "hits. Goes first on\n"
+            "Grassy Terrain."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14899,7 +15436,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM234"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Gravity is\n"
+            "intensified negating\n"
+            "levitation."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14910,7 +15450,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM235"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Swaps changes to\n"
+            "Defense and Sp. Def\n"
+            "with the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14921,7 +15464,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM236"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A high-speed spin.\n"
+            "The faster the foe,\n"
+            "the more damage."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14932,7 +15478,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM237"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The higher the foe's\n"
+            "HP the more damage\n"
+            "caused."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14943,7 +15492,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM238"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Creates a black haze\n"
+            "that eliminates all\n"
+            "stat changes."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14954,7 +15506,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM239"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A ramming attack\n"
+            "that may cause\n"
+            "flinching."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14965,7 +15520,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM240"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Does more damage if\n"
+            "the user outweighs\n"
+            "the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14976,7 +15534,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM241"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Slams hard into the\n"
+            "foe with its entire\n"
+            "body."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14987,7 +15548,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM242"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Sharpens its claws\n"
+            "to raise Attack and\n"
+            "Accuracy."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14998,7 +15562,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM243"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A one-hit KO attack\n"
+            "that uses a horn\n"
+            "like a drill."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15009,7 +15576,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM244"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks the foe by\n"
+            "firing 2 to 5\n"
+            "icicles in a row."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15020,7 +15590,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM245"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Burns up Berries and\n"
+            "Gems preventing\n"
+            "their use."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15031,7 +15604,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM246"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The foe is infested\n"
+            "and attacked for\n"
+            "turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15042,7 +15618,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM247"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Knocks down the\n"
+            "foe's held item to\n"
+            "prevent its use."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15053,7 +15632,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM248"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "If user's stats were\n"
+            "lowered this turn,\n"
+            "power is doubled."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15064,7 +15646,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM249"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Slashes with a sharp\n"
+            "leaf. High critical-\n"
+            "hit ratio."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15075,7 +15660,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM250"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Lunges at the foe to\n"
+            "lower its Attack\n"
+            "stat."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15086,7 +15674,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM251"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hold items lose\n"
+            "their effects for 5\n"
+            "turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15097,7 +15688,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM252"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A brutal ramming\n"
+            "attack using out-\n"
+            "thrust horns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15108,7 +15702,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM253"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that\n"
+            "absorbs half the\n"
+            "damage inflicted."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15119,7 +15716,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM254"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An extremely\n"
+            "powerful kick with\n"
+            "intense force."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15130,7 +15730,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM255"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A strong punch\n"
+            "thrown with\n"
+            "incredible power."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15141,7 +15744,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM256"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Emits a horrible\n"
+            "screech that sharply\n"
+            "lowers Sp. Def."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15152,7 +15758,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM257"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A 2-turn move that\n"
+            "raises Sp. Attack\n"
+            "before attacking."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15163,7 +15772,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM258"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Copies last move\n"
+            "used by the foe\n"
+            "during one battle."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15174,7 +15786,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM259"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Hit everything and\n"
+            "faint. Powers up on\n"
+            "Misty Terrain."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15185,7 +15800,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM260"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with muddy\n"
+            "water. May lower\n"
+            "accuracy."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15196,7 +15814,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM261"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Breathes a special,\n"
+            "hot fire. Lowers\n"
+            "Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15207,7 +15828,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM262"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The effectiveness\n"
+            "varies with the held\n"
+            "Berry."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15218,7 +15842,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM263"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The type of attack\n"
+            "varies depending on\n"
+            "the location."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15229,7 +15856,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM264"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Inflicts 1/4 damage\n"
+            "on a sleeping foe\n"
+            "every turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15240,7 +15870,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM265"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Adds the user and\n"
+            "foe's HP, then\n"
+            "shares them equally."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15251,7 +15884,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM266"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that gains\n"
+            "power if the user\n"
+            "moves last."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15262,7 +15898,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM267"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Throws coins at the\n"
+            "foe. Money is\n"
+            "recovered after."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15273,7 +15912,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM268"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Stirs up a violent\n"
+            "storm of petals to\n"
+            "attack all."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15284,7 +15926,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM269"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Sharp pins are fired\n"
+            "to strike 2 to 5\n"
+            "times."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15295,7 +15940,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM270"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Eats the foe's held\n"
+            "Berry gaining its\n"
+            "effect."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15306,7 +15954,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM271"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Control foe's item\n"
+            "to attack. Fails if\n"
+            "foe has no item."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15317,7 +15968,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM272"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Swaps changes to\n"
+            "Attack and Sp. Atk\n"
+            "with the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15328,7 +15982,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM273"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A hard punch that\n"
+            "raises the user's\n"
+            "Attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15339,7 +15996,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM274"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Violently lashes the\n"
+            "foe with vines or\n"
+            "tentacles."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15350,7 +16010,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM275"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Sound waves that\n"
+            "damage and prevent\n"
+            "healing for 2 turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15361,7 +16024,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM276"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Tears with psychic\n"
+            "blades. High\n"
+            "critical-hit ratio."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15372,7 +16038,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM277"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Copies foe's stat\n"
+            "changes and gives to\n"
+            "the user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15383,7 +16052,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM278"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with a\n"
+            "psychic wave of\n"
+            "varying intensity."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15394,7 +16066,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM279"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Suppresses the foe,\n"
+            "making it move last."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15405,7 +16079,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM280"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Raises the user's\n"
+            "Attack every time it\n"
+            "is hit."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15416,7 +16093,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM281"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Tears at the foe\n"
+            "with sharp shells.\n"
+            "May lower Defense."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15427,7 +16107,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM282"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A 2-turn move that\n"
+            "strikes the foe on\n"
+            "the 2nd turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15438,7 +16121,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM283"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Recycles a used item\n"
+            "for one more use."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15449,7 +16134,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM284"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that does\n"
+            "more damage if an\n"
+            "ally fainted."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15460,7 +16148,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM285"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack that moves\n"
+            "last and gains power\n"
+            "if hit."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15471,7 +16162,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM286"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A charging attack\n"
+            "that may confuse the\n"
+            "foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15482,7 +16176,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM287"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Polishes the body to\n"
+            "sharply raise Speed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15493,7 +16189,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM288"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An attack lasting 5\n"
+            "turns with rising\n"
+            "intensity."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15504,7 +16203,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM289"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A song that inflicts\n"
+            "damage. Others can\n"
+            "join in too."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15515,7 +16217,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM290"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Traps and hurts the\n"
+            "foe in quicksand for\n"
+            "turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15526,7 +16231,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM291"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Shoots boiling water\n"
+            "at the foe. May\n"
+            "inflict a burn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15537,7 +16245,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM292"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Shoots scales 2 to 5\n"
+            "times. Ups Speed,\n"
+            "lowers defense."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15548,7 +16259,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM293"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Throws scorching\n"
+            "sand at the target.\n"
+            "May leave a burn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15559,7 +16273,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM294"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Emits a screech to\n"
+            "sharply reduce the\n"
+            "foe's Defense."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15570,7 +16287,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM295"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Inflicts damage\n"
+            "identical to the\n"
+            "user's level."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15581,7 +16301,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM296"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Inflicts severe\n"
+            "damage but makes the\n"
+            "user faint."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15592,7 +16315,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM297"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A powdery attack\n"
+            "that may raise\n"
+            "abilities."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15603,7 +16329,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM298"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Skitters behind the\n"
+            "foe to attack and\n"
+            "cuts its Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15614,7 +16343,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM299"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Tucks in the head,\n"
+            "then attacks on the\n"
+            "next turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15625,7 +16357,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM300"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "2-turn attack. High\n"
+            "critical hit ratio,\n"
+            "and may flinch."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15636,7 +16371,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM301"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Takes the foe into\n"
+            "the sky then drops\n"
+            "it the next turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15647,7 +16385,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM302"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Swamps all others\n"
+            "in a sludge wave.\n"
+            "May also poison."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15658,7 +16399,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM303"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Throws a rock to\n"
+            "knock the foe down\n"
+            "to the ground."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15669,7 +16413,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM304"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A loud attack that\n"
+            "can only be used\n"
+            "asleep. May flinch."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15680,7 +16427,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM305"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Recovers up to half\n"
+            "the user's maximum\n"
+            "HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15691,7 +16441,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM306"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Charges first turn,\n"
+            "then chops with a\n"
+            "blade of light."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15702,7 +16455,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM307"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Swaps user's Speed\n"
+            "with the target's."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15713,7 +16468,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM308"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Spitefully cuts the\n"
+            "PP of the foe's last\n"
+            "move by 4."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15724,7 +16482,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM309"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A reckless body slam\n"
+            "that also hurts the\n"
+            "user."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15735,7 +16496,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM310"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "An electrified slam.\n"
+            "If it misses, the\n"
+            "user is hurt."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15746,7 +16510,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM311"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Boosts strength\n"
+            "sharply, but lowers\n"
+            "abilities."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15757,7 +16524,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM312"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Attacks with sharp\n"
+            "fangs and cuts half\n"
+            "the foe's HP."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15768,7 +16538,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM313"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Confuses the foe,\n"
+            "but also sharply\n"
+            "raises its Attack."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15779,7 +16552,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM314"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Allures the foes to\n"
+            "harshly reduce\n"
+            "evasiveness."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15790,7 +16566,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM315"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Strikes the foe with\n"
+            "its tail 2 to 5\n"
+            "times."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15801,7 +16580,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM316"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Makes the foe float.\n"
+            "It is easier to hit\n"
+            "for 3 turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15812,7 +16594,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM317"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Switches the user\n"
+            "out last. Flees from\n"
+            "wild {PKMN}."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15823,7 +16608,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM318"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A desperate blow.\n"
+            "Power doubles if\n"
+            "the last one failed."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15834,7 +16622,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM319"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Chops the throat to\n"
+            "disable sound moves\n"
+            "for 2 turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15845,7 +16636,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM320"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "A 3-kick attack that\n"
+            "gets more powerful\n"
+            "with each hit."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15856,7 +16650,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM321"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Fires three types of\n"
+            "beams. May\n"
+            "burn/para/frostbite."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15867,7 +16664,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM322"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Makes the target\n"
+            "flinch if readying a\n"
+            "priority move."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15878,7 +16678,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM323"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Causes an uproar for\n"
+            "3"),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15889,7 +16691,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM324"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Whirls its fists to\n"
+            "send a wave that\n"
+            "strikes first."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15900,7 +16705,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM325"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Lowers the Attack,\n"
+            "Sp. Atk and Speed of\n"
+            "poisoned foes."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15911,7 +16719,9 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM326"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Squirts water to\n"
+            "attack the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15922,7 +16732,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM327"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The move's type and\n"
+            "power change with\n"
+            "the weather."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15933,7 +16746,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM328"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Traps and hurts the\n"
+            "foe in a whirlpool\n"
+            "for turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15944,7 +16760,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM329"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Blows away the foe,\n"
+            "switches it out or\n"
+            "ends wild battle."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15955,7 +16774,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM330"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Defense and Sp. Def\n"
+            "stats are swapped\n"
+            "for 5 turns."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15966,7 +16788,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM331"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "The user is roused.\n"
+            "Ups Attack and\n"
+            "Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -15977,7 +16802,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM332"),
         .price = 3000,
-        .description = sTMHMDescription,
+        .description = COMPOUND_STRING(
+            "Powerful and sure to\n"
+            "cause paralysis, but\n"
+            "inaccurate."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
