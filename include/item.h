@@ -91,7 +91,14 @@ struct ItemInfo
 
 struct ALIGNED(2) BagPocket
 {
-    struct ItemSlot *itemSlots;
+    union
+    {
+        struct ItemSlot *itemSlots;
+        // POCKET_TM_HM only. Reusable TMs are owned-or-not, so they store a bare
+        // item id with no quantity - half the bytes, which is what lets all 496
+        // TMs+HMs fit in SaveBlock1. See BagPocket_{Get,Set}SlotDataTMHM.
+        u16 *tmItems;
+    };
     u16 capacity:10;
     enum Pocket id:6;
 };

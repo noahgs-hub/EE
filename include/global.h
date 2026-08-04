@@ -1091,7 +1091,10 @@ struct Bag
     struct ItemSlot items[BAG_ITEMS_COUNT];
     struct ItemSlot keyItems[BAG_KEYITEMS_COUNT];
     struct ItemSlot pokeBalls[BAG_POKEBALLS_COUNT];
-    struct ItemSlot TMsHMs[BAG_TMHM_COUNT];
+    // Bare item ids, not ItemSlots: reusable TMs carry no quantity, so 2 bytes
+    // each instead of 4. That halving is what lets all 496 TMs+HMs fit inside
+    // SaveBlock1's 4-sector budget. See tools/convert_tmarray_save.py.
+    u16 TMsHMs[BAG_TMHM_COUNT];
     struct ItemSlot berries[BAG_BERRIES_COUNT];
 };
 

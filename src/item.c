@@ -92,6 +92,37 @@ static inline void NONNULL BagPocket_SetSlotDataPC(struct BagPocket *pocket, u32
     pocket->itemSlots[pocketPos].quantity = newSlot.quantity;
 }
 
+// TMs/HMs are reusable, so a slot is simply owned or not; only the item id is
+// stored. Quantity is synthesised as 1 so the rest of the bag code (which
+// treats quantity 0 as an empty slot) works unchanged.
+//
+// Both directions enforce the pocket's invariant: it can only ever hold a TM or
+// HM. GetItemTMHMIndex returns 0 for anything else, so a stray value (e.g. a
+// stale save written by an older layout, or an out-of-range read elsewhere in
+// the bag code) reads back as an empty slot instead of propagating a bogus item
+// id into the item list, where SanitizeItemId would assert.
+static inline bool32 IsTMHMPocketItem(u16 itemId)
+{
+    return itemId != ITEM_NONE && GetItemTMHMIndex(itemId) != 0;
+}
+
+static inline struct ItemSlot NONNULL BagPocket_GetSlotDataTMHM(struct BagPocket *pocket, u32 pocketPos)
+{
+    u16 itemId = pocket->tmItems[pocketPos];
+    if (!IsTMHMPocketItem(itemId))
+        return (struct ItemSlot) { .itemId = ITEM_NONE, .quantity = 0 };
+
+    return (struct ItemSlot) { .itemId = itemId, .quantity = 1 };
+}
+
+static inline void NONNULL BagPocket_SetSlotDataTMHM(struct BagPocket *pocket, u32 pocketPos, struct ItemSlot newSlot)
+{
+    if (newSlot.quantity == 0 || !IsTMHMPocketItem(newSlot.itemId))
+        pocket->tmItems[pocketPos] = ITEM_NONE;
+    else
+        pocket->tmItems[pocketPos] = newSlot.itemId;
+}
+
 struct ItemSlot NONNULL BagPocket_GetSlotData(struct BagPocket *pocket, u32 pocketPos)
 {
     switch (pocket->id)
@@ -99,9 +130,10 @@ struct ItemSlot NONNULL BagPocket_GetSlotData(struct BagPocket *pocket, u32 pock
     case POCKET_ITEMS:
     case POCKET_KEY_ITEMS:
     case POCKET_POKE_BALLS:
-    case POCKET_TM_HM:
     case POCKET_BERRIES:
         return BagPocket_GetSlotDataGeneric(pocket, pocketPos);
+    case POCKET_TM_HM:
+        return BagPocket_GetSlotDataTMHM(pocket, pocketPos);
     case POCKET_DUMMY:
         return BagPocket_GetSlotDataPC(pocket, pocketPos);
     }
@@ -122,9 +154,11 @@ void NONNULL BagPocket_SetSlotData(struct BagPocket *pocket, u32 pocketPos, stru
     case POCKET_ITEMS:
     case POCKET_KEY_ITEMS:
     case POCKET_POKE_BALLS:
-    case POCKET_TM_HM:
     case POCKET_BERRIES:
         BagPocket_SetSlotDataGeneric(pocket, pocketPos, newSlot);
+        break;
+    case POCKET_TM_HM:
+        BagPocket_SetSlotDataTMHM(pocket, pocketPos, newSlot);
         break;
     case POCKET_DUMMY:
         BagPocket_SetSlotDataPC(pocket, pocketPos, newSlot);
@@ -138,6 +172,10 @@ void ApplyNewEncryptionKeyToBagItems(u32 newKey)
     enum Item item;
     for (pocketId = 0; pocketId < POCKETS_COUNT; pocketId++)
     {
+        // The TM/HM pocket stores bare item ids with no encrypted quantity.
+        if (pocketId == POCKET_TM_HM)
+            continue;
+
         for (item = ITEM_NONE; item < gBagPockets[pocketId].capacity; item++)
             ApplyNewEncryptionKeyToHword(&(gBagPockets[pocketId].itemSlots[item].quantity), newKey);
     }
@@ -157,7 +195,7 @@ void SetBagItemsPointers(void)
     gBagPockets[POCKET_POKE_BALLS].capacity = BAG_POKEBALLS_COUNT;
     gBagPockets[POCKET_POKE_BALLS].id = POCKET_POKE_BALLS;
 
-    gBagPockets[POCKET_TM_HM].itemSlots = gSaveBlock1Ptr->bag.TMsHMs;
+    gBagPockets[POCKET_TM_HM].tmItems = gSaveBlock1Ptr->bag.TMsHMs;
     gBagPockets[POCKET_TM_HM].capacity = BAG_TMHM_COUNT;
     gBagPockets[POCKET_TM_HM].id = POCKET_TM_HM;
 
