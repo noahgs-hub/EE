@@ -163,7 +163,10 @@ __attribute__((section(".text.header_gf"))) USED static const struct GFRomHeader
     .bagCountItems = BAG_ITEMS_COUNT,
     .bagCountKeyItems = BAG_KEYITEMS_COUNT,
     .bagCountPokeballs = BAG_POKEBALLS_COUNT,
-    .bagCountTMHMs = BAG_TMHM_COUNT,
+    // Clamped: this header is a fixed external layout read by save-editing
+    // tools, so the field stays u8. BAG_TMHM_COUNT is 496 and no longer fits;
+    // the game itself never reads this value.
+    .bagCountTMHMs = min(BAG_TMHM_COUNT, 255),
     .bagCountBerries = BAG_BERRIES_COUNT,
     .pcItemsCount = PC_ITEMS_COUNT,
     .pcItemsOffset = offsetof(struct SaveBlock1, pcItems),

@@ -131,8 +131,13 @@ struct PokemonSubstruct0
 {
     u16 species:11; // 2047 species.
     enum Type teraType:5; // 30 types.
-    u16 heldItem:10; // 1023 items.
-    u16 unused_02:6;
+    // Widened 10->11 bits (Aug 2026) for the all-time TM set, which pushes
+    // ITEMS_COUNT past 1023. Borrows one bit from unused_02, which is never
+    // written and is zeroed by ZeroBoxMonData, so existing saves read back
+    // identical heldItem values. Struct size and all other field offsets are
+    // unchanged - no Pokemon-data save conversion needed.
+    u16 heldItem:11; // 2047 items.
+    u16 unused_02:5;
     u32 experience:21;
     u32 nickname11:8; // 11th character of nickname.
     u32 unused_04:3;
