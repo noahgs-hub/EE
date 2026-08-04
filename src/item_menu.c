@@ -928,7 +928,82 @@ static void LoadBagItemListBuffers(u8 pocketId)
     gMultiuseListMenuTemplate.totalItems = gBagMenu->numItemStacks[pocketId];
     gMultiuseListMenuTemplate.items = sListBuffer1->subBuffers;
     gMultiuseListMenuTemplate.maxShowed = gBagMenu->numShownItems[pocketId];
+
+    // Tripwires for the Aug 2026 TM-pocket corruption reports: catch a bad
+    // list at the moment it is built (every bag open and every sort) with a
+    // precise row number, instead of letting it render as garbage rows.
+    assertf(gBagMenu->numItemStacks[pocketId] <= MAX_POCKET_ITEMS,
+            "bag list: pocket %d stacks %d > max %d",
+            pocketId, gBagMenu->numItemStacks[pocketId], MAX_POCKET_ITEMS);
+    for (i = 0; i < gBagMenu->numItemStacks[pocketId]; i++)
+    {
+        const u8 *name = sListBuffer1->subBuffers[i].name;
+        assertf(name >= (const u8 *)sListBuffer2->name
+             && name < (const u8 *)sListBuffer2->name + sizeof(sListBuffer2->name),
+                "bag list: row %d name outside buffer", i);
+    }
+    assertf(gBagPosition.scrollPosition[pocketId] + gBagPosition.cursorPosition[pocketId]
+            < gBagMenu->numItemStacks[pocketId],
+            "bag list: pos %d+%d >= stacks %d",
+            gBagPosition.scrollPosition[pocketId], gBagPosition.cursorPosition[pocketId],
+            gBagMenu->numItemStacks[pocketId])
+    {
+        gBagPosition.scrollPosition[pocketId] = 0;
+        gBagPosition.cursorPosition[pocketId] = 0;
+    }
 }
+
+#if TESTING
+// Test seam: replicate the bag-open list build for a pocket and validate every
+// generated row, without needing the graphical bag task. Returns 0 when the
+// list is fully consistent, otherwise an error code identifying the first
+// failure: 0x1RRRR = row RRRR name pointer outside the name buffer,
+// 0x2RRRR = row RRRR id wrong, 0x3SSSS = stack count SSSS disagrees with a
+// direct recount of the pocket.
+u32 Test_BagMenu_BuildPocketListAndValidate(enum Pocket pocketId)
+{
+    u32 i, result = 0;
+    bool32 createdBagMenu = (gBagMenu == NULL);
+
+    if (createdBagMenu)
+        gBagMenu = AllocZeroed(sizeof(*gBagMenu));
+    AllocateBagItemListBuffers();
+
+    gBagPosition.pocket = pocketId;
+    UpdatePocketItemList(pocketId);
+    UpdatePocketListPosition(pocketId);
+    LoadBagItemListBuffers(pocketId);
+
+    {
+        struct BagPocket *pocket = &gBagPockets[pocketId];
+        u32 count = 0, stacks = gBagMenu->numItemStacks[pocketId];
+        for (i = 0; i < pocket->capacity && BagPocket_GetSlotData(pocket, i).itemId != ITEM_NONE; i++)
+            count++;
+        if (stacks != count + 1) // + the Close Bag row
+            result = 0x30000 | stacks;
+
+        for (i = 0; result == 0 && i < stacks; i++)
+        {
+            const u8 *name = sListBuffer1->subBuffers[i].name;
+            s32 id = sListBuffer1->subBuffers[i].id;
+            if (name < (const u8 *)sListBuffer2->name
+             || name >= (const u8 *)sListBuffer2->name + sizeof(sListBuffer2->name))
+                result = 0x10000 | i;
+            else if (i < stacks - 1 ? id != (s32)i : id != LIST_CANCEL)
+                result = 0x20000 | i;
+        }
+    }
+
+    Free(sListBuffer2);
+    Free(sListBuffer1);
+    if (createdBagMenu)
+    {
+        Free(gBagMenu);
+        gBagMenu = NULL;
+    }
+    return result;
+}
+#endif // TESTING
 
 static void GetItemNameFromPocket(u8 *dest, enum Item itemId)
 {
@@ -1203,7 +1278,9 @@ static void InitPocketScrollPositions(void)
         SetCursorScrollWithinListBounds(&gBagPosition.scrollPosition[i], &gBagPosition.cursorPosition[i], gBagMenu->numShownItems[i], gBagMenu->numItemStacks[i], MAX_ITEMS_SHOWN);
 }
 
-u8 GetItemListPosition(u8 pocketId)
+// u32, not u8: the TM/HM pocket has up to 341 list rows, so list positions
+// past 255 would silently wrap (row 256 acted as row 0, i.e. the first TM).
+u32 GetItemListPosition(u8 pocketId)
 {
     return gBagPosition.scrollPosition[pocketId] + gBagPosition.cursorPosition[pocketId];
 }
@@ -2894,20 +2971,26 @@ void SortItemsInBag(struct BagPocket *pocket, enum BagSortOptions type)
 
 static inline __attribute__((always_inline)) void Merge(struct BagPocket *pocket, u32 iLeft, u32 iRight, u32 iEnd, struct ItemSlot *dummySlots, s32 (*comparator)(enum Pocket, struct ItemSlot, struct ItemSlot))
 {
-    struct ItemSlot item_i, item_j;
     u32 i = iLeft, j = iRight;
     for (u32 k = iLeft; k < iEnd; k++)
     {
-        item_i = BagPocket_GetSlotData(pocket, i);
-        item_j = BagPocket_GetSlotData(pocket, j);
-        if (i < iRight && (j >= iEnd || comparator(pocket->id, item_i, item_j) < 0))
+        // The slot reads MUST stay inside the short-circuit: j reaches iEnd on the
+        // last merge step, and when a pocket is completely full iEnd == capacity,
+        // so reading eagerly runs one slot past the pocket into the next one. For
+        // the TM/HM pocket (bare u16 ids) that lands on a berry's XOR-encrypted
+        // quantity and copies a garbage item id back into the bag.
+        if (i < iRight
+         && (j >= iEnd
+          || comparator(pocket->id,
+                        BagPocket_GetSlotData(pocket, i),
+                        BagPocket_GetSlotData(pocket, j)) < 0))
         {
-            dummySlots[k] = item_i;
+            dummySlots[k] = BagPocket_GetSlotData(pocket, i);
             i++;
         }
         else
         {
-            dummySlots[k] = item_j;
+            dummySlots[k] = BagPocket_GetSlotData(pocket, j);
             j++;
         }
     }

@@ -618,6 +618,15 @@ static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOff
     u8 yMultiplier = GetFontAttribute(list->template.fontId, FONTATTR_MAX_LETTER_HEIGHT) + list->template.itemVerticalPadding;
     for (i = 0; i < count; i++)
     {
+        // Never print past the item array: a caller with a corrupted scroll
+        // offset (e.g. an unsigned underflow) would otherwise render
+        // out-of-bounds memory as list rows. See the Aug 2026 TM-pocket bug.
+        assertf(startIndex < list->template.totalItems,
+                "list print OOB: start %d total %d", startIndex, list->template.totalItems)
+        {
+            break;
+        }
+
         if (list->template.items[startIndex].id != LIST_HEADER)
             x = list->template.item_X;
         else

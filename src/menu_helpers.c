@@ -336,21 +336,27 @@ void SetItemListPerPageCount(struct ItemSlot *slots, u8 slotsCount, u8 *pageItem
         *pageItems = *totalItems;
 }
 
-void SetCursorWithinListBounds(u16 *scrollOffset, u16 *cursorPos, u8 maxShownItems, u8 totalItems)
+// The count parameters are u32, not u8: the TM/HM pocket holds up to
+// BAG_TMHM_COUNT (340) entries plus the Close Bag row, so a u8 total silently
+// truncates (341 -> 85; 257 -> 1). With a truncated total below maxShownItems,
+// the subtraction below underflowed and wrapped *scrollOffset to ~65529, making
+// the list print wildly out-of-bounds entries (the Aug 2026 "garbage rows in
+// the TM pocket" bug).
+void SetCursorWithinListBounds(u16 *scrollOffset, u16 *cursorPos, u32 maxShownItems, u32 totalItems)
 {
     if (*scrollOffset != 0 && *scrollOffset + maxShownItems > totalItems)
-        *scrollOffset = totalItems - maxShownItems;
+        *scrollOffset = (totalItems > maxShownItems) ? totalItems - maxShownItems : 0;
 
     if (*scrollOffset + *cursorPos >= totalItems)
     {
         if (totalItems == 0)
             *cursorPos = 0;
         else
-            *cursorPos = totalItems - 1;
+            *cursorPos = totalItems - 1 - *scrollOffset;
     }
 }
 
-void SetCursorScrollWithinListBounds(u16 *scrollOffset, u16 *cursorPos, u8 shownItems, u8 totalItems, u8 maxShownItems)
+void SetCursorScrollWithinListBounds(u16 *scrollOffset, u16 *cursorPos, u32 shownItems, u32 totalItems, u32 maxShownItems)
 {
     u8 i;
 
@@ -362,7 +368,7 @@ void SetCursorScrollWithinListBounds(u16 *scrollOffset, u16 *cursorPos, u8 shown
             for (i = 0; i < *cursorPos - (maxShownItems / 2); i++)
             {
                 // Stop if reached end of list
-                if (*scrollOffset + shownItems == totalItems)
+                if (*scrollOffset + shownItems >= totalItems)
                     break;
                 (*cursorPos)--;
                 (*scrollOffset)++;
@@ -377,7 +383,7 @@ void SetCursorScrollWithinListBounds(u16 *scrollOffset, u16 *cursorPos, u8 shown
             for (i = 0; i <= *cursorPos - (maxShownItems / 2); i++)
             {
                 // Stop if reached end of list
-                if (*scrollOffset + shownItems == totalItems)
+                if (*scrollOffset + shownItems >= totalItems)
                     break;
                 (*cursorPos)--;
                 (*scrollOffset)++;
