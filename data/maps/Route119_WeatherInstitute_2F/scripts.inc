@@ -137,13 +137,26 @@ Route119_WeatherInstitute_2F_EventScript_TryStartAbnormalWeather::
 	goto_if_eq VAR_0x8004, 2, Route119_WeatherInstitute_2F_EventScript_NoAbnormalWeather  @ Both defeated
 	call_if_unset FLAG_TEMP_2, Route119_WeatherInstitute_2F_EventScript_CreateAbnormalWeather
 	specialvar VAR_RESULT, GetAbnormalWeatherMapNameAndType
-	goto_if_eq VAR_RESULT, 1, Route119_WeatherInstitute_2F_EventScript_KyogreWeather
-	msgbox Route119_WeatherInstitute_2F_Text_GroudonWeather, MSGBOX_DEFAULT
-	release
+	goto_if_eq VAR_RESULT, ABNORMAL_WEATHER_REPORT_BOTH, Route119_WeatherInstitute_2F_EventScript_BothWeather
+	goto_if_eq VAR_RESULT, ABNORMAL_WEATHER_REPORT_KYOGRE, Route119_WeatherInstitute_2F_EventScript_KyogreWeather
+	goto_if_eq VAR_RESULT, ABNORMAL_WEATHER_REPORT_GROUDON, Route119_WeatherInstitute_2F_EventScript_GroudonWeather
+	goto Route119_WeatherInstitute_2F_EventScript_NoAbnormalWeather
 	end
 
 Route119_WeatherInstitute_2F_EventScript_KyogreWeather::
 	msgbox Route119_WeatherInstitute_2F_Text_KyogreWeather, MSGBOX_DEFAULT
+	release
+	end
+
+Route119_WeatherInstitute_2F_EventScript_GroudonWeather::
+	msgbox Route119_WeatherInstitute_2F_Text_GroudonWeather, MSGBOX_DEFAULT
+	release
+	end
+
+@ Aug 2026: both halves of the event can be up at once now, so the scientist has
+@ a report for that case -- STR_VAR_1 is the drought, STR_VAR_2 the downpour.
+Route119_WeatherInstitute_2F_EventScript_BothWeather::
+	msgbox Route119_WeatherInstitute_2F_Text_BothWeather, MSGBOX_DEFAULT
 	release
 	end
 
@@ -317,6 +330,16 @@ Route119_WeatherInstitute_2F_Text_KyogreWeather:
 	.string "recorded over {STR_VAR_1}.\p"
 	.string "Could that mean, somewhere near\n"
 	.string "{STR_VAR_1}…$"
+
+Route119_WeatherInstitute_2F_Text_BothWeather:
+	.string "I track weather patterns over\n"
+	.string "the HOENN region.\p"
+	.string "Presently, a drought in {STR_VAR_1},\n"
+	.string "and heavy rainfall over {STR_VAR_2}.\p"
+	.string "Two anomalies at once… In all my\n"
+	.string "years, I've never recorded that.\p"
+	.string "Could that mean, somewhere near\n"
+	.string "both of them…$"
 
 Route119_WeatherInstitute_2F_Text_NoAbnormalWeather:
 	.string "Abnormal weather conditions are\n"

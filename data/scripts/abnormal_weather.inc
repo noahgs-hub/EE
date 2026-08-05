@@ -172,19 +172,33 @@ AbnormalWeather_StartGroudonWeather::
 
 AbnormalWeather_EventScript_EndEventAndCleanup_1::
 	lockall
-	goto_if_ge VAR_ABNORMAL_WEATHER_LOCATION, MARINE_CAVE_LOCATIONS_START, AbnormalWeather_EventScript_ShowRainEndedMessage
+	goto_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_MARINE, AbnormalWeather_EventScript_ShowRainEndedMessage
 	goto AbnormalWeather_EventScript_ShowSunEndedMessage
 	end
 
+@ Aug 2026: the Terra and Marine halves run independently, so which one is being
+@ torn down comes from VAR_SHOULD_END_ABNORMAL_WEATHER rather than from a single
+@ shared location var. Only the half named there is cleaned up and cleared.
 AbnormalWeather_EventScript_EndEventAndCleanup_2::
 	closemessage
 	fadescreenswapbuffers FADE_TO_BLACK
 	setweather WEATHER_SUNNY
 	doweather
-	call AbnormalWeather_EventScript_CleanupMapTiles
-	special DrawWholeMapView
+	goto_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_MARINE, AbnormalWeather_EventScript_CleanupMarineHalf
+	call AbnormalWeather_EventScript_CleanupTerraMapTiles
 	setvar VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE
-	setvar VAR_SHOULD_END_ABNORMAL_WEATHER, 0
+	goto AbnormalWeather_EventScript_FinishCleanup
+	end
+
+AbnormalWeather_EventScript_CleanupMarineHalf::
+	call AbnormalWeather_EventScript_CleanupMarineMapTiles
+	setvar VAR_ABNORMAL_WEATHER_LOCATION_2, ABNORMAL_WEATHER_NONE
+	goto AbnormalWeather_EventScript_FinishCleanup
+	end
+
+AbnormalWeather_EventScript_FinishCleanup::
+	special DrawWholeMapView
+	setvar VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_NONE
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	fadescreenswapbuffers FADE_FROM_BLACK
 	releaseall
@@ -200,7 +214,7 @@ AbnormalWeather_EventScript_ShowSunEndedMessage::
 	goto AbnormalWeather_EventScript_EndEventAndCleanup_2
 	end
 
-AbnormalWeather_EventScript_CleanupMapTiles::
+AbnormalWeather_EventScript_CleanupTerraMapTiles::
 	switch VAR_ABNORMAL_WEATHER_LOCATION
 	case ABNORMAL_WEATHER_ROUTE_114_NORTH, AbnormalWeather_EventScript_CleanupRoute114North
 	case ABNORMAL_WEATHER_ROUTE_114_SOUTH, AbnormalWeather_EventScript_CleanupRoute114South
@@ -210,6 +224,10 @@ AbnormalWeather_EventScript_CleanupMapTiles::
 	case ABNORMAL_WEATHER_ROUTE_116_SOUTH, AbnormalWeather_EventScript_CleanupRoute116South
 	case ABNORMAL_WEATHER_ROUTE_118_EAST, AbnormalWeather_EventScript_CleanupRoute118East
 	case ABNORMAL_WEATHER_ROUTE_118_WEST, AbnormalWeather_EventScript_CleanupRoute118West
+	return
+
+AbnormalWeather_EventScript_CleanupMarineMapTiles::
+	switch VAR_ABNORMAL_WEATHER_LOCATION_2
 	case ABNORMAL_WEATHER_ROUTE_105_NORTH, AbnormalWeather_EventScript_CleanupRoute105North
 	case ABNORMAL_WEATHER_ROUTE_105_SOUTH, AbnormalWeather_EventScript_CleanupRoute105South
 	case ABNORMAL_WEATHER_ROUTE_125_WEST, AbnormalWeather_EventScript_CleanupRoute125West

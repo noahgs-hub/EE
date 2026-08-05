@@ -1,3 +1,40 @@
+// The RENEWER (Aug 5 2026): Hiker at (37,39), standing next to the MIN-MAXER on
+// the same impassable row, so the player talks to both from y=40. For 200 BP he
+// wipes every legendary encounter flag in the game at once -- stationary statics,
+// both roamer sets, the Kyogre/Groudon abnormal weather event (both halves at
+// once, see CreateAbnormalWeatherEvent) and the Jirachi disc chain -- and unlike
+// the champion-win reset he does it even for species the
+// player has already caught or is currently carrying. All the flag work lives in
+// the RespawnAllLegendaries special (src/field_specials.c); respawned objects
+// appear on the next transition into their map.
+script BattleFrontier_OutsideWest_EventScript_Renewer {
+    lock
+    faceplayer
+    msgbox(format("The world forgets, you know.\pWipe out a legend and the mountain remembers the shape of it. Given long enough, and enough of my persuasion, the shape fills back in.\pI can do that. All of them. Today. For 200 Battle Points."), MSGBOX_DEFAULT)
+    specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
+    if (var(VAR_TEMP_1) < 200) {
+        msgbox(format("You don't have 200 Battle Points. Come back when the world owes you more."), MSGBOX_DEFAULT)
+        release
+        end
+    }
+
+    msgbox(format("Every legend you've felled or captured, walking again in its old haunt. The birds, the beasts, the titans, the ones in the deep places--all of it.\pShall I begin?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Then the world stays as you left it. For now."), MSGBOX_DEFAULT)
+        release
+        end
+    }
+
+    setvar(VAR_0x8004, 200)
+    special(TakeFrontierBattlePoints)
+    playse(SE_SHOP)
+    waitse
+    special(RespawnAllLegendaries)
+    msgbox(format("It is done.\pGo and look. They are where they always were, and they remember nothing of you.\pAnd the sky has split its mind again--a drought burning over one road, a downpour drowning another, both at once. The WEATHER INSTITUTE can tell you where. You know what that means."), MSGBOX_DEFAULT)
+    release
+    end
+}
+
 // Min-Maxer hub (July 14 2026): the Maniac at (36,39) now runs all five
 // tune-up services (nature/IVs/ability/moves/friendship). The other four
 // service NPCs were removed from map.json; their flows live on below as

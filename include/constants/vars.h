@@ -74,7 +74,7 @@
 #define VAR_DEOXYS_ROCK_STEP_COUNT                       0x4034
 #define VAR_DEOXYS_ROCK_LEVEL                            0x4035
 #define VAR_PC_BOX_TO_SEND_MON                           0x4036
-#define VAR_ABNORMAL_WEATHER_LOCATION                    0x4037
+#define VAR_ABNORMAL_WEATHER_LOCATION                    0x4037 // Terra Cave (Groudon) half only, TERRA_CAVE_LOCATIONS_START..+7; see VAR_ABNORMAL_WEATHER_LOCATION_2 for the Marine Cave half
 #define VAR_ABNORMAL_WEATHER_STEP_COUNTER                0x4038
 #define VAR_SHOULD_END_ABNORMAL_WEATHER                  0x4039
 #define VAR_FARAWAY_ISLAND_STEP_COUNTER                  0x403A
@@ -270,7 +270,7 @@
 #define VAR_GUILDHOUSE_CALEB_COOLDOWN                    0x40F8 // Custom July 2026: hour+1 of Caleb's last dice roll (0 = never; verified clean in dev save)
 #define VAR_GUILDHOUSE_DAVE_COOLDOWN                     0x40F9 // Custom July 2026: hour+1 when Dave stormed out (0 = present; verified clean in dev save)
 #define VAR_GUILDHOUSE_STOOMIE_COOLDOWN                  0x40FA // Custom July 2026: hour+1 when Stoomie ran out of the Mox event (0 = present; verified clean in dev save)
-#define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
+#define VAR_ABNORMAL_WEATHER_LOCATION_2                  0x40FB // Custom Aug 2026: Marine Cave (Kyogre) half of the abnormal weather event, so it can run at the same time as the Terra Cave half in VAR_ABNORMAL_WEATHER_LOCATION; reuses an unused var so save layout is unchanged
 #define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
 #define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
 #define VAR_UNUSED_0x40FE                                0x40FE // Unused Var

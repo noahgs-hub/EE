@@ -335,3 +335,24 @@ void TryReleaseLegendaryBeastRoamers(void)
             TryAddRoamer(sLegendaryBeasts[i].species, sLegendaryBeasts[i].level);
     }
 }
+
+// Used by the frontier RENEWER's 200 BP legendary reset. Unlike the champion-win
+// hook above this ignores the dex caught flag entirely -- already owning one is
+// not a reason to withhold a re-release. Anything still roaming is left alone so
+// a reset can never duplicate an active roamer. The three beasts plus one Lati
+// exactly fill ROAMER_COUNT.
+void ReleaseAllLegendaryRoamers(void)
+{
+    u32 i;
+    // VAR_ROAMER_POKEMON: 0 = Latias roams (Latios is the Southern Island one).
+    enum Species latiSpecies = (VarGet(VAR_ROAMER_POKEMON) == 0) ? SPECIES_LATIAS : SPECIES_LATIOS;
+
+    for (i = 0; i < ARRAY_COUNT(sLegendaryBeasts); i++)
+    {
+        if (!IsSpeciesActiveRoamer(sLegendaryBeasts[i].species))
+            TryAddRoamer(sLegendaryBeasts[i].species, sLegendaryBeasts[i].level);
+    }
+
+    if (!IsSpeciesActiveRoamer(latiSpecies))
+        TryAddRoamer(latiSpecies, 40);
+}

@@ -1537,7 +1537,12 @@ static mapsec_u16_t GetTerraOrMarineCaveMapSecId(void)
 {
     s16 idx;
 
-    idx = VarGet(VAR_ABNORMAL_WEATHER_LOCATION) - 1;
+    // Only the Marine Cave mapsecs route here (Terra Cave has its own mapsec), so
+    // read the Marine half first and fall back to the Terra half if it isn't up.
+    idx = VarGet(VAR_ABNORMAL_WEATHER_LOCATION_2) - 1;
+
+    if (idx < 0)
+        idx = VarGet(VAR_ABNORMAL_WEATHER_LOCATION) - 1;
 
     if (idx < 0 || idx > ABNORMAL_WEATHER_LOCATIONS - 1)
         idx = 0;
@@ -1549,7 +1554,7 @@ static void GetMarineCaveCoords(u16 *x, u16 *y)
 {
     u16 idx;
 
-    idx = VarGet(VAR_ABNORMAL_WEATHER_LOCATION);
+    idx = VarGet(VAR_ABNORMAL_WEATHER_LOCATION_2);
     if (idx < MARINE_CAVE_LOCATIONS_START || idx > ABNORMAL_WEATHER_LOCATIONS)
     {
         idx = MARINE_CAVE_LOCATIONS_START;

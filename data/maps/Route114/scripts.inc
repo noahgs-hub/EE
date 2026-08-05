@@ -5,7 +5,7 @@ Route114_MapScripts::
 	.byte 0
 
 Route114_OnTransition:
-	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_HideMapNamePopup
+	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_TERRA, AbnormalWeather_EventScript_HideMapNamePopup
 	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_114_NORTH, AbnormalWeather_StartGroudonWeather
 	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_114_SOUTH, AbnormalWeather_StartGroudonWeather
 	end
@@ -16,7 +16,7 @@ Route114_OnLoad:
 	end
 
 Route114_OnFrame:
-	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_EndEventAndCleanup_1
+	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_TERRA, AbnormalWeather_EventScript_EndEventAndCleanup_1
 	.2byte 0
 
 Route114_EventScript_Man::

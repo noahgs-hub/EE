@@ -70,4 +70,18 @@
 #define ABNORMAL_WEATHER_LOCATIONS  (MARINE_CAVE_LOCATIONS + TERRA_CAVE_LOCATIONS)
 #define ABNORMAL_WEATHER_NONE       0
 
+// Custom Aug 2026: the two halves of the event run independently (Terra locations
+// live in VAR_ABNORMAL_WEATHER_LOCATION, Marine ones in VAR_ABNORMAL_WEATHER_LOCATION_2),
+// so VAR_SHOULD_END_ABNORMAL_WEATHER has to say which of the two is being torn down.
+#define END_ABNORMAL_WEATHER_NONE   0
+#define END_ABNORMAL_WEATHER_TERRA  1
+#define END_ABNORMAL_WEATHER_MARINE 2
+
+// Return value of the GetAbnormalWeatherMapNameAndType special: which halves the
+// Weather Institute scientist has to report on.
+#define ABNORMAL_WEATHER_REPORT_NONE    0
+#define ABNORMAL_WEATHER_REPORT_GROUDON 1
+#define ABNORMAL_WEATHER_REPORT_KYOGRE  2
+#define ABNORMAL_WEATHER_REPORT_BOTH    (ABNORMAL_WEATHER_REPORT_GROUDON | ABNORMAL_WEATHER_REPORT_KYOGRE)
+
 #endif // GUARD_CONSTANTS_WEATHER_H

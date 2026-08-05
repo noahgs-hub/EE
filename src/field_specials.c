@@ -42,6 +42,7 @@
 #include "random.h"
 #include "rayquaza_scene.h"
 #include "region_map.h"
+#include "roamer.h"
 #include "rtc.h"
 #include "script.h"
 #include "script_menu.h"
@@ -3562,29 +3563,41 @@ bool8 IsDestinationBoxFull(void)
     return FALSE;
 }
 
+// Aug 5 2026: the abnormal weather event is now two independent halves, so the
+// drought (Terra Cave/Groudon) and the downpour (Marine Cave/Kyogre) can be up at
+// the same time on different routes. Nothing about the two ever overlapped -- the
+// Terra locations are the four land routes and the Marine ones the four water
+// routes, and the caves themselves are separate maps -- the only thing forcing
+// them to be mutually exclusive was sharing a single location var. So:
+//   VAR_ABNORMAL_WEATHER_LOCATION    holds TERRA_CAVE_LOCATIONS_START..+7 or NONE
+//   VAR_ABNORMAL_WEATHER_LOCATION_2  holds MARINE_CAVE_LOCATIONS_START..+7 or NONE
+// Both halves still share VAR_ABNORMAL_WEATHER_STEP_COUNTER, so they are rolled
+// together and expire together. VAR_SHOULD_END_ABNORMAL_WEATHER now carries an
+// END_ABNORMAL_WEATHER_* value naming which half is being cleaned up.
+static void RollTerraCaveLocation(void)
+{
+    VarSet(VAR_ABNORMAL_WEATHER_LOCATION, (Random() % TERRA_CAVE_LOCATIONS) + TERRA_CAVE_LOCATIONS_START);
+}
+
+static void RollMarineCaveLocation(void)
+{
+    VarSet(VAR_ABNORMAL_WEATHER_LOCATION_2, (Random() % MARINE_CAVE_LOCATIONS) + MARINE_CAVE_LOCATIONS_START);
+}
+
+// Called by the Weather Institute scientist (and by RespawnAllLegendaries below).
+// Every titan the player has not beaten yet gets a freshly placed cave; a titan
+// that's already down keeps its half switched off. The old version rolled exactly
+// one cave and used the defeat flags only to pick which -- that choice is what
+// made the two mutually exclusive, and it is gone.
 void CreateAbnormalWeatherEvent(void)
 {
-    u16 randomValue = Random();
     VarSet(VAR_ABNORMAL_WEATHER_STEP_COUNTER, 0);
 
-    if (FlagGet(FLAG_DEFEATED_KYOGRE) == TRUE)
-    {
-        VarSet(VAR_ABNORMAL_WEATHER_LOCATION, (randomValue % TERRA_CAVE_LOCATIONS) + TERRA_CAVE_LOCATIONS_START);
-    }
-    else if (FlagGet(FLAG_DEFEATED_GROUDON) == TRUE)
-    {
-        VarSet(VAR_ABNORMAL_WEATHER_LOCATION, (randomValue % MARINE_CAVE_LOCATIONS) + MARINE_CAVE_LOCATIONS_START);
-    }
-    else if ((randomValue & 1) == 0)
-    {
-        randomValue = Random();
-        VarSet(VAR_ABNORMAL_WEATHER_LOCATION, (randomValue % TERRA_CAVE_LOCATIONS) + TERRA_CAVE_LOCATIONS_START);
-    }
-    else
-    {
-        randomValue = Random();
-        VarSet(VAR_ABNORMAL_WEATHER_LOCATION, (randomValue % MARINE_CAVE_LOCATIONS) + MARINE_CAVE_LOCATIONS_START);
-    }
+    if (!FlagGet(FLAG_DEFEATED_GROUDON))
+        RollTerraCaveLocation();
+
+    if (!FlagGet(FLAG_DEFEATED_KYOGRE))
+        RollMarineCaveLocation();
 }
 
 static const struct {
@@ -3626,120 +3639,235 @@ void TryResetStationaryLegendaries(void)
 
     if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(latiSpecies), FLAG_GET_CAUGHT))
         FlagClear(FLAG_DEFEATED_LATIAS_OR_LATIOS);
+
+    // Kyogre and Groudon are the two that don't sit on a fixed map -- they only
+    // exist inside a cave the abnormal weather event places -- so clearing their
+    // defeat flags above accomplishes nothing on its own. Place a cave for each
+    // one that's back (both, if the player never caught either).
+    if (!FlagGet(FLAG_DEFEATED_GROUDON) || !FlagGet(FLAG_DEFEATED_KYOGRE))
+        CreateAbnormalWeatherEvent();
 }
 
-// Saves the map name for the current abnormal weather location in gStringVar1, then
-// returns TRUE if the weather is for Kyogre, and FALSE if it's for Groudon.
-bool32 GetAbnormalWeatherMapNameAndType(void)
+// The frontier RENEWER's 200 BP "renewable legendaries" service. Same idea as
+// TryResetStationaryLegendaries above, but unconditional: already having caught
+// (or currently owning) a species is explicitly NOT a reason to skip it.
+//
+// Every stationary encounter re-shows its object on map transition while its
+// FLAG_DEFEATED_* is clear, so clearing that flag is the whole respawn for most
+// of them. The exceptions each need an extra flag, handled below.
+void RespawnAllLegendaries(void)
 {
-    static const u8 sAbnormalWeatherMapNumbers[] = {
-        MAP_NUM(MAP_ROUTE114),
-        MAP_NUM(MAP_ROUTE114),
-        MAP_NUM(MAP_ROUTE115),
-        MAP_NUM(MAP_ROUTE115),
-        MAP_NUM(MAP_ROUTE116),
-        MAP_NUM(MAP_ROUTE116),
-        MAP_NUM(MAP_ROUTE118),
-        MAP_NUM(MAP_ROUTE118),
-        MAP_NUM(MAP_ROUTE105),
-        MAP_NUM(MAP_ROUTE105),
-        MAP_NUM(MAP_ROUTE125),
-        MAP_NUM(MAP_ROUTE125),
-        MAP_NUM(MAP_ROUTE127),
-        MAP_NUM(MAP_ROUTE127),
-        MAP_NUM(MAP_ROUTE129),
-        MAP_NUM(MAP_ROUTE129)
-    };
+    u32 i;
 
-    u16 abnormalWeather = VarGet(VAR_ABNORMAL_WEATHER_LOCATION);
+    for (i = 0; i < ARRAY_COUNT(sStationaryLegendaries); i++)
+        FlagClear(sStationaryLegendaries[i].flag);
 
-    GetMapName(gStringVar1, sAbnormalWeatherMapNumbers[abnormalWeather - 1], 0);
+    // Custom lv80 Mewtwo in RusturfTunnel_Depths, not part of the table above.
+    FlagClear(FLAG_DEFEATED_RUSTURF_TUNNEL_DEPTHS_MEWTWO);
 
-    if (abnormalWeather < MARINE_CAVE_LOCATIONS_START)
-        return FALSE;
-    else
-        return TRUE;
+    // Ho-Oh, Lugia and Mew stay hidden forever on their FLAG_CAUGHT_* as well as
+    // their FLAG_DEFEATED_*, so both have to go.
+    FlagClear(FLAG_CAUGHT_HO_OH);
+    FlagClear(FLAG_CAUGHT_LUGIA);
+    FlagClear(FLAG_CAUGHT_MEW);
+
+    // Deoxys hides on FLAG_BATTLED_DEOXYS; with that and FLAG_DEFEATED_DEOXYS
+    // clear, BirthIsland_Exterior's OnTransition re-shows the triangle and resets
+    // the walking puzzle (VAR_DEOXYS_ROCK_LEVEL/STEP_COUNT) by itself.
+    FlagClear(FLAG_BATTLED_DEOXYS);
+
+    // Southern Island's Lati -- whichever one the player did not send roaming.
+    FlagClear(FLAG_DEFEATED_LATIAS_OR_LATIOS);
+    FlagClear(FLAG_CAUGHT_LATIAS_OR_LATIOS);
+    FlagClear(FLAG_ENCOUNTERED_LATIAS_OR_LATIOS);
+
+    // Kyogre and Groudon only exist inside the roaming Marine/Terra Cave, so
+    // clearing their defeat flags is useless unless the abnormal weather event
+    // is rolled fresh -- otherwise the caves are simply nowhere. With the defeat
+    // flags cleared above, CreateAbnormalWeatherEvent places BOTH caves, so one
+    // reset really does hand back both titans. FLAG_TEMP_2 is the Weather
+    // Institute scientist's "already rolled this visit" guard.
+    VarSet(VAR_ABNORMAL_WEATHER_STEP_COUNTER, 0);
+    VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_NONE);
+    VarSet(VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE);
+    VarSet(VAR_ABNORMAL_WEATHER_LOCATION_2, ABNORMAL_WEATHER_NONE);
+    CreateAbnormalWeatherEvent();
+    FlagClear(FLAG_TEMP_2);
+
+    // Jirachi: put the Pokemon Box R&S disc back on the Mossdeep white rock and
+    // re-arm the GameCube in the player's bedroom that trades it in.
+    FlagClear(FLAG_RECEIVED_POKEMON_BOX_RS);
+    FlagClear(FLAG_RECEIVED_JIRACHI);
+
+    // Beasts + the roaming Lati.
+    ReleaseAllLegendaryRoamers();
+}
+
+static const u8 sAbnormalWeatherMapNumbers[ABNORMAL_WEATHER_LOCATIONS] =
+{
+    MAP_NUM(MAP_ROUTE114),
+    MAP_NUM(MAP_ROUTE114),
+    MAP_NUM(MAP_ROUTE115),
+    MAP_NUM(MAP_ROUTE115),
+    MAP_NUM(MAP_ROUTE116),
+    MAP_NUM(MAP_ROUTE116),
+    MAP_NUM(MAP_ROUTE118),
+    MAP_NUM(MAP_ROUTE118),
+    MAP_NUM(MAP_ROUTE105),
+    MAP_NUM(MAP_ROUTE105),
+    MAP_NUM(MAP_ROUTE125),
+    MAP_NUM(MAP_ROUTE125),
+    MAP_NUM(MAP_ROUTE127),
+    MAP_NUM(MAP_ROUTE127),
+    MAP_NUM(MAP_ROUTE129),
+    MAP_NUM(MAP_ROUTE129)
+};
+
+// Group 0 map numbers and MAPSEC ids line up for the routes, so the table above
+// doubles as the mapsec argument for GetMapName.
+static void GetAbnormalWeatherRouteName(u8 *dest, u16 location)
+{
+    GetMapName(dest, sAbnormalWeatherMapNumbers[location - 1], 0);
+}
+
+// Keeps the two location slots in their own halves of the range. A save made
+// before the Aug 2026 split can have a Marine location sitting in the Terra slot,
+// where nothing reads it any more, so move it across; anything out of range (an
+// old value left in what used to be an unused var) is discarded.
+static void NormalizeAbnormalWeatherLocations(void)
+{
+    u16 terra = VarGet(VAR_ABNORMAL_WEATHER_LOCATION);
+    u16 marine = VarGet(VAR_ABNORMAL_WEATHER_LOCATION_2);
+
+    if (terra >= MARINE_CAVE_LOCATIONS_START)
+    {
+        VarSet(VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE);
+        if (terra <= ABNORMAL_WEATHER_LOCATIONS && marine == ABNORMAL_WEATHER_NONE)
+        {
+            VarSet(VAR_ABNORMAL_WEATHER_LOCATION_2, terra);
+            return;
+        }
+    }
+
+    if (marine != ABNORMAL_WEATHER_NONE
+     && (marine < MARINE_CAVE_LOCATIONS_START || marine > ABNORMAL_WEATHER_LOCATIONS))
+        VarSet(VAR_ABNORMAL_WEATHER_LOCATION_2, ABNORMAL_WEATHER_NONE);
+}
+
+// Weather Institute scientist. Buffers the drought's route into gStringVar1 and
+// the downpour's into gStringVar2, and returns which halves are running as an
+// ABNORMAL_WEATHER_REPORT_* bitmask. When only one is running its route lands in
+// gStringVar1 either way, so the single-titan messages are unchanged.
+u32 GetAbnormalWeatherMapNameAndType(void)
+{
+    u32 report = ABNORMAL_WEATHER_REPORT_NONE;
+    u16 terra, marine;
+
+    NormalizeAbnormalWeatherLocations();
+    terra = VarGet(VAR_ABNORMAL_WEATHER_LOCATION);
+    marine = VarGet(VAR_ABNORMAL_WEATHER_LOCATION_2);
+
+    if (terra != ABNORMAL_WEATHER_NONE)
+    {
+        GetAbnormalWeatherRouteName(gStringVar1, terra);
+        report |= ABNORMAL_WEATHER_REPORT_GROUDON;
+    }
+
+    if (marine != ABNORMAL_WEATHER_NONE)
+    {
+        GetAbnormalWeatherRouteName(gStringVar2, marine);
+        if (report == ABNORMAL_WEATHER_REPORT_NONE)
+            GetAbnormalWeatherRouteName(gStringVar1, marine);
+        report |= ABNORMAL_WEATHER_REPORT_KYOGRE;
+    }
+
+    return report;
 }
 
 bool8 AbnormalWeatherHasExpired(void)
 {
-    // Duplicate array.
-    static const u8 sAbnormalWeatherMapNumbers[] =
-    {
-        MAP_NUM(MAP_ROUTE114),
-        MAP_NUM(MAP_ROUTE114),
-        MAP_NUM(MAP_ROUTE115),
-        MAP_NUM(MAP_ROUTE115),
-        MAP_NUM(MAP_ROUTE116),
-        MAP_NUM(MAP_ROUTE116),
-        MAP_NUM(MAP_ROUTE118),
-        MAP_NUM(MAP_ROUTE118),
-        MAP_NUM(MAP_ROUTE105),
-        MAP_NUM(MAP_ROUTE105),
-        MAP_NUM(MAP_ROUTE125),
-        MAP_NUM(MAP_ROUTE125),
-        MAP_NUM(MAP_ROUTE127),
-        MAP_NUM(MAP_ROUTE127),
-        MAP_NUM(MAP_ROUTE129),
-        MAP_NUM(MAP_ROUTE129)
-    };
+    u16 steps, terra, marine;
+    bool32 onTerraRoute, onMarineRoute;
 
-    u16 steps = VarGet(VAR_ABNORMAL_WEATHER_STEP_COUNTER);
-    u16 abnormalWeather = VarGet(VAR_ABNORMAL_WEATHER_LOCATION);
+    NormalizeAbnormalWeatherLocations();
+    terra = VarGet(VAR_ABNORMAL_WEATHER_LOCATION);
+    marine = VarGet(VAR_ABNORMAL_WEATHER_LOCATION_2);
 
-    if (abnormalWeather == ABNORMAL_WEATHER_NONE)
+    if (terra == ABNORMAL_WEATHER_NONE && marine == ABNORMAL_WEATHER_NONE)
         return FALSE;
 
-    if (++steps > 999)
-    {
-        VarSet(VAR_ABNORMAL_WEATHER_STEP_COUNTER, 0);
-        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_UNDERWATER_MARINE_CAVE))
-        {
-            switch (gSaveBlock1Ptr->location.mapNum)
-            {
-            case MAP_NUM(MAP_UNDERWATER_MARINE_CAVE):
-            case MAP_NUM(MAP_MARINE_CAVE_ENTRANCE):
-            case MAP_NUM(MAP_MARINE_CAVE_END):
-            case MAP_NUM(MAP_TERRA_CAVE_ENTRANCE):
-            case MAP_NUM(MAP_TERRA_CAVE_END):
-                VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, 1);
-                return FALSE;
-            default:
-                break;
-            }
-        }
-
-        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_UNDERWATER_ROUTE127))
-        {
-            switch (gSaveBlock1Ptr->location.mapNum)
-            {
-            case MAP_NUM(MAP_UNDERWATER_ROUTE127):
-            case MAP_NUM(MAP_UNDERWATER_ROUTE129):
-            case MAP_NUM(MAP_UNDERWATER_ROUTE105):
-            case MAP_NUM(MAP_UNDERWATER_ROUTE125):
-                VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, 1);
-                return FALSE;
-            default:
-                break;
-            }
-        }
-
-        if (gSaveBlock1Ptr->location.mapNum == sAbnormalWeatherMapNumbers[abnormalWeather - 1] &&
-            gSaveBlock1Ptr->location.mapGroup == 0)
-        {
-            return TRUE;
-        }
-        else
-        {
-            VarSet(VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE);
-            return FALSE;
-        }
-    }
-    else
+    // One counter for both halves: they are placed together and time out together.
+    steps = VarGet(VAR_ABNORMAL_WEATHER_STEP_COUNTER);
+    if (++steps <= 999)
     {
         VarSet(VAR_ABNORMAL_WEATHER_STEP_COUNTER, steps);
         return FALSE;
     }
+    VarSet(VAR_ABNORMAL_WEATHER_STEP_COUNTER, 0);
+
+    // Standing in one of the caves: don't pull it out from under the player, just
+    // flag that half so the route cleans up once they walk back out.
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_UNDERWATER_MARINE_CAVE))
+    {
+        switch (gSaveBlock1Ptr->location.mapNum)
+        {
+        case MAP_NUM(MAP_UNDERWATER_MARINE_CAVE):
+        case MAP_NUM(MAP_MARINE_CAVE_ENTRANCE):
+        case MAP_NUM(MAP_MARINE_CAVE_END):
+            VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_MARINE);
+            return FALSE;
+        case MAP_NUM(MAP_TERRA_CAVE_ENTRANCE):
+        case MAP_NUM(MAP_TERRA_CAVE_END):
+            VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_TERRA);
+            return FALSE;
+        default:
+            break;
+        }
+    }
+
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_UNDERWATER_ROUTE127))
+    {
+        switch (gSaveBlock1Ptr->location.mapNum)
+        {
+        case MAP_NUM(MAP_UNDERWATER_ROUTE127):
+        case MAP_NUM(MAP_UNDERWATER_ROUTE129):
+        case MAP_NUM(MAP_UNDERWATER_ROUTE105):
+        case MAP_NUM(MAP_UNDERWATER_ROUTE125):
+            VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_MARINE);
+            return FALSE;
+        default:
+            break;
+        }
+    }
+
+    onTerraRoute = terra != ABNORMAL_WEATHER_NONE
+                && gSaveBlock1Ptr->location.mapGroup == 0
+                && gSaveBlock1Ptr->location.mapNum == sAbnormalWeatherMapNumbers[terra - 1];
+    onMarineRoute = marine != ABNORMAL_WEATHER_NONE
+                 && gSaveBlock1Ptr->location.mapGroup == 0
+                 && gSaveBlock1Ptr->location.mapNum == sAbnormalWeatherMapNumbers[marine - 1];
+
+    // The two halves never share a route, so at most one of these is true. That
+    // one gets the full cleanup script (message, weather, walled-up cave mouth);
+    // the other is just switched off, since its cave mouth is only ever drawn by
+    // its own route's OnLoad and simply won't come back.
+    if (onTerraRoute)
+    {
+        VarSet(VAR_ABNORMAL_WEATHER_LOCATION_2, ABNORMAL_WEATHER_NONE);
+        VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_TERRA);
+        return TRUE;
+    }
+
+    if (onMarineRoute)
+    {
+        VarSet(VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE);
+        VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_MARINE);
+        return TRUE;
+    }
+
+    VarSet(VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE);
+    VarSet(VAR_ABNORMAL_WEATHER_LOCATION_2, ABNORMAL_WEATHER_NONE);
+    return FALSE;
 }
 
 void Unused_SetWeatherSunny(void)

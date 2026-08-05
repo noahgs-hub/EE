@@ -470,10 +470,16 @@ static void Overworld_ResetStateAfterWhiteOut(void)
         Overworld_ResetBattleFlagsAndVars();
     // If you were defeated by Kyogre/Groudon and the step counter has
     // maxed out, end the abnormal weather.
-    if (VarGet(VAR_SHOULD_END_ABNORMAL_WEATHER) == 1)
+    switch (VarGet(VAR_SHOULD_END_ABNORMAL_WEATHER))
     {
-        VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, 0);
+    case END_ABNORMAL_WEATHER_TERRA:
+        VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_NONE);
         VarSet(VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE);
+        break;
+    case END_ABNORMAL_WEATHER_MARINE:
+        VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, END_ABNORMAL_WEATHER_NONE);
+        VarSet(VAR_ABNORMAL_WEATHER_LOCATION_2, ABNORMAL_WEATHER_NONE);
+        break;
     }
     FollowerNPC_TryRemoveFollowerOnWhiteOut();
 }
