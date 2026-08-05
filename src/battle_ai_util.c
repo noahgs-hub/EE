@@ -81,14 +81,20 @@ static bool32 AI_CanBattlerHitBothFoesInTerrain(enum BattlerId battler, enum Mov
 enum MoveTarget AI_GetBattlerMoveTargetType(enum BattlerId battler, enum Move move)
 {
     enum BattleMoveEffects effect = GetMoveEffect(move);
+    enum MoveTarget target = GetMoveTarget(move);
     if (effect == EFFECT_CURSE && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
         return TARGET_USER;
     if (AI_CanBattlerHitBothFoesInTerrain(battler, move, effect))
         return TARGET_BOTH;
     if (effect == EFFECT_TERA_STARSTORM && gBattleMons[battler].species == SPECIES_TERAPAGOS_STELLAR)
         return TARGET_BOTH;
+    if ((target == TARGET_SELECTED || target == TARGET_RANDOM)
+     && IsBattleMovePhysical(move)
+     && IsDoubleBattle()
+     && gAiLogicData->abilities[battler] == ABILITY_CENTRIFUGE)
+        return TARGET_BOTH;
 
-    return GetMoveTarget(move);
+    return target;
 }
 
 u32 AI_GetDefaultDamageRollForContext(enum BattlerId battlerAtk, enum BattlerId battlerDef, u32 moveIndex, struct AiLogicData *aiData, u32 aiRoll)

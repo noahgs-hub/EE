@@ -9359,14 +9359,20 @@ static u32 CanBattlerHitBothFoesInTerrain(enum BattlerId battler, enum Move move
 enum MoveTarget GetBattlerMoveTargetType(enum BattlerId battler, enum Move move)
 {
     enum BattleMoveEffects effect = GetMoveEffect(move);
+    enum MoveTarget target = GetMoveTarget(move);
     if (effect == EFFECT_CURSE && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
         return TARGET_USER;
     if (CanBattlerHitBothFoesInTerrain(battler, move, effect))
         return TARGET_BOTH;
     if (effect == EFFECT_TERA_STARSTORM && gBattleMons[battler].species == SPECIES_TERAPAGOS_STELLAR)
         return TARGET_BOTH;
+    if ((target == TARGET_SELECTED || target == TARGET_RANDOM)
+     && IsBattleMovePhysical(move)
+     && IsDoubleBattle()
+     && GetBattlerAbility(battler) == ABILITY_CENTRIFUGE)
+        return TARGET_BOTH;
 
-    return GetMoveTarget(move);
+    return target;
 }
 
 bool32 CanTargetBattler(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move)

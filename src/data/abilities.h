@@ -2502,4 +2502,11 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_STRING("Sips Berry Juice when hurt."),
         .aiRating = 5,
     },
+
+    [ABILITY_CENTRIFUGE] =
+    {
+        .name = _("Centrifuge"),
+        .description = COMPOUND_STRING("Physical moves hit both foes."),
+        .aiRating = 6,
+    },
 };
