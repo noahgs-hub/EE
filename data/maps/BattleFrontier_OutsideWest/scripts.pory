@@ -13,19 +13,18 @@ script BattleFrontier_OutsideWest_EventScript_ServiceNerd {
 script BattleFrontier_OutsideWest_EventScript_ServiceMenu {
     msgbox(format("So! What are we optimizing today?"), MSGBOX_DEFAULT)
     dynmultipush(ServiceNerd_Text_Nature, 0)
-    dynmultipush(ServiceNerd_Text_IVs, 1)
+    dynmultipush(ServiceNerd_Text_Stats, 1)
     dynmultipush(ServiceNerd_Text_Ability, 2)
     dynmultipush(ServiceNerd_Text_Moves, 3)
     dynmultipush(ServiceNerd_Text_Friendship, 4)
-    dynmultipush(ServiceNerd_Text_EVEdit, 5)
-    dynmultipush(ServiceNerd_Text_EVReset, 6)
-    dynmultipush(ServiceNerd_Text_Done, 7)
-    dynmultistack(0, 0, FALSE, 8, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    dynmultipush(ServiceNerd_Text_EVReset, 5)
+    dynmultipush(ServiceNerd_Text_Done, 6)
+    dynmultistack(0, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
     switch (var(VAR_RESULT)) {
         case 0:
             goto(BattleFrontier_OutsideWest_EventScript_NatureService)
         case 1:
-            goto(BattleFrontier_OutsideWest_EventScript_IVManiac)
+            goto(BattleFrontier_OutsideWest_EventScript_StatEditor)
         case 2:
             goto(BattleFrontier_OutsideWest_EventScript_Ability)
         case 3:
@@ -33,147 +32,58 @@ script BattleFrontier_OutsideWest_EventScript_ServiceMenu {
         case 4:
             goto(BattleFrontier_OutsideWest_EventScript_friendship)
         case 5:
-            goto(BattleFrontier_OutsideWest_EventScript_EVEdit)
-        case 6:
             goto(BattleFrontier_OutsideWest_EventScript_EVReset)
     }
     goto(BattleFrontier_OutsideWest_EventScript_ServiceNerdDecline)
 }
 
 text ServiceNerd_Text_Nature { "Nature (5BP)" }
-text ServiceNerd_Text_IVs { "IVs (2BP)" }
+text ServiceNerd_Text_Stats { "EVs/IVs (5BP)" }
 text ServiceNerd_Text_Ability { "Ability (5BP)" }
 text ServiceNerd_Text_Moves { "Moves (2BP)" }
 text ServiceNerd_Text_Friendship { "Friendship (2BP)" }
-text ServiceNerd_Text_EVEdit { "EV edit (2BP)" }
 text ServiceNerd_Text_EVReset { "EV reset (2BP)" }
 text ServiceNerd_Text_Done { "That's all" }
 
-// EV editor: pick a stat, then punch in the new value as three digits
-// (hundreds 0-2, tens 0-9, ones 0-9) instead of scrolling 0-252. The result
-// is clamped to the 252 per-stat cap, then to the mon's remaining room under
-// the 510 total cap (GetMonEvCap), with a message when either clamp hits.
-script BattleFrontier_OutsideWest_EventScript_EVEdit {
+// Stat editor (Aug 4 2026): one 5 BP purchase replaces the old separate
+// "IVs (2BP)" and "EV edit (2BP)" digit-punching services. Pay once, pick a
+// mon, and the full Stat Editor UI (src/ui_stat_editor.c) opens for real EV
+// and IV edits on every stat of THAT mon -- the editor's L/R party cycle is
+// disabled for paid sessions (lockedToChosenMon), so 5 BP tunes one Pokemon,
+// not the whole team. Writes are actual MON_DATA IVs/EVs, not hyper-training
+// overrides, so the summary screen shows the new values.
+script BattleFrontier_OutsideWest_EventScript_StatEditor {
     specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
-    if (var(VAR_TEMP_1) < 2) {
-        msgbox(format("Precision training costs 2 Battle Points per stat, and you're short!"), MSGBOX_DEFAULT)
+    if (var(VAR_TEMP_1) < 5) {
+        msgbox(format("Hooking a POKéMON up to my machine costs 5 Battle Points, and you're short!"), MSGBOX_DEFAULT)
         goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    msgbox(format("Precision training--2 Battle Points per stat, punched in digit by digit! Which POKéMON are we retraining?"), MSGBOX_DEFAULT)
+    msgbox(format("Ehehe... The MIN-MAXER SPECIAL! I plug your POKéMON into my machine and you rewrite it YOURSELF--training AND hidden potential, every stat, as long as you like.\pWhich one are we plugging in?"), MSGBOX_DEFAULT)
     special(ChoosePartyMon)
     if (var(VAR_0x8004) >= PARTY_SIZE) {
         goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
+    copyvar(VAR_TEMP_2, VAR_0x8004)
 
     specialvar(VAR_RESULT, IsSelectedMonEgg)
     if (var(VAR_RESULT) == TRUE) {
-        msgbox(format("An EGG hasn't trained a day in its life!"), MSGBOX_DEFAULT)
+        msgbox(format("An EGG? There's nothing in there to plug in! Bring me something that's hatched!"), MSGBOX_DEFAULT)
         goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    msgbox(format("Which stat should we retrain?"), MSGBOX_DEFAULT)
-    dynmultipush(IVManiac_Text_HP, STAT_HP)
-    dynmultipush(IVManiac_Text_Attack, STAT_ATK)
-    dynmultipush(IVManiac_Text_Defense, STAT_DEF)
-    dynmultipush(IVManiac_Text_SpAtk, STAT_SPATK)
-    dynmultipush(IVManiac_Text_SpDef, STAT_SPDEF)
-    dynmultipush(IVManiac_Text_Speed, STAT_SPEED)
-    dynmultistack(0, 0, FALSE, 6, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE)
-    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
-        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-    }
-    copyvar(VAR_TEMP_2, VAR_RESULT)
-    goto(BattleFrontier_OutsideWest_EventScript_EVEditDigits)
-}
-
-script BattleFrontier_OutsideWest_EventScript_EVEditDigits {
-    copyvar(VAR_0x8005, VAR_TEMP_2)
-    specialvar(VAR_TEMP_3, GetMonEv)
-    buffernumberstring(STR_VAR_1, VAR_TEMP_3)
-    msgbox(format("That stat is at {STR_VAR_1} EVs right now. Punch in the new value! Hundreds digit first."), MSGBOX_DEFAULT)
-    setvar(VAR_TEMP_4, 0)
-    while (var(VAR_TEMP_4) < 3) {
-        buffernumberstring(STR_VAR_1, VAR_TEMP_4)
-        dynmultipush(IVManiac_Text_Number, VAR_TEMP_4)
-        addvar(VAR_TEMP_4, 1)
-    }
-    dynmultistack(0, 0, FALSE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
-    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
-        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-    }
-    setvar(VAR_TEMP_4, 0)
-    if (var(VAR_RESULT) == 1) {
-        setvar(VAR_TEMP_4, 100)
-    } elif (var(VAR_RESULT) == 2) {
-        setvar(VAR_TEMP_4, 200)
-    }
-
-    msgbox(format("Tens digit!"), MSGBOX_DEFAULT)
-    setvar(VAR_TEMP_5, 0)
-    while (var(VAR_TEMP_5) < 10) {
-        buffernumberstring(STR_VAR_1, VAR_TEMP_5)
-        dynmultipush(IVManiac_Text_Number, VAR_TEMP_5)
-        addvar(VAR_TEMP_5, 1)
-    }
-    dynmultistack(0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
-    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
-        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-    }
-    copyvar(VAR_TEMP_5, VAR_RESULT)
-    while (var(VAR_TEMP_5) != 0) {
-        addvar(VAR_TEMP_4, 10)
-        subvar(VAR_TEMP_5, 1)
-    }
-
-    msgbox(format("Ones digit!"), MSGBOX_DEFAULT)
-    setvar(VAR_TEMP_5, 0)
-    while (var(VAR_TEMP_5) < 10) {
-        buffernumberstring(STR_VAR_1, VAR_TEMP_5)
-        dynmultipush(IVManiac_Text_Number, VAR_TEMP_5)
-        addvar(VAR_TEMP_5, 1)
-    }
-    dynmultistack(0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
-    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
-        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-    }
-    copyvar(VAR_TEMP_5, VAR_RESULT)
-    while (var(VAR_TEMP_5) != 0) {
-        addvar(VAR_TEMP_4, 1)
-        subvar(VAR_TEMP_5, 1)
-    }
-
-    if (var(VAR_TEMP_4) > 252) {
-        msgbox(format("A single stat maxes out at 252 EVs! I'll call it 252."), MSGBOX_DEFAULT)
-        setvar(VAR_TEMP_4, 252)
-    }
-    copyvar(VAR_0x8005, VAR_TEMP_2)
-    specialvar(VAR_TEMP_5, GetMonEvCap)
-    if (var(VAR_TEMP_4) > VAR_TEMP_5) {
-        buffernumberstring(STR_VAR_1, VAR_TEMP_5)
-        msgbox(format("A POKéMON can only hold 510 EVs of training in total! The most that stat can take is {STR_VAR_1}, so I'll use that."), MSGBOX_DEFAULT)
-        copyvar(VAR_TEMP_4, VAR_TEMP_5)
-    }
-
-    if (var(VAR_TEMP_4) == VAR_TEMP_3) {
-        msgbox(format("That's EXACTLY what it's at now! I can't take your Battle Points for a no-op! Punch in a different number."), MSGBOX_DEFAULT)
-        goto(BattleFrontier_OutsideWest_EventScript_EVEditDigits)
-    }
-
-    buffernumberstring(STR_VAR_1, VAR_TEMP_4)
-    msgbox(format("{STR_VAR_1} EVs it is! That'll be 2 Battle Points. Ready?"), MSGBOX_YESNO)
+    msgbox(format("5 Battle Points for the session. Ready?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == NO) {
         goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
     }
 
-    copyvar(VAR_0x8005, VAR_TEMP_2)
-    copyvar(VAR_0x8006, VAR_TEMP_4)
-    special(SetMonEv)
-    setvar(VAR_0x8004, 2)
+    setvar(VAR_0x8004, 5)
     special(TakeFrontierBattlePoints)
     playse(SE_SHOP)
     waitse
-    msgbox(format("Recalibrated! That's what I call efficient allocation!"), MSGBOX_DEFAULT)
+    copyvar(VAR_0x8004, VAR_TEMP_2)
+    special(OpenStatEditorFromScript)
+    msgbox(format("Ehehe... A masterpiece! Come back whenever you want to tune another one!"), MSGBOX_DEFAULT)
     goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
@@ -293,91 +203,6 @@ script BattleFrontier_OutsideWest_EventScript_NatureManiacChooseNature {
     goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
 }
 
-script BattleFrontier_OutsideWest_EventScript_IVManiac {
-    specialvar(VAR_TEMP_1, GetFrontierBattlePoints)
-    if (var(VAR_TEMP_1) < 2) {
-        msgbox(format("No Battle Points, no potential! Rewriting a stat costs 2."), MSGBOX_DEFAULT)
-        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-    }
-
-    msgbox(format("I can see a POKéMON's hidden potential--any stat, any value! Which POKéMON shall we tinker with?"), MSGBOX_DEFAULT)
-    special(ChoosePartyMon)
-    if (var(VAR_0x8004) >= PARTY_SIZE) {
-        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-    }
-
-    specialvar(VAR_RESULT, IsSelectedMonEgg)
-    if (var(VAR_RESULT) == TRUE) {
-        msgbox(format("An EGG's potential is still a mystery, even to me!"), MSGBOX_DEFAULT)
-        goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-    }
-
-    msgbox(format("Which stat should I rewrite?"), MSGBOX_DEFAULT)
-    dynmultipush(IVManiac_Text_HP, STAT_HP)
-    dynmultipush(IVManiac_Text_Attack, STAT_ATK)
-    dynmultipush(IVManiac_Text_Defense, STAT_DEF)
-    dynmultipush(IVManiac_Text_SpAtk, STAT_SPATK)
-    dynmultipush(IVManiac_Text_SpDef, STAT_SPDEF)
-    dynmultipush(IVManiac_Text_Speed, STAT_SPEED)
-    dynmultistack(0, 0, FALSE, 6, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE)
-    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
-        goto(BattleFrontier_OutsideWest_EventScript_IVManiacDecline)
-    }
-    copyvar(VAR_TEMP_2, VAR_RESULT)
-
-    copyvar(VAR_0x8005, VAR_TEMP_2)
-    specialvar(VAR_TEMP_3, GetMonIv)
-    buffernumberstring(STR_VAR_1, VAR_TEMP_3)
-    msgbox(format("Ehehe... That stat's potential is {STR_VAR_1} right now. What should it become?"), MSGBOX_DEFAULT)
-    goto(BattleFrontier_OutsideWest_EventScript_IVManiacChooseValue)
-}
-
-script BattleFrontier_OutsideWest_EventScript_IVManiacChooseValue {
-    setvar(VAR_TEMP_4, 0)
-    while (var(VAR_TEMP_4) < 32) {
-        buffernumberstring(STR_VAR_1, VAR_TEMP_4)
-        dynmultipush(IVManiac_Text_Number, VAR_TEMP_4)
-        addvar(VAR_TEMP_4, 1)
-    }
-    dynmultistack(0, 0, FALSE, 6, FALSE, VAR_TEMP_3, DYN_MULTICHOICE_CB_NONE)
-    if (var(VAR_RESULT) == MULTI_B_PRESSED) {
-        goto(BattleFrontier_OutsideWest_EventScript_IVManiacDecline)
-    }
-    copyvar(VAR_TEMP_4, VAR_RESULT)
-
-    if (var(VAR_TEMP_4) == VAR_TEMP_3) {
-        msgbox(format("That's ALREADY that stat's potential! I can't take your Battle Points to rewrite what's already written! Pick a different number."), MSGBOX_DEFAULT)
-        goto(BattleFrontier_OutsideWest_EventScript_IVManiacChooseValue)
-    }
-
-    buffernumberstring(STR_VAR_1, VAR_TEMP_4)
-    msgbox(format("{STR_VAR_1}, is it? That'll be 2 Battle Points. Ready?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == NO) {
-        goto(BattleFrontier_OutsideWest_EventScript_IVManiacDecline)
-    }
-
-    copyvar(VAR_0x8005, VAR_TEMP_2)
-    copyvar(VAR_0x8006, VAR_TEMP_4)
-    special(SetMonIv)
-    setvar(VAR_0x8004, 2)
-    special(TakeFrontierBattlePoints)
-    playse(SE_SHOP)
-    waitse
-    msgbox(format("It is done! Your POKéMON will never be the same!"), MSGBOX_DEFAULT)
-    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-}
-
-script BattleFrontier_OutsideWest_EventScript_IVManiacDecline {
-    goto(BattleFrontier_OutsideWest_EventScript_ServiceMenu)
-}
-
-text IVManiac_Text_HP { "HP" }
-text IVManiac_Text_Attack { "Attack" }
-text IVManiac_Text_Defense { "Defense" }
-text IVManiac_Text_SpAtk { "Sp. Atk" }
-text IVManiac_Text_SpDef { "Sp. Def" }
-text IVManiac_Text_Speed { "Speed" }
-text IVManiac_Text_Number { "{STR_VAR_1}" }
 text Friendship_Text_Highest { "Highest" }
 text Friendship_Text_Lowest { "Lowest" }
 

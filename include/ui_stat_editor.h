@@ -4,6 +4,7 @@
 #include "main.h"
 
 void Task_OpenStatEditorFromStartMenu(u8 taskId);
+void OpenStatEditorFromScript(void);
 void StatEditor_Init(MainCallback callback);
 
 extern const u8 *const gNatureNamePointers[];

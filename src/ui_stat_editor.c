@@ -62,6 +62,7 @@ struct StatEditorResources
     u16 ivTotal;
     u16 partyid;
     u16 inputMode;
+    bool8 lockedToChosenMon;    // TRUE when the MIN-MAXER sold a session for one specific mon
 };
 
 #define INPUT_SELECT_STAT 0
@@ -262,6 +263,31 @@ void Task_OpenStatEditorFromStartMenu(u8 taskId)
     }
 }
 
+// Set by OpenStatEditorFromScript only, consumed (and cleared) by StatEditor_Init.
+// A session bought from the MIN-MAXER is locked to the single mon the player paid
+// for, so 5 BP can't tune the whole party via the L/R cycle.
+static bool8 sOpenLockedToChosenMon = FALSE;
+
+// Opens the editor from a field script (the frontier MIN-MAXER buys access to it).
+// Mirrors ChoosePartyMon's fade-then-task pattern; the script waits on waitstate
+// and resumes when the editor exits. The party slot to start on is in VAR_0x8004.
+static void Task_OpenStatEditorFromScript(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        StatEditor_Init(CB2_ReturnToFieldContinueScript);
+        DestroyTask(taskId);
+    }
+}
+
+void OpenStatEditorFromScript(void)
+{
+    sOpenLockedToChosenMon = TRUE;
+    FadeScreen(FADE_TO_BLACK, 0);
+    CreateTask(Task_OpenStatEditorFromScript, 10);
+}
+
 // This is our main initialization function if you want to call the menu from elsewhere
 void StatEditor_Init(MainCallback callback)
 {
@@ -276,7 +302,9 @@ void StatEditor_Init(MainCallback callback)
     sStatEditorDataPtr->savedCallback = callback;
     sStatEditorDataPtr->selectorSpriteId = 0xFF;
     sStatEditorDataPtr->partyid = gSpecialVar_0x8004;
-    
+    sStatEditorDataPtr->lockedToChosenMon = sOpenLockedToChosenMon;
+    sOpenLockedToChosenMon = FALSE;    // the free party-menu path always allows cycling
+
     SetMainCallback2(StatEditor_RunSetup);
 }
 
@@ -605,8 +633,13 @@ static void PrintTitleToWindowMainState()
     
     AddTextPrinterParameterized4(WINDOW_1, FONT_NORMAL, 1, 0, 0, 0, sMenuWindowFontColors[FONT_WHITE], TEXT_SKIP_DRAW, sText_MenuTitle);
 
-    BlitBitmapToWindow(WINDOW_1, sR_ButtonGfx, 75, (BUTTON_Y), 24, 8);
-    AddTextPrinterParameterized4(WINDOW_1, FONT_NARROW, 102, 0, 0, 0, sMenuWindowFontColors[FONT_WHITE], TEXT_SKIP_DRAW, sText_MenuLRButtonTextMain);
+    // A paid MIN-MAXER session can't leave the mon it was bought for, so don't
+    // advertise the L/R cycle in that case.
+    if (!sStatEditorDataPtr->lockedToChosenMon)
+    {
+        BlitBitmapToWindow(WINDOW_1, sR_ButtonGfx, 75, (BUTTON_Y), 24, 8);
+        AddTextPrinterParameterized4(WINDOW_1, FONT_NARROW, 102, 0, 0, 0, sMenuWindowFontColors[FONT_WHITE], TEXT_SKIP_DRAW, sText_MenuLRButtonTextMain);
+    }
 
     BlitBitmapToWindow(WINDOW_1, sA_ButtonGfx, 160, (BUTTON_Y), 8, 8);
     AddTextPrinterParameterized4(WINDOW_1, FONT_NARROW, 172, 0, 0, 0, sMenuWindowFontColors[FONT_WHITE], TEXT_SKIP_DRAW, sText_MenuAButtonTextMain);
@@ -828,7 +861,7 @@ static void Task_StatEditorMain(u8 taskId) // input control when first loaded in
             StartSpriteAnim(&gSprites[sStatEditorDataPtr->selectorSpriteId], 2);
         return;
     }
-    if (JOY_NEW(L_BUTTON))
+    if (JOY_NEW(L_BUTTON) && !sStatEditorDataPtr->lockedToChosenMon)
     {
         u16 partyid = sStatEditorDataPtr->partyid;
         if (partyid == 0)
@@ -839,7 +872,7 @@ static void Task_StatEditorMain(u8 taskId) // input control when first loaded in
         PlaySE(SE_SELECT);
         ReloadNewPokemon(taskId);
     }
-    if (JOY_NEW(R_BUTTON))
+    if (JOY_NEW(R_BUTTON) && !sStatEditorDataPtr->lockedToChosenMon)
     {
         u16 partyid = sStatEditorDataPtr->partyid;
         if (partyid == gPartiesCount[B_TRAINER_PLAYER] - 1)
