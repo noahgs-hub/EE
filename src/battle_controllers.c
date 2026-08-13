@@ -3352,10 +3352,6 @@ u32 GetBattleSpeedScale(bool32 forHealthbar)
 {
     u8 battleSpeed = gSaveBlock2Ptr->optionsBattleSpeed;
 
-    // L button override - force 1x speed when held
-    if (JOY_HELD(L_BUTTON))
-        return 1;
-
     // Track when player starts choosing moves (includes target selection)
     if (InBattleChoosingMoves())
         gBattleStruct->hasBattleInputStarted = TRUE;

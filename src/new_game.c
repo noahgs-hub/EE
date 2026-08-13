@@ -120,6 +120,9 @@ static void SetDefaultOptions(void)
 #if OPT_SHINY_PROTECT == TRUE
     gSaveBlock2Ptr->optionsWildShinyProtect = FALSE;  // Wild shiny protection off by default
 #endif
+#if OPT_GAME_SPEED == TRUE
+    gSaveBlock2Ptr->optionsGameSpeed = OPTIONS_GAME_SPEED_1X;  // Default to normal speed
+#endif
 }
 
 static void ClearPokedexFlags(void)

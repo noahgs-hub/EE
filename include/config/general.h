@@ -96,5 +96,7 @@
 #define OPT_AUTORUN                  TRUE    // Autorun (always sprint) toggle
 #define OPT_SHINY_ANIM               TRUE    // Shiny sparkle animation on/off toggle (appearance unaffected)
 #define OPT_SHINY_PROTECT            TRUE    // Wild shiny protection: require START press before battle menu unlocks
+#define OPT_GAME_SPEED               TRUE    // Whole-game speed (NORMAL/2x/3x), page 3 of the options menu; L cycles it in the field and in battle
+#define OPT_GAME_SPEED_MUSIC_TEMPO   FALSE   // TRUE scales BGM tempo to match the game speed (pitch unaffected, but music plays audibly faster)
 
 #endif // GUARD_CONFIG_GENERAL_H

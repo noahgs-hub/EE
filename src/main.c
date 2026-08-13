@@ -5,6 +5,7 @@
 #include "link_rfu.h"
 #include "librfu.h"
 #include "m4a.h"
+#include "gba/m4a_internal.h"
 #include "bg.h"
 #include "rtc.h"
 #include "scanline_effect.h"
@@ -25,6 +26,7 @@
 #include "trainer_hill.h"
 #include "test_runner.h"
 #include "constants/rgb.h"
+#include "constants/songs.h"
 
 static void VBlankIntr(void);
 static void HBlankIntr(void);
@@ -73,6 +75,9 @@ COMMON_DATA s8 gPcmDmaCounter = 0;
 COMMON_DATA void *gAgbMainLoop_sp = NULL;
 
 static EWRAM_DATA u16 sTrainerId = 0;
+#if OPT_GAME_SPEED == TRUE
+static EWRAM_DATA u8 sLastGameSpeedSteps = 0;
+#endif
 
 //EWRAM_DATA void (**gFlashTimerIntrFunc)(void) = NULL;
 
@@ -83,6 +88,9 @@ static void CallCallbacks(void);
 static void SeedRngWithRtc(void);
 #endif
 static void ReadKeys(void);
+static u32 GetGameSpeedSteps(void);
+static void TryCycleGameSpeedHotkey(void);
+static void UpdateMusicTempoForGameSpeed(u32 steps);
 void InitIntrHandlers(void);
 static void WaitForVBlank(void);
 void EnableVCountIntrAtLine150(void);
@@ -135,42 +143,128 @@ void AgbMainLoop(void)
 {
     for (;;)
     {
-        ReadKeys();
+        u32 steps = GetGameSpeedSteps();
+        u32 step;
 
-        if (gSoftResetDisabled == FALSE
-         && JOY_HELD_RAW(A_BUTTON)
-         && JOY_HELD_RAW(B_START_SELECT) == B_START_SELECT)
+        // Whole-game speed: run the logic step multiple times per hardware frame.
+        // Only the logic is multiplied - the frame wait below, and with it the
+        // sound engine driven from VBlankIntr/VCountIntr, still runs at 60 Hz.
+        for (step = 0; step < steps; step++)
         {
-            rfu_REQ_stopMode();
-            rfu_waitREQComplete();
-            DoSoftReset();
-        }
+            ReadKeys();
 
-        if (Overworld_SendKeysToLinkIsRunning() == TRUE)
-        {
-            gLinkTransferringData = TRUE;
-            UpdateLinkAndCallCallbacks();
-            gLinkTransferringData = FALSE;
-        }
-        else
-        {
-            gLinkTransferringData = FALSE;
-            UpdateLinkAndCallCallbacks();
-
-            if (Overworld_RecvKeysFromLinkIsRunning() == TRUE)
+            if (gSoftResetDisabled == FALSE
+             && JOY_HELD_RAW(A_BUTTON)
+             && JOY_HELD_RAW(B_START_SELECT) == B_START_SELECT)
             {
-                gMain.newKeys = 0;
-                ClearSpriteCopyRequests();
+                rfu_REQ_stopMode();
+                rfu_waitREQComplete();
+                DoSoftReset();
+            }
+
+            TryCycleGameSpeedHotkey();
+
+            if (Overworld_SendKeysToLinkIsRunning() == TRUE)
+            {
                 gLinkTransferringData = TRUE;
                 UpdateLinkAndCallCallbacks();
                 gLinkTransferringData = FALSE;
             }
+            else
+            {
+                gLinkTransferringData = FALSE;
+                UpdateLinkAndCallCallbacks();
+
+                if (Overworld_RecvKeysFromLinkIsRunning() == TRUE)
+                {
+                    gMain.newKeys = 0;
+                    ClearSpriteCopyRequests();
+                    gLinkTransferringData = TRUE;
+                    UpdateLinkAndCallCallbacks();
+                    gLinkTransferringData = FALSE;
+                }
+            }
         }
 
+        // Kept at one call per real frame: play time stays wall-clock accurate
+        // and music fades keep their normal duration.
         PlayTimeCounter_Update();
         MapMusicMain();
+        UpdateMusicTempoForGameSpeed(steps);
         WaitForVBlank();
     }
+}
+
+// How many logic steps to run per hardware frame. Always 1 while linking, since
+// the link protocol expects exactly one transfer per frame.
+static u32 GetGameSpeedSteps(void)
+{
+#if OPT_GAME_SPEED == TRUE
+    if (gTestRunnerEnabled)
+        return 1;
+
+    if (gWirelessCommType != 0 || gReceivedRemoteLinkPlayers || IsLinkConnectionEstablished())
+        return 1;
+
+    switch (gSaveBlock2Ptr->optionsGameSpeed)
+    {
+    case OPTIONS_GAME_SPEED_2X:
+        return 2;
+    case OPTIONS_GAME_SPEED_3X:
+        return 3;
+    default:
+        return 1;
+    }
+#else
+    return 1;
+#endif
+}
+
+// L cycles the game speed, but only in the field and in battle - those are the
+// only places L has no job of its own. The PC (box scrolling), the summary
+// screen, the stat editor and the options menu all keep their own L behavior,
+// and the setting is still changeable from the options menu everywhere.
+static void TryCycleGameSpeedHotkey(void)
+{
+#if OPT_GAME_SPEED == TRUE
+    if (!JOY_NEW(L_BUTTON))
+        return;
+
+    // L stands in for A in the other two button modes.
+    if (gSaveBlock2Ptr->optionsButtonMode != OPTIONS_BUTTON_MODE_NORMAL)
+        return;
+
+    if (!gMain.inBattle && gMain.callback2 != CB2_Overworld)
+        return;
+
+    if (gSaveBlock2Ptr->optionsGameSpeed < OPTIONS_GAME_SPEED_3X)
+        gSaveBlock2Ptr->optionsGameSpeed++;
+    else
+        gSaveBlock2Ptr->optionsGameSpeed = OPTIONS_GAME_SPEED_1X;
+
+    PlaySE(SE_SELECT);
+#endif
+}
+
+// Speeds the sequencer up to match the game speed. This only changes tempo, not
+// the sample rate, so pitch is unaffected and the mixer is left alone.
+static void UpdateMusicTempoForGameSpeed(u32 steps)
+{
+#if OPT_GAME_SPEED == TRUE && OPT_GAME_SPEED_MUSIC_TEMPO == TRUE
+    if (steps > 1)
+    {
+        // Re-applied every frame because starting a new song resets tempoU.
+        m4aMPlayTempoControl(&gMPlayInfo_BGM, 0x100 * steps);
+    }
+    else if (sLastGameSpeedSteps > 1)
+    {
+        // Restore once on the way back down, so code that drives the tempo
+        // itself (e.g. the Berry Blender) is left untouched at normal speed.
+        m4aMPlayTempoControl(&gMPlayInfo_BGM, 0x100);
+    }
+
+    sLastGameSpeedSteps = steps;
+#endif
 }
 
 static void UpdateLinkAndCallCallbacks(void)

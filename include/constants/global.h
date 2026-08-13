@@ -217,6 +217,11 @@ enum StarterIds
 #define OPTIONS_BATTLE_SPEED_3X  2
 #define OPTIONS_BATTLE_SPEED_4X  3
 
+// Whole-game speed: how many logic steps the main loop runs per hardware frame.
+#define OPTIONS_GAME_SPEED_1X  0
+#define OPTIONS_GAME_SPEED_2X  1
+#define OPTIONS_GAME_SPEED_3X  2
+
 enum __attribute__((packed)) Direction
 {
     DIR_NONE,

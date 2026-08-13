@@ -45,6 +45,9 @@
 #if OPT_SHINY_PROTECT == TRUE
 #define tShinyProtect data[12]
 #endif
+#if OPT_GAME_SPEED == TRUE
+#define tGameSpeed data[13]
+#endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 
 // Page 1 menu items (standard options)
@@ -85,6 +88,16 @@ enum
     MENUITEM_CANCEL_PG2,
     MENUITEM_COUNT_PG2,
 };
+
+#if OPT_GAME_SPEED == TRUE
+// Page 3 menu items
+enum
+{
+    MENUITEM_GAMESPEED,
+    MENUITEM_CANCEL_PG3,
+    MENUITEM_COUNT_PG3,
+};
+#endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 
 enum
@@ -121,11 +134,19 @@ enum
 #if OPT_SHINY_PROTECT == TRUE
 #define YPOS_SHINYPROTECT    (MENUITEM_SHINYPROTECT * 16)
 #endif
+// Y-positions for Page 3 menu items
+#if OPT_GAME_SPEED == TRUE
+#define YPOS_GAMESPEED       (MENUITEM_GAMESPEED * 16)
+#endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 
 // Total number of pages in the options menu (use L/R to navigate)
 #if OPT_EXTENDED_OPTIONS_MENU == TRUE
+#if OPT_GAME_SPEED == TRUE
+#define PAGE_COUNT  3
+#else
 #define PAGE_COUNT  2
+#endif
 #else
 #define PAGE_COUNT  1
 #endif
@@ -135,6 +156,10 @@ static void Task_OptionMenuProcessInput(u8 taskId);
 #if OPT_EXTENDED_OPTIONS_MENU == TRUE
 static void Task_OptionMenuFadeIn_Pg2(u8 taskId);
 static void Task_OptionMenuProcessInput_Pg2(u8 taskId);
+#if OPT_GAME_SPEED == TRUE
+static void Task_OptionMenuFadeIn_Pg3(u8 taskId);
+static void Task_OptionMenuProcessInput_Pg3(u8 taskId);
+#endif
 #endif
 static void Task_OptionMenuSave(u8 taskId);
 static void Task_OptionMenuFadeOut(u8 taskId);
@@ -174,6 +199,10 @@ static void ShinyAnim_DrawChoices(u8 selection);
 #if OPT_EXTENDED_OPTIONS_MENU == TRUE && OPT_SHINY_PROTECT == TRUE
 static u8 ShinyProtect_ProcessInput(u8 selection);
 static void ShinyProtect_DrawChoices(u8 selection);
+#endif
+#if OPT_EXTENDED_OPTIONS_MENU == TRUE && OPT_GAME_SPEED == TRUE
+static u8 GameSpeed_ProcessInput(u8 selection);
+static void GameSpeed_DrawChoices(u8 selection);
 #endif
 static void DrawTextOption(void);
 static void DrawOptionMenuTexts(void);
@@ -221,6 +250,14 @@ static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
 #endif
     [MENUITEM_CANCEL_PG2]      = gText_OptionMenuCancel,
 };
+
+#if OPT_GAME_SPEED == TRUE
+static const u8 *const sOptionMenuItemsNames_Pg3[MENUITEM_COUNT_PG3] =
+{
+    [MENUITEM_GAMESPEED]       = gText_GameSpeed,
+    [MENUITEM_CANCEL_PG3]      = gText_OptionMenuCancel,
+};
+#endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 
 static const struct WindowTemplate sOptionMenuWinTemplates[] =
@@ -313,6 +350,9 @@ static void ReadAllCurrentSettings(u8 taskId)
 #if OPT_SHINY_PROTECT == TRUE
     gTasks[taskId].tShinyProtect = !(gSaveBlock2Ptr->optionsWildShinyProtect);  // Inverted so ON shows first
 #endif
+#if OPT_GAME_SPEED == TRUE
+    gTasks[taskId].tGameSpeed = gSaveBlock2Ptr->optionsGameSpeed;
+#endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 }
 
@@ -354,6 +394,16 @@ static void DrawOptionsPg2(u8 taskId)
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
+
+#if OPT_GAME_SPEED == TRUE
+static void DrawOptionsPg3(u8 taskId)
+{
+    ReadAllCurrentSettings(taskId);
+    GameSpeed_DrawChoices(gTasks[taskId].tGameSpeed);
+    HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
+}
+#endif
 #endif // OPT_EXTENDED_OPTIONS_MENU
 
 void CB2_InitOptionMenu(void)
@@ -444,6 +494,12 @@ void CB2_InitOptionMenu(void)
             taskId = CreateTask(Task_OptionMenuFadeIn_Pg2, 0);
             DrawOptionsPg2(taskId);
             break;
+#if OPT_GAME_SPEED == TRUE
+        case 2:
+            taskId = CreateTask(Task_OptionMenuFadeIn_Pg3, 0);
+            DrawOptionsPg3(taskId);
+            break;
+#endif
 #endif
         }
         gMain.state++;
@@ -492,6 +548,12 @@ static void Task_ChangePage(u8 taskId)
         DrawOptionsPg2(taskId);
         gTasks[taskId].func = Task_OptionMenuFadeIn_Pg2;
         break;
+#if OPT_GAME_SPEED == TRUE
+    case 2:
+        DrawOptionsPg3(taskId);
+        gTasks[taskId].func = Task_OptionMenuFadeIn_Pg3;
+        break;
+#endif
     }
 }
 #endif // OPT_EXTENDED_OPTIONS_MENU
@@ -714,6 +776,78 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
         }
     }
 }
+
+#if OPT_GAME_SPEED == TRUE
+static void Task_OptionMenuFadeIn_Pg3(u8 taskId)
+{
+    if (!gPaletteFade.active)
+        gTasks[taskId].func = Task_OptionMenuProcessInput_Pg3;
+}
+
+static void Task_OptionMenuProcessInput_Pg3(u8 taskId)
+{
+    if (JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON))
+    {
+        SaveCurrentSettings(taskId);
+        FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
+        ClearStdWindowAndFrame(WIN_OPTIONS, FALSE);
+        sCurrPage = Process_ChangePage(sCurrPage);
+        gTasks[taskId].func = Task_ChangePage;
+    }
+    else if (JOY_NEW(A_BUTTON))
+    {
+        if (gTasks[taskId].tMenuSelection == MENUITEM_CANCEL_PG3)
+            gTasks[taskId].func = Task_OptionMenuSave;
+    }
+    else if (JOY_NEW(B_BUTTON))
+    {
+        gTasks[taskId].func = Task_OptionMenuSave;
+    }
+    else if (JOY_NEW(DPAD_UP))
+    {
+        if (gTasks[taskId].tMenuSelection > 0)
+            gTasks[taskId].tMenuSelection--;
+        else
+            gTasks[taskId].tMenuSelection = MENUITEM_CANCEL_PG3;
+        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    }
+    else if (JOY_NEW(DPAD_DOWN))
+    {
+        if (gTasks[taskId].tMenuSelection < MENUITEM_CANCEL_PG3)
+            gTasks[taskId].tMenuSelection++;
+        else
+            gTasks[taskId].tMenuSelection = 0;
+        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    }
+    else
+    {
+        u8 previousOption;
+
+        switch (gTasks[taskId].tMenuSelection)
+        {
+        case MENUITEM_GAMESPEED:
+            previousOption = gTasks[taskId].tGameSpeed;
+            gTasks[taskId].tGameSpeed = GameSpeed_ProcessInput(gTasks[taskId].tGameSpeed);
+
+            if (previousOption != gTasks[taskId].tGameSpeed)
+            {
+                GameSpeed_DrawChoices(gTasks[taskId].tGameSpeed);
+                // Apply immediately so the change can be felt in the menu.
+                gSaveBlock2Ptr->optionsGameSpeed = gTasks[taskId].tGameSpeed;
+            }
+            break;
+        default:
+            return;
+        }
+
+        if (sArrowPressed)
+        {
+            sArrowPressed = FALSE;
+            CopyWindowToVram(WIN_OPTIONS, COPYWIN_GFX);
+        }
+    }
+}
+#endif // OPT_GAME_SPEED
 #endif // OPT_EXTENDED_OPTIONS_MENU
 
 static void SaveCurrentSettings(u8 taskId)
@@ -739,6 +873,9 @@ static void SaveCurrentSettings(u8 taskId)
 #endif
 #if OPT_SHINY_PROTECT == TRUE
     gSaveBlock2Ptr->optionsWildShinyProtect = !(gTasks[taskId].tShinyProtect);  // Inverted for storage
+#endif
+#if OPT_GAME_SPEED == TRUE
+    gSaveBlock2Ptr->optionsGameSpeed = gTasks[taskId].tGameSpeed;
 #endif
 #if OPT_FOLLOWERS == TRUE
     // Update follower visibility flag
@@ -1190,6 +1327,54 @@ static void ShinyProtect_DrawChoices(u8 selection)
 }
 #endif // OPT_SHINY_PROTECT
 
+#if OPT_EXTENDED_OPTIONS_MENU == TRUE && OPT_GAME_SPEED == TRUE
+static u8 GameSpeed_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_RIGHT))
+    {
+        if (selection < OPTIONS_GAME_SPEED_3X)
+            selection++;
+        else
+            selection = OPTIONS_GAME_SPEED_1X;
+
+        sArrowPressed = TRUE;
+    }
+    if (JOY_NEW(DPAD_LEFT))
+    {
+        if (selection != OPTIONS_GAME_SPEED_1X)
+            selection--;
+        else
+            selection = OPTIONS_GAME_SPEED_3X;
+
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void GameSpeed_DrawChoices(u8 selection)
+{
+    u8 styles[3];
+    s32 widthNormal, width2x, width3x, xMid;
+
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[2] = 0;
+    styles[selection] = 1;
+
+    DrawOptionMenuChoice(gText_GameSpeedNormal, 104, YPOS_GAMESPEED, styles[0]);
+
+    widthNormal = GetStringWidth(FONT_NORMAL, gText_GameSpeedNormal, 0);
+    width2x = GetStringWidth(FONT_NORMAL, gText_GameSpeed2x, 0);
+    width3x = GetStringWidth(FONT_NORMAL, gText_GameSpeed3x, 0);
+
+    width2x -= 94;
+    xMid = (widthNormal - width2x - width3x) / 2 + 104;
+    DrawOptionMenuChoice(gText_GameSpeed2x, xMid, YPOS_GAMESPEED, styles[1]);
+
+    DrawOptionMenuChoice(gText_GameSpeed3x, GetStringRightAlignXOffset(FONT_NORMAL, gText_GameSpeed3x, 198), YPOS_GAMESPEED, styles[2]);
+}
+#endif // OPT_GAME_SPEED
+
 static void DrawTextOption(void)
 {
     u32 i, widthOptions, xMid;
@@ -1226,6 +1411,12 @@ static void DrawOptionMenuTexts(void)
         items = MENUITEM_COUNT_PG2;
         menu = sOptionMenuItemsNames_Pg2;
         break;
+#if OPT_GAME_SPEED == TRUE
+    case 2:
+        items = MENUITEM_COUNT_PG3;
+        menu = sOptionMenuItemsNames_Pg3;
+        break;
+#endif
 #endif
     default:
     case 0:
